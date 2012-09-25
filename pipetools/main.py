@@ -99,6 +99,9 @@ class XObject(object):
     def __neg__(self):
         return XObject(pipe | self | (lambda x: -x))
 
+    def __mul__(self, other):
+        return XObject(pipe | self | (lambda x: x * other))
+
     def __ror__(self, func):
         return pipe | func | self
 

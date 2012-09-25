@@ -118,3 +118,10 @@ class TestX:
         f = ~X(42)
 
         assert f(lambda n: n / 2), 21
+
+    def test_mul(self):
+
+        f = ~(X * 3)
+
+        assert f(10) == 30
+        assert f('x') == 'xxx'
