@@ -125,3 +125,11 @@ class TestX:
 
         assert f(10) == 30
         assert f('x') == 'xxx'
+
+    def test_in(self):
+        container = 'asdf'
+
+        f = ~X._in_(container)
+
+        assert f('a')
+        assert not f('b')

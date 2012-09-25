@@ -105,5 +105,8 @@ class XObject(object):
     def __ror__(self, func):
         return pipe | func | self
 
+    def _in_(self, container):
+        return XObject(pipe | self | (lambda x: x in container))
+
 
 X = XObject()
