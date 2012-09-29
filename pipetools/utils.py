@@ -2,7 +2,7 @@ from functools import partial
 from itertools import imap, ifilter, islice
 import operator
 
-from pipetools.main import pipe, X, XObject
+from pipetools.main import pipe, X, XObject, _iterable, StringFormatter
 
 
 KEY, VALUE = X[0], X[1]
@@ -41,7 +41,22 @@ def pipe_util(func):
     return pipe_util_wrapper
 
 
+def auto_string_formatter(func):
+
+    def auto_string_formatter_wrapper(function, *args, **kwargs):
+        if isinstance(function, basestring):
+            function = StringFormatter(function)
+
+        return func(function, *args, **kwargs)
+
+    auto_string_formatter_wrapper.__name__ = func.__name__
+    auto_string_formatter_wrapper.__doc__ = func.__doc__
+
+    return auto_string_formatter_wrapper
+
+
 @pipe_util
+@auto_string_formatter
 def foreach(function):
     """
     Returns a function that takes an iterable and returns an iterator over the
@@ -92,6 +107,7 @@ sort = sort_by(X)
 
 
 @pipe_util
+@auto_string_formatter
 def debug_print(func):
     def debug(thing):
         print func(thing)
@@ -104,11 +120,11 @@ def as_args(func):
     return lambda x: func(*x)
 
 
-@pipe_util
 def take_first(count):
     def _take_first(iterable):
         return islice(iterable, count)
     return _take_first
+take_first = pipe | take_first
 
 
 @pipe_util
@@ -117,6 +133,7 @@ def select_first(condition):
 
 
 @pipe_util
+@auto_string_formatter
 def group_by(func):
 
     def _group_by(seq):
@@ -133,12 +150,6 @@ def unless(exception_class, func, *args, **kwargs):
         return partial(func, *args, **kwargs)()
     except exception_class:
         pass
-
-
-def _iterable(obj):
-    return (hasattr(obj, '__iter__')
-        or hasattr(obj, '__getitem__')
-        and not isinstance(obj, basestring))
 
 
 def _flatten(x):

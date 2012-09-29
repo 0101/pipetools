@@ -78,3 +78,10 @@ class TestSelectFirst:
     def test_select_first_none(self):
         result = select_first(X == 2)([0, 1, 0, 1])
         assert result == None
+
+
+class TestAutoStringFormatter:
+
+    def test_foreach_format(self):
+        result = [1, 2] > foreach("Number {0}") | list
+        assert result == ['Number 1', 'Number 2']

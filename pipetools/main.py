@@ -24,18 +24,10 @@ class Pipe(object):
             lambda *args, **kwargs: self.func(prev_func(*args, **kwargs)))
 
     def __or__(self, next_func):
-        if isinstance(next_func, XObject):
-            return self.bind(~next_func)
-        if isinstance(next_func, tuple):
-            return self.bind(partial(*next_func))
-        elif callable(next_func):
-            return self.bind(next_func)
+        return self.bind(prepare_function_for_pipe(next_func))
 
-    def __ror__(self, thing):
-        if isinstance(thing, XObject):
-            return self.rbind(~thing)
-        if callable(thing):
-            return self.rbind(thing)
+    def __ror__(self, prev_func):
+        return self.rbind(prepare_function_for_pipe(prev_func))
 
     def __lt__(self, thing):
         return self.func(thing) if self.func else thing
@@ -45,6 +37,38 @@ class Pipe(object):
 
 
 pipe = Pipe()
+
+
+def prepare_function_for_pipe(thing):
+    if isinstance(thing, XObject):
+        return ~thing
+    if isinstance(thing, tuple):
+        return partial(*thing)
+    if isinstance(thing, basestring):
+        return StringFormatter(thing)
+    if callable(thing):
+        return thing
+    raise ValueError('Cannot pipe %s' % thing)
+
+
+def StringFormatter(template):
+
+    f = unicode(template).format
+
+    def format(content):
+        if isinstance(content, dict):
+            return f(**content)
+        if _iterable(content):
+            return f(*content)
+        return f(content)
+
+    return format
+
+
+def _iterable(obj):
+    return (hasattr(obj, '__iter__')
+        or hasattr(obj, '__getitem__')
+        and not isinstance(obj, basestring))
 
 
 class XObject(object):

@@ -1,4 +1,5 @@
 from pipetools import pipe, X
+from pipetools.main import StringFormatter
 
 
 class Bunch:
@@ -28,6 +29,11 @@ class TestPipe:
         f = X[0] | pipe | str
 
         assert f([1, 2, 3]) == '1'
+
+    def test_string_formatting(self):
+        f = pipe | 'The answer is {0}.'
+
+        assert f(42) == 'The answer is 42.'
 
 
 class TestX:
@@ -133,3 +139,34 @@ class TestX:
 
         assert f('a')
         assert not f('b')
+
+
+class TestStringFormatter:
+
+    def test_format_tuple(self):
+        f = StringFormatter('{0} + {0} = {1}')
+        assert f((1, 2)) == '1 + 1 = 2'
+
+    def test_format_list(self):
+        f = StringFormatter('{0} + {0} = {1}')
+        assert f([1, 2]) == '1 + 1 = 2'
+
+    def test_format_generator(self):
+        f = StringFormatter('{0} + {0} = {1}')
+        assert f(xrange(1, 3)) == '1 + 1 = 2'
+
+    def test_format_dict(self):
+        f = StringFormatter('{a} and {b}')
+        assert f(dict(a='A', b='B')) == 'A and B'
+
+    def test_format_one_arg(self):
+        f = StringFormatter('This is {0}!!1')
+        assert f('Spartah') == 'This is Spartah!!1'
+
+    def test_unicode(self):
+        f = StringFormatter('Asdf {0}')
+        assert f(u'Žluťoučký kůň') == u'Asdf Žluťoučký kůň'
+
+    def test_unicode2(self):
+        f = StringFormatter(u'Asdf {0}')
+        assert f(u'Žluťoučký kůň') == u'Asdf Žluťoučký kůň'
