@@ -109,8 +109,7 @@ def as_args(func):
 def take_first(count):
     def _take_first(iterable):
         return islice(iterable, count)
-    return _take_first
-take_first = pipe | take_first
+    return pipe | _take_first
 
 
 @pipe_util
