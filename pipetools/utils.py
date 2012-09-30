@@ -1,8 +1,9 @@
-from functools import partial
+from functools import partial, wraps
 from itertools import imap, ifilter, islice
 import operator
 
 from pipetools.main import pipe, X, XObject, _iterable, StringFormatter
+from pipetools.ds_builder import data_structure_builder
 
 
 KEY, VALUE = X[0], X[1]
@@ -12,6 +13,7 @@ def pipe_util(func):
     """
     Decorator that handles X objects and currying for pipe-utils.
     """
+    @wraps(func)
     def pipe_util_wrapper(function, *args, **kwargs):
         if isinstance(function, XObject):
             function = ~function
@@ -19,44 +21,26 @@ def pipe_util(func):
         if args or kwargs:
             function = partial(function, *args, **kwargs)
 
-        # TODO: good idea?
-        if isinstance(function, tuple):
-            funcs = function
-            function = lambda x: tuple((pipe | f)(x) for f in funcs)
-
-        if isinstance(function, list):
-            funcs = function
-            function = lambda x: list((pipe | f)(x) for f in funcs)
-
-        if isinstance(function, dict):
-            funcd = function
-            function = lambda x: dict(
-                (key, (pipe | f)(x)) for key, f in funcd.iteritems())
-
         return pipe | func(function)
-
-    pipe_util_wrapper.__name__ = func.__name__
-    pipe_util_wrapper.__doc__ = func.__doc__
 
     return pipe_util_wrapper
 
 
 def auto_string_formatter(func):
 
+    @wraps(func)
     def auto_string_formatter_wrapper(function, *args, **kwargs):
         if isinstance(function, basestring):
             function = StringFormatter(function)
 
         return func(function, *args, **kwargs)
 
-    auto_string_formatter_wrapper.__name__ = func.__name__
-    auto_string_formatter_wrapper.__doc__ = func.__doc__
-
     return auto_string_formatter_wrapper
 
 
 @pipe_util
 @auto_string_formatter
+@data_structure_builder
 def foreach(function):
     """
     Returns a function that takes an iterable and returns an iterator over the
@@ -100,6 +84,7 @@ def where_not(function):
 
 
 @pipe_util
+@data_structure_builder
 def sort_by(key):
     return partial(sorted, key=key)
 
@@ -108,6 +93,7 @@ sort = sort_by(X)
 
 @pipe_util
 @auto_string_formatter
+@data_structure_builder
 def debug_print(func):
     def debug(thing):
         print func(thing)
@@ -134,6 +120,7 @@ def select_first(condition):
 
 @pipe_util
 @auto_string_formatter
+@data_structure_builder
 def group_by(func):
 
     def _group_by(seq):

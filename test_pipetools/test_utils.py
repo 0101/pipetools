@@ -1,5 +1,3 @@
-import operator
-
 from pipetools import X, sort_by, take_first, foreach, where, select_first
 
 
@@ -42,10 +40,6 @@ class TestTupleMaker:
         result = [1, 2, 3] > foreach((X, X % 2)) | list
         assert result == [(1, 1), (2, 0), (3, 1)]
 
-    def test_make_tuple_curry(self):
-        result = [1, 2, 3] > foreach((X, (operator.mul, 2))) | list
-        assert result == [(1, 2), (2, 4), (3, 6)]
-
 
 class TestListMaker:
 
@@ -53,20 +47,12 @@ class TestListMaker:
         result = [1, 2, 3] > foreach([X, X % 2]) | list
         assert result == [[1, 1], [2, 0], [3, 1]]
 
-    def test_make_list_curry(self):
-        result = [1, 2, 3] > foreach([X, (operator.mul, 2)]) | list
-        assert result == [[1, 2], [2, 4], [3, 6]]
-
 
 class TestDictMaker:
 
     def test_make_dict(self):
         result = [1, 2] > foreach({'num': X, 'str': str}) | list
         assert result == [{'num': 1, 'str': '1'}, {'num': 2, 'str': '2'}]
-
-    def test_make_dict_curry(self):
-        result = [1, 2] > foreach({'double': (operator.mul, 2)}) | list
-        assert result == [{'double': 2}, {'double': 4}]
 
 
 class TestSelectFirst:
