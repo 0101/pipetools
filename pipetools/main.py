@@ -126,6 +126,9 @@ class XObject(object):
     def __mul__(self, other):
         return XObject(pipe | self | (lambda x: x * other))
 
+    def __add__(self, other):
+        return XObject(pipe | self | (lambda x: x + other))
+
     def __ror__(self, func):
         return pipe | func | self
 

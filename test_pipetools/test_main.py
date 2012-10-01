@@ -132,6 +132,11 @@ class TestX:
         assert f(10) == 30
         assert f('x') == 'xxx'
 
+    def test_add(self):
+        assert (~(X + 2))(40) == 42
+        assert (~(X + '2'))('4') == '42'
+        assert (~(X + [2]))([4]) == [4, 2]
+
     def test_in(self):
         container = 'asdf'
 
