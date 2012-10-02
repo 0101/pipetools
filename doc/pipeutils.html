@@ -1,0 +1,224 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pipe-utils &mdash; pipetools 0.1.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/override.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favico.png"/>
+    <link rel="top" title="pipetools 0.1.1 documentation" href="index.html" />
+    <link rel="next" title="The X object" href="xobject.html" />
+    <link rel="prev" title="Welcome to pipetools’ documentation!" href="index.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body>
+<div class="header">
+  <div class="logo">
+    <a href="index.html">
+      <img class="logo" src="_static/logo.png" alt="Logo"/>
+    </a>
+  </div>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="xobject.html" title="The X object"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to pipetools’ documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">pipetools 0.1.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pipe-utils">
+<h1>pipe-utils<a class="headerlink" href="#pipe-utils" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="built-in">
+<h2>Built-in<a class="headerlink" href="#built-in" title="Permalink to this headline">¶</a></h2>
+<p>Even though these are defined in the <tt class="docutils literal"><span class="pre">pipetools.utils</span></tt> module, they&#8217;re
+importable directly from <tt class="docutils literal"><span class="pre">pipetools</span></tt> for convenience.</p>
+<p>All of these that take a function as an argument can automatically curry
+the given function with positional and/or keyword arguments, for example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">foreach</span><span class="p">(</span><span class="n">some_func</span><span class="p">,</span> <span class="n">foo</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Is the same as:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">foreach</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">some_func</span><span class="p">,</span> <span class="n">foo</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="bp">None</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>They also automatically convert the <a class="reference internal" href="xobject.html"><em>X object</em></a> to an actual
+function.</p>
+<span class="target" id="module-pipetools.utils"></span><dl class="function">
+<dt id="pipetools.utils.foreach">
+<tt class="descclassname">pipetools.utils.</tt><tt class="descname">foreach</tt><big>(</big><em>function</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pipetools.utils.foreach" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a function that takes an iterable and returns an iterator over the
+results of calling <cite>function</cite> on each item of the iterable.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pipetools.utils.foreach_do">
+<tt class="descclassname">pipetools.utils.</tt><tt class="descname">foreach_do</tt><big>(</big><em>function</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pipetools.utils.foreach_do" title="Permalink to this definition">¶</a></dt>
+<dd><p>Like <a class="reference internal" href="#pipetools.utils.foreach" title="pipetools.utils.foreach"><tt class="xref py py-func docutils literal"><span class="pre">foreach()</span></tt></a> but is evaluated immediately and doesn&#8217;t return
+anything.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pipetools.utils.pipe_util">
+<tt class="descclassname">pipetools.utils.</tt><tt class="descname">pipe_util</tt><big>(</big><em>func</em><big>)</big><a class="headerlink" href="#pipetools.utils.pipe_util" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator that handles X objects and currying for pipe-utils.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pipetools.utils.where">
+<tt class="descclassname">pipetools.utils.</tt><tt class="descname">where</tt><big>(</big><em>function</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pipetools.utils.where" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pipe-able lazy filter:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">odd</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="nb">xrange</span> <span class="o">|</span> <span class="n">where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="nb">tuple</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odd</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(1, 3, 5, 7, 9)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pipetools.utils.where_not">
+<tt class="descclassname">pipetools.utils.</tt><tt class="descname">where_not</tt><big>(</big><em>function</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pipetools.utils.where_not" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverted <a class="reference internal" href="#pipetools.utils.where" title="pipetools.utils.where"><tt class="xref py py-func docutils literal"><span class="pre">where()</span></tt></a>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="make-your-own">
+<h2>Make your own<a class="headerlink" href="#make-your-own" title="Permalink to this headline">¶</a></h2>
+<p>You can make your own, but you generally shouldn&#8217;t need to, since you can pipe
+any functions you like.</p>
+<p>But if you feel like there&#8217;s a generally reusable <em>pipe-util</em> missing, feel
+free to add it via a pull request on <a class="reference external" href="https://github.com/0101/pipetools">github</a>.</p>
+<p>How to do it? Just write the function and stick the <a class="reference internal" href="#pipetools.utils.pipe_util" title="pipetools.utils.pipe_util"><tt class="xref py py-func docutils literal"><span class="pre">pipe_util()</span></tt></a> decorator
+on it.</p>
+<p>And optionally also <tt class="xref py py-func docutils literal"><span class="pre">auto_string_formatter()</span></tt> (see
+<a class="reference internal" href="index.html#auto-string-formatting"><em>Automatic string formatting</em></a>) or <tt class="xref py py-func docutils literal"><span class="pre">data_structure_builder()</span></tt> (see
+<a class="reference internal" href="#auto-ds-creation"><em>Automatic data-structure creation</em></a>) if
+it makes sense.</p>
+</div>
+<div class="section" id="automatic-data-structure-creation">
+<span id="auto-ds-creation"></span><h2>Automatic data-structure creation<a class="headerlink" href="#automatic-data-structure-creation" title="Permalink to this headline">¶</a></h2>
+<p>Some of the utils, most importantly <a class="reference internal" href="#pipetools.utils.foreach" title="pipetools.utils.foreach"><tt class="xref py py-func docutils literal"><span class="pre">foreach()</span></tt></a>, offer a shortcut for
+creating basic python data structures - <tt class="docutils literal"><span class="pre">list</span></tt>, <tt class="docutils literal"><span class="pre">tuple</span></tt> and <tt class="docutils literal"><span class="pre">dict</span></tt>.</p>
+<p>It works like this (the <tt class="docutils literal"><span class="pre">|</span> <span class="pre">tuple</span></tt> at the end is just so we can see the result,
+otherwise it would just give us <tt class="docutils literal"><span class="pre">&lt;iterable</span> <span class="pre">thing</span> <span class="pre">at</span> <span class="pre">0xasdf123&gt;</span></tt>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">xrange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">foreach</span><span class="p">({</span><span class="n">X</span><span class="p">:</span> <span class="n">X</span> <span class="o">*</span> <span class="mi">2</span><span class="p">})</span> <span class="o">|</span> <span class="nb">tuple</span>
+<span class="go">({0: 0}, {1: 2}, {2: 4}, {3: 6}, {4: 8})</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">xrange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">foreach</span><span class="p">([</span><span class="n">X</span><span class="p">,</span> <span class="n">X</span> <span class="o">*</span> <span class="s">u&#39;★&#39;</span><span class="p">])</span> <span class="o">|</span> <span class="nb">tuple</span>
+<span class="go">([0, u&#39;&#39;], [1, u&#39;★&#39;], [2, u&#39;★★&#39;], [3, u&#39;★★★&#39;], [4, u&#39;★★★★&#39;])</span>
+</pre></div>
+</div>
+<p>It can also be combined with string formatting:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">names</span> <span class="o">=</span> <span class="p">[(</span><span class="s">&#39;John&#39;</span><span class="p">,</span> <span class="s">&#39;Matrix&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;Jack&#39;</span><span class="p">,</span> <span class="s">&#39;Slater&#39;</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">names</span> <span class="o">&gt;</span> <span class="n">foreach</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&quot;{0} {1}&quot;</span><span class="p">,</span> <span class="s">&#39;initials&#39;</span><span class="p">:</span> <span class="s">&#39;{0[0]}. {1[0]}.&#39;</span><span class="p">})</span> <span class="o">|</span> <span class="nb">tuple</span>
+<span class="go">({u&#39;initials&#39;: u&#39;J. M.&#39;, u&#39;name&#39;: u&#39;John Matrix&#39;},</span>
+<span class="go"> {u&#39;initials&#39;: u&#39;J. S.&#39;, u&#39;name&#39;: u&#39;Jack Slater&#39;})</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">pipe-utils</a><ul>
+<li><a class="reference internal" href="#built-in">Built-in</a></li>
+<li><a class="reference internal" href="#make-your-own">Make your own</a></li>
+<li><a class="reference internal" href="#automatic-data-structure-creation">Automatic data-structure creation</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to pipetools&#8217; documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="xobject.html"
+                        title="next chapter">The X object</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="xobject.html" title="The X object"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to pipetools’ documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">pipetools 0.1.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, 0101.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
