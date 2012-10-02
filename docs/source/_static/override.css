@@ -1,0 +1,51 @@
+@import url('pyramid.css');
+
+body {font-family: "Segoe UI", sans-serif;}
+
+
+div.body h1, div.body h2, div.body h3, div.body h4, div.body h5, div.body h6,
+div.sphinxsidebar h3, div.sphinxsidebar h4 {
+    font-family: "Segoe UI", "Droid Sans", sans-serif;}
+
+div.body .section {max-width: 840px;}
+
+em.property {font-style: normal; color: #8D6445;}
+dt em, dd cite, cite {color:#329D29; font-style: normal;}
+/*p em {color: #6D581E;}*/
+dd {
+	background: #F7F7F7;
+	background: rgba(100, 100, 100, .05);
+    border-radius: 10px;
+    padding: 2px 10px 1px;
+}
+h2 {border-bottom: 2px solid #D2D2D2;}
+div.header {background: #19162f url('headerbg.png') repeat-x top;}
+div.logo {padding: 0;}
+div.logo a {display: inline-block;}
+div.body h3 {font-weight:bold; margin-bottom: 0; padding-bottom: 0;}
+
+p {margin-top: 3px;}
+div.body ul, div.body ol {margin-bottom: 30px;}
+
+tt, pre {font-family: Consolas, monospace; font-size: 1em;}
+
+tt.docutils.literal {background-color: rgba(0, 0, 0, 0.07); padding: 1px 4px; border-radius:4px;}
+a tt.docutils.literal,
+h1 tt.docutils.literal,
+h2 tt.docutils.literal,
+h3 tt.docutils.literal {background-color: transparent;}
+
+a.internal.reference em {color: #1B61D6;}
+
+.sphinxsidebarwrapper {overflow: hidden;}
+
+div.highlight {background-color: transparent;}
+
+.highlight pre, .highlight-python pre {
+    background-color: #FFFFFF;
+    background-color: #222222;
+    color: #e5e5e5;
+    border: none;
+    /*box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.3);*/
+    border-radius: 5px;
+}
