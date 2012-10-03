@@ -1,4 +1,4 @@
 Pipetools
 =========
 
-Some functional duct tape for your python programs.
+See http://0101.github.com/pipetools/doc/
