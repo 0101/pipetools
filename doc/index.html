@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome to pipetools’ documentation! &mdash; pipetools 0.1.1 documentation</title>
+    <title>Welcome to pipetools’ documentation! &mdash; pipetools 0.1.2 documentation</title>
     
     <link rel="stylesheet" href="_static/override.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.1.1',
+        VERSION:     '0.1.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favico.png"/>
-    <link rel="top" title="pipetools 0.1.1 documentation" href="#" />
+    <link rel="top" title="pipetools 0.1.2 documentation" href="#" />
     <link rel="next" title="pipe-utils" href="pipeutils.html" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -55,7 +55,7 @@
         <li class="right" >
           <a href="pipeutils.html" title="pipe-utils"
              accesskey="N">next</a> |</li>
-        <li><a href="#">pipetools 0.1.1 documentation</a> &raquo;</li> 
+        <li><a href="#">pipetools 0.1.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -73,6 +73,12 @@ using Unix pipes.</p>
 <div class="section" id="why">
 <h2>Why?<a class="headerlink" href="#why" title="Permalink to this headline">¶</a></h2>
 <p>Pipetools attempt to simplify function composition and make it more readable.</p>
+<div class="section" id="why-piping-instead-of-regular-composition">
+<h3>Why piping instead of regular composition?<a class="headerlink" href="#why-piping-instead-of-regular-composition" title="Permalink to this headline">¶</a></h3>
+<p>I believe it to be easier to read, write and think about from left to right /
+top to bottom in the order that it&#8217;s actually executed, instead of reversed
+order as it is with regular function composition (<tt class="docutils literal"><span class="pre">(f</span> <span class="pre">•</span> <span class="pre">g)(x)</span> <span class="pre">==</span> <span class="pre">f(g(x))</span></tt>).</p>
+</div>
 </div>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
@@ -121,7 +127,7 @@ another possibility!</p>
 </pre></div>
 </div>
 <p>So is this <a class="reference external" href="http://www.python.org/dev/peps/pep-0020/">The Right Way™</a>? Probably not, but I think it&#8217;s pretty cool, so you
-should give it a try!</p>
+should give it a try! Read on to see how it works.</p>
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
@@ -185,7 +191,7 @@ quite often) the <tt class="docutils literal"><span class="pre">pipe</span></tt>
 <div class="section" id="ok-but-what-about-the-ugly-lambda">
 <h3>OK, but what about the ugly lambda?<a class="headerlink" href="#ok-but-what-about-the-ugly-lambda" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="pipeutils.html#pipetools.utils.where" title="pipetools.utils.where"><tt class="xref py py-func docutils literal"><span class="pre">where()</span></tt></a>, but also <a class="reference internal" href="pipeutils.html#pipetools.utils.foreach" title="pipetools.utils.foreach"><tt class="xref py py-func docutils literal"><span class="pre">foreach()</span></tt></a>,
-<tt class="xref py py-func docutils literal"><span class="pre">sort_by()</span></tt> and other <a class="reference internal" href="pipeutils.html"><em>pipe-utils</em></a> can be
+<a class="reference internal" href="pipeutils.html#pipetools.utils.sort_by" title="pipetools.utils.sort_by"><tt class="xref py py-func docutils literal"><span class="pre">sort_by()</span></tt></a> and other <a class="reference internal" href="pipeutils.html"><em>pipe-utils</em></a> can be
 quite useful, but require a function as an argument, which can either be a named
 function &#8211; which is OK if it does something complicated &#8211; but often it&#8217;s
 something simple, so it&#8217;s appropriate to use a <tt class="docutils literal"><span class="pre">lambda</span></tt>. Except Python&#8217;s
@@ -258,7 +264,10 @@ especially when the pipe spans multiple lines):</p>
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Welcome to pipetools&#8217; documentation!</a><ul>
-<li><a class="reference internal" href="#why">Why?</a></li>
+<li><a class="reference internal" href="#why">Why?</a><ul>
+<li><a class="reference internal" href="#why-piping-instead-of-regular-composition">Why piping instead of regular composition?</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#example">Example</a></li>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#usage">Usage</a><ul>
@@ -310,7 +319,7 @@ especially when the pipe spans multiple lines):</p>
         <li class="right" >
           <a href="pipeutils.html" title="pipe-utils"
              >next</a> |</li>
-        <li><a href="#">pipetools 0.1.1 documentation</a> &raquo;</li> 
+        <li><a href="#">pipetools 0.1.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

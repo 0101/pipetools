@@ -18,6 +18,12 @@ Why?
 
 Pipetools attempt to simplify function composition and make it more readable.
 
+Why piping instead of regular composition?
+""""""""""""""""""""""""""""""""""""""""""
+I believe it to be easier to read, write and think about from left to right /
+top to bottom in the order that it's actually executed, instead of reversed
+order as it is with regular function composition (``(f • g)(x) == f(g(x))``).
+
 
 Example
 -------
@@ -73,7 +79,7 @@ another possibility!
 
 
 So is this `The Right Way™`_? Probably not, but I think it's pretty cool, so you
-should give it a try!
+should give it a try! Read on to see how it works.
 
 .. _`The Right Way™`: http://www.python.org/dev/peps/pep-0020/
 
