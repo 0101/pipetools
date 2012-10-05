@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The X object &mdash; pipetools 0.1.2 documentation</title>
+    <title>The X object &mdash; pipetools 0.1.4 documentation</title>
     
     <link rel="stylesheet" href="_static/override.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.1.2',
+        VERSION:     '0.1.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,8 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favico.png"/>
-    <link rel="top" title="pipetools 0.1.2 documentation" href="index.html" />
+    <link rel="top" title="pipetools 0.1.4 documentation" href="index.html" />
+    <link rel="next" title="decorators module" href="decorators.html" />
     <link rel="prev" title="pipe-utils" href="pipeutils.html" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -53,9 +54,12 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
+          <a href="decorators.html" title="decorators module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
           <a href="pipeutils.html" title="pipe-utils"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pipetools 0.1.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pipetools 0.1.4 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -66,7 +70,25 @@
             
   <div class="section" id="the-x-object">
 <h1>The X object<a class="headerlink" href="#the-x-object" title="Permalink to this headline">¶</a></h1>
-<p>coming soon...</p>
+<dl class="class">
+<dt id="pipetools.main.XObject">
+<em class="property">class </em><tt class="descclassname">pipetools.main.</tt><tt class="descname">XObject</tt><big>(</big><em>func=None</em><big>)</big><a class="headerlink" href="#pipetools.main.XObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shortcut for writing simple, one-argument lambdas.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="o">~</span><span class="n">X</span><span class="o">.</span><span class="n">some_attr</span><span class="o">.</span><span class="n">some_func</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">whatever</span>
+<span class="c"># produces:</span>
+<span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">some_attr</span><span class="o">.</span><span class="n">some_func</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">whatever</span>
+
+<span class="o">~</span><span class="p">(</span><span class="n">X</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)</span>
+<span class="c"># produces:</span>
+<span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">5</span>
+</pre></div>
+</div>
+<p>The ~ operator creates the actual function that can be called (without
+creating just another X instance). But the X objects can be used without
+it in pipe-utils (like <tt class="xref py py-func docutils literal"><span class="pre">where()</span></tt> or <tt class="xref py py-func docutils literal"><span class="pre">foreach()</span></tt>).</p>
+</dd></dl>
+
 </div>
 
 
@@ -78,6 +100,9 @@
   <h4>Previous topic</h4>
   <p class="topless"><a href="pipeutils.html"
                         title="previous chapter">pipe-utils</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="decorators.html"
+                        title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">decorators</span></tt> module</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -105,9 +130,12 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
+          <a href="decorators.html" title="decorators module"
+             >next</a> |</li>
+        <li class="right" >
           <a href="pipeutils.html" title="pipe-utils"
              >previous</a> |</li>
-        <li><a href="index.html">pipetools 0.1.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pipetools 0.1.4 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
