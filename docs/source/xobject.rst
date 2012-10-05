@@ -1,4 +1,5 @@
 The X object
 ============
 
-coming soon...
+.. autoclass:: pipetools.main.XObject
+    :members:

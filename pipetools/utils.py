@@ -1,46 +1,13 @@
-from functools import partial, wraps
+from functools import partial
 from itertools import imap, ifilter, islice
 import operator
 
-from pipetools.main import pipe, X, XObject, _iterable, StringFormatter
-from pipetools.ds_builder import data_structure_builder
+from pipetools.main import pipe, X, _iterable
+from pipetools.decorators import pipe_util, auto_string_formatter
+from pipetools.decorators import data_structure_builder
 
 
 KEY, VALUE = X[0], X[1]
-
-
-def pipe_util(func):
-    """
-    Decorator that handles X objects and currying for pipe-utils.
-    """
-    @wraps(func)
-    def pipe_util_wrapper(function, *args, **kwargs):
-        if isinstance(function, XObject):
-            function = ~function
-
-        if args or kwargs:
-            function = partial(function, *args, **kwargs)
-
-        return pipe | func(function)
-
-    return pipe_util_wrapper
-
-
-def auto_string_formatter(func):
-    """
-    Decorator that handles automatic string formatting.
-
-    By converting a string argument to a function that does formatting on said
-    string.
-    """
-    @wraps(func)
-    def auto_string_formatter_wrapper(function, *args, **kwargs):
-        if isinstance(function, basestring):
-            function = StringFormatter(function)
-
-        return func(function, *args, **kwargs)
-
-    return auto_string_formatter_wrapper
 
 
 @pipe_util

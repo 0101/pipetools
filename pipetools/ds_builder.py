@@ -1,5 +1,5 @@
+from functools import partial
 from pipetools.main import XObject, StringFormatter
-from functools import partial, wraps
 
 
 class NoBuilder(ValueError):
@@ -48,16 +48,3 @@ def ds_item(definition, data):
     except NoBuilder:
         # static item
         return data
-
-
-def data_structure_builder(func):
-
-    @wraps(func)
-    def ds_builder_wrapper(function, *args, **kwargs):
-        try:
-            function = DSBuilder(function)
-        except NoBuilder:
-            pass
-        return func(function, *args, **kwargs)
-
-    return ds_builder_wrapper
