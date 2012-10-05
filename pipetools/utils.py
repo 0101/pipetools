@@ -145,7 +145,7 @@ def select_first(condition):
     >>> ['py', 'pie', 'pi'] > select_first(X.startswith('pi'))
     'pie'
     """
-    return lambda seq: unless(StopIteration, where(condition) | X.next(), seq)
+    return where(condition) | unless(StopIteration, X.next())
 
 
 @pipe_util
@@ -164,11 +164,29 @@ def group_by(function):
     return _group_by
 
 
-def unless(exception_class, func, *args, **kwargs):
-    try:
-        return partial(func, *args, **kwargs)()
-    except exception_class:
-        pass
+def unless(exception_class_or_tuple, func, *args, **kwargs):
+    """
+    When `exception_class_or_tuple` occurs while executing `func`, it will
+    be caught and ``None`` will be returned.
+
+    >>> f = where(X > 10) | list | unless(IndexError, X[0])
+    >>> f([5, 8, 12, 4])
+    12
+    >>> f([1, 2, 3])
+    None
+    """
+    @pipe_util
+    @auto_string_formatter
+    @data_structure_builder
+    def construct_unless(function):
+        # a wrapper so we can re-use the decorators
+        def _unless(*args, **kwargs):
+            try:
+                return function(*args, **kwargs)
+            except exception_class_or_tuple:
+                pass
+        return _unless
+    return construct_unless(func, *args, **kwargs)
 
 
 def _flatten(x):
