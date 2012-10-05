@@ -1,7 +1,3 @@
-
-Pipetools
-=========
-
 ``pipetools`` is a python package that enables function composition similar to
 using Unix pipes.
 
@@ -139,7 +135,7 @@ Built-in tools
 
 Pipetools contain a set of *pipe-utils* that solve some common tasks. For
 example there is a shortcut for the ifilter from our example, called
-`where() <http://0101.github.com/pipetools/doc/pipeutils.html#pipetools.utils.where>`_::
+:func:`~pipetools.utils.where`::
 
     from pipetools import pipe, where
 
@@ -154,14 +150,14 @@ quite often) the ``pipe`` at the beginning can be omitted::
     odd_sum = xrange | where(lambda x: x % 2) | sum
 
 
-See `pipe-utils' documentation <http://0101.github.com/pipetools/doc/pipeutils.html>`_.
+See :doc:`pipe-utils' documentation<pipeutils>`.
 
 
 OK, but what about the ugly lambda?
 """""""""""""""""""""""""""""""""""
 
-`where() <http://0101.github.com/pipetools/doc/pipeutils.html#pipetools.utils.where>`_, but also `foreach() <http://0101.github.com/pipetools/doc/pipeutils.html#pipetools.utils.foreach>`_,
-`sort_by() <http://0101.github.com/pipetools/doc/pipeutils.html#pipetools.utils.sort_by>`_ and other `pipe-utils <http://0101.github.com/pipetools/doc/pipeutils.html>`_ can be
+:func:`~pipetools.utils.where`, but also :func:`~pipetools.utils.foreach`,
+:func:`~pipetools.utils.sort_by` and other :doc:`pipe-utils<pipeutils>` can be
 quite useful, but require a function as an argument, which can either be a named
 function -- which is OK if it does something complicated -- but often it's
 something simple, so it's appropriate to use a ``lambda``. Except Python's
@@ -178,7 +174,7 @@ lambdas are quite verbose for simple tasks and the code gets cluttered...
 
 How 'bout that.
 
-`Read more about the X object and it's limitations. <http://0101.github.com/pipetools/doc/xobject.html>`_
+:doc:`Read more about the X object and it's limitations.<xobject>`
 
 
 .. _auto-string-formatting:
@@ -187,7 +183,7 @@ Automatic string formatting
 """""""""""""""""""""""""""
 
 Since it doesn't make sense to compose functions with strings, when a pipe (or a
-`pipe-util <http://0101.github.com/pipetools/doc/pipeutils.html>`_) encounters a string, it attempts to use it for
+:doc:`pipe-util<pipeutils>`) encounters a string, it attempts to use it for
 `(advanced) formatting`_::
 
     >>> countdown = pipe | (xrange, 1) | reversed | foreach('{0}...') | ' '.join | '{0} boom'
@@ -211,8 +207,3 @@ It can also be done using the ``>`` operator::
     result = some_input > pipe | foo | bar | boo
 
 Which also isn't ideal, but I couldn't think of anything better so far...
-
-
-Documentation
--------------
-See the `full documentation <http://0101.github.com/pipetools/doc/#contents>`_.
