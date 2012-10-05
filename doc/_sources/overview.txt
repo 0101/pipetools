@@ -1,0 +1,209 @@
+``pipetools`` is a python package that enables function composition similar to
+using Unix pipes.
+
+Inspired by Pipe_ and Околомонадное_ (whatever that means...)
+
+.. _Pipe: http://dev-tricks.net/pipe-infix-syntax-for-python
+.. _Околомонадное: http://honeyman.livejournal.com/122675.html?nojs=1
+
+
+It allows piping of arbitrary functions and comes with a few handy shortcuts.
+
+
+Why?
+----
+
+Pipetools attempt to simplify function composition and make it more readable.
+
+Why piping instead of regular composition?
+""""""""""""""""""""""""""""""""""""""""""
+I believe it to be easier to read, write and think about from left to right /
+top to bottom in the order that it's actually executed, instead of reversed
+order as it is with regular function composition (``(f • g)(x) == f(g(x))``).
+
+
+Example
+-------
+
+Say you want to create a list of python files in a given directory, ordered by
+filename length, as a string, each file on one line and also with line numbers::
+
+    >>> print pyfiles_by_length('../pipetools')
+    0. main.py
+    1. utils.py
+    2. __init__.py
+    3. ds_builder.py
+
+
+So you might write it like this::
+
+    def pyfiles_by_length(directory):
+        all_files = os.listdir(directory)
+        py_files = [f for f in all_files if f.endswith('.py')]
+        py_files.sort(key=len)
+        numbered = enumerate(py_files)
+        rows = ("{0}. {1}".format(i, f) for i, f in numbered)
+        return '\n'.join(rows)
+
+Or perhaps like this::
+
+    def pyfiles_by_length(directory):
+        return '\n'.join('{0}. {1}'.format(*x) for x in enumerate(sorted(
+            [f for f in os.listdir(directory) if f.endswith('.py')], key=len)))
+
+Or, if you're a mad scientist, you would probably do it like this::
+
+    pyfiles_by_length = lambda d: (reduce('{0}\n{1}'.format,
+        map(lambda x: '%d. %s' % x, enumerate(sorted(
+            filter(lambda f: f.endswith('.py'), os.listdir(d)), key=len)))))
+
+
+But *there should be one -- and preferably only one -- obvious way to do it*.
+
+So which one is it? Well, to redeem the situation, ``pipetools`` give you yet
+another possibility!
+
+::
+
+    pyfiles_by_length = (pipe
+        | os.listdir
+        | where(X.endswith('.py'))
+        | sort_by(len)
+        | enumerate
+        | foreach("{0}. {1}")
+        | '\n'.join
+    )
+
+
+So is this `The Right Way™`_? Probably not, but I think it's pretty cool, so you
+should give it a try! Read on to see how it works.
+
+.. _`The Right Way™`: http://www.python.org/dev/peps/pep-0020/
+
+
+Installation
+------------
+
+::
+
+    $ pip install pipetools
+
+`Uh, what's that? <http://www.pip-installer.org>`_
+
+
+Usage
+-----
+
+The pipe
+""""""""
+The ``pipe`` object can be used to pipe functions together to
+form new functions, and it works like this::
+
+    from pipetools import pipe
+
+    f = pipe | a | b | c
+
+    f(x) == c(b(a(x)))
+
+
+A real example, sum of odd numbers from 0 to *x*::
+
+    from functools import partial
+    from itertools import ifilter
+    from pipetools import pipe
+
+    odd_sum = pipe | xrange | partial(ifilter, lambda x: x % 2) | sum
+
+    odd_sum(10)  # -> 25
+
+
+Note that the chain up to the `sum` is lazy.
+
+
+Automatic partial application (currying) in the pipe
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+As partial application is often useful when piping things together, it is done
+automatically when the *pipe* encounters a tuple, so this produces the same
+result as the previous example::
+
+    odd_sum = pipe | xrange | (ifilter, lambda x: x % 2) | sum
+
+
+Built-in tools
+""""""""""""""
+
+Pipetools contain a set of *pipe-utils* that solve some common tasks. For
+example there is a shortcut for the ifilter from our example, called
+:func:`~pipetools.utils.where`::
+
+    from pipetools import pipe, where
+
+    odd_sum = pipe | xrange | where(lambda x: x % 2) | sum
+
+Well that might be a bit more readable, but not really a huge improvement, but
+wait!
+
+If a *pipe-util* is used as first or second item in the pipe (which happens
+quite often) the ``pipe`` at the beginning can be omitted::
+
+    odd_sum = xrange | where(lambda x: x % 2) | sum
+
+
+See :doc:`pipe-utils' documentation<pipeutils>`.
+
+
+OK, but what about the ugly lambda?
+"""""""""""""""""""""""""""""""""""
+
+:func:`~pipetools.utils.where`, but also :func:`~pipetools.utils.foreach`,
+:func:`~pipetools.utils.sort_by` and other :doc:`pipe-utils<pipeutils>` can be
+quite useful, but require a function as an argument, which can either be a named
+function -- which is OK if it does something complicated -- but often it's
+something simple, so it's appropriate to use a ``lambda``. Except Python's
+lambdas are quite verbose for simple tasks and the code gets cluttered...
+
+**X object** to the rescue!
+
+::
+
+    from pipetools import where, X
+
+    odd_sum = xrange | where(X % 2) | sum
+
+
+How 'bout that.
+
+:doc:`Read more about the X object and it's limitations.<xobject>`
+
+
+.. _auto-string-formatting:
+
+Automatic string formatting
+"""""""""""""""""""""""""""
+
+Since it doesn't make sense to compose functions with strings, when a pipe (or a
+:doc:`pipe-util<pipeutils>`) encounters a string, it attempts to use it for
+`(advanced) formatting`_::
+
+    >>> countdown = pipe | (xrange, 1) | reversed | foreach('{0}...') | ' '.join | '{0} boom'
+    >>> countdown(5)
+    u'4... 3... 2... 1... boom'
+
+.. _(advanced) formatting: http://docs.python.org/library/string.html#formatstrings
+
+
+Feeding the pipe
+""""""""""""""""
+
+Sometimes it's useful to create a one-off pipe and immediately run some input
+through it. And since this is somewhat awkward (and not very readable,
+especially when the pipe spans multiple lines)::
+
+    result = (pipe | foo | bar | boo)(some_input)
+
+It can also be done using the ``>`` operator::
+
+    result = some_input > pipe | foo | bar | boo
+
+Which also isn't ideal, but I couldn't think of anything better so far...
