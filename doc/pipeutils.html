@@ -184,6 +184,20 @@ items from the input (or possibly less, if there isn&#8217;t that many).</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="pipetools.utils.unless">
+<tt class="descclassname">pipetools.utils.</tt><tt class="descname">unless</tt><big>(</big><em>exception_class_or_tuple</em>, <em>func</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pipetools.utils.unless" title="Permalink to this definition">¶</a></dt>
+<dd><p>When <cite>exception_class_or_tuple</cite> occurs while executing <cite>func</cite>, it will
+be caught and <tt class="docutils literal"><span class="pre">None</span></tt> will be returned.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">where</span><span class="p">(</span><span class="n">X</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">)</span> <span class="o">|</span> <span class="nb">list</span> <span class="o">|</span> <span class="n">unless</span><span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="go">12</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="go">None</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
 <dt id="pipetools.utils.where">
 <tt class="descclassname">pipetools.utils.</tt><tt class="descname">where</tt><big>(</big><em>function</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pipetools.utils.where" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pipe-able lazy filter.</p>

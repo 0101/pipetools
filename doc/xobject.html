@@ -70,10 +70,8 @@
             
   <div class="section" id="the-x-object">
 <h1>The X object<a class="headerlink" href="#the-x-object" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="pipetools.main.XObject">
-<em class="property">class </em><tt class="descclassname">pipetools.main.</tt><tt class="descname">XObject</tt><big>(</big><em>func=None</em><big>)</big><a class="headerlink" href="#pipetools.main.XObject" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shortcut for writing simple, one-argument lambdas.</p>
+<p>The <tt class="docutils literal"><span class="pre">X</span></tt> object is a shortcut for writing simple, one-argument lambdas.</p>
+<p>It&#8217;s roughly equivalent to this: <tt class="docutils literal"><span class="pre">lambda</span> <span class="pre">x:</span> <span class="pre">x</span></tt></p>
 <p>Example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="o">~</span><span class="n">X</span><span class="o">.</span><span class="n">some_attr</span><span class="o">.</span><span class="n">some_func</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">whatever</span>
 <span class="c"># produces:</span>
@@ -84,11 +82,96 @@
 <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">5</span>
 </pre></div>
 </div>
-<p>The ~ operator creates the actual function that can be called (without
-creating just another X instance). But the X objects can be used without
-it in pipe-utils (like <tt class="xref py py-func docutils literal"><span class="pre">where()</span></tt> or <tt class="xref py py-func docutils literal"><span class="pre">foreach()</span></tt>).</p>
-</dd></dl>
-
+<p>Any of the <a class="reference internal" href="#x-supported-operations"><em>supported operations</em></a> performed on an
+<tt class="docutils literal"><span class="pre">X</span></tt> object yield another one that remembers what was done to it, so they
+can be chained.</p>
+<p>The <tt class="docutils literal"><span class="pre">~</span></tt> operator creates the actual function that can be called (without
+creating just another <tt class="docutils literal"><span class="pre">X</span></tt> instance). However, this can be omitted within
+<em>pipe</em> and <a class="reference internal" href="pipeutils.html"><em>pipe-utils</em></a> context where <tt class="docutils literal"><span class="pre">X</span></tt> is converted to a function
+automatically:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">users</span> <span class="o">&gt;</span> <span class="n">where</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">is_staff</span><span class="p">)</span> <span class="o">|</span> <span class="n">foreach</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">first_name</span><span class="p">)</span> <span class="o">|</span> <span class="n">X</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>But you can make use of <tt class="docutils literal"><span class="pre">X</span></tt> even outside <em>pipetools</em>, you just have to
+remember to prefix it with <tt class="docutils literal"><span class="pre">~</span></tt></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">my_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">users</span><span class="p">)</span>
+<span class="n">my_list</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=~</span><span class="n">X</span><span class="o">.</span><span class="n">last_login</span><span class="o">.</span><span class="n">date</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="section" id="currently-supported-operations">
+<span id="x-supported-operations"></span><h2>Currently supported operations<a class="headerlink" href="#currently-supported-operations" title="Permalink to this headline">¶</a></h2>
+<p>These are added as I need them. If you&#8217;re missing something you can add it
+yourself or create an issue on <a class="reference external" href="https://github.com/0101/pipetools">github</a>.</p>
+<ul>
+<li><p class="first">call (<tt class="docutils literal"><span class="pre">__call__</span></tt>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">X</span><span class="p">()</span>
+<span class="n">X</span><span class="p">(</span><span class="n">some</span><span class="p">,</span> <span class="n">agrs</span><span class="p">,</span> <span class="n">some</span><span class="o">=</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">equals (<tt class="docutils literal"><span class="pre">__eq__</span></tt>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">X</span> <span class="o">==</span> <span class="n">something</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">not equal (<tt class="docutils literal"><span class="pre">__ne__</span></tt>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">X</span> <span class="o">!=</span> <span class="n">something</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">attribute access (<tt class="docutils literal"><span class="pre">__getattr__</span></tt>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">X</span><span class="o">.</span><span class="n">attr</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">item access, slicing (<tt class="docutils literal"><span class="pre">__getitem__</span></tt>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">X</span><span class="p">[</span><span class="s">&#39;key&#39;</span><span class="p">]</span>
+<span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">X</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+<span class="n">X</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">greater than (<tt class="docutils literal"><span class="pre">__gt__</span></tt>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">X</span> <span class="o">&gt;</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">less than (<tt class="docutils literal"><span class="pre">__lt__</span></tt>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">X</span> <span class="o">&lt;</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">modulo (<tt class="docutils literal"><span class="pre">__mod__</span></tt>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">X</span> <span class="o">%</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">negate (<tt class="docutils literal"><span class="pre">__neg__</span></tt>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="o">-</span><span class="n">X</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">multiplication (<tt class="docutils literal"><span class="pre">__mul__</span></tt>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">X</span> <span class="o">*</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">addition (<tt class="docutils literal"><span class="pre">__add__</span></tt>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">X</span> <span class="o">+</span> <span class="mi">3</span>
+<span class="n">X</span> <span class="o">+</span> <span class="s">&quot; ...that&#39;s what she said!&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">is contained in (<tt class="docutils literal"><span class="pre">_in_</span></tt>)</p>
+<p>Unfortunately, <tt class="docutils literal"><span class="pre">X</span> <span class="pre">in</span> <span class="pre">container</span></tt> can&#8217;t be done (because the magic method is
+called on the container) so theres a special method for that:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">X</span><span class="o">.</span><span class="n">_in_</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
 </div>
 
 
@@ -97,6 +180,14 @@ it in pipe-utils (like <tt class="xref py py-func docutils literal"><span class=
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The X object</a><ul>
+<li><a class="reference internal" href="#currently-supported-operations">Currently supported operations</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="pipeutils.html"
                         title="previous chapter">pipe-utils</a></p>
