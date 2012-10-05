@@ -4,15 +4,19 @@
 	<link rel="shortcut icon" href="doc/_static/favico.png"/>
 </head>
 <style>
-	body {background: url('web/bg.png') repeat-x top #161616;}
-	.logo {display: block; width: 504px; height: 495px; margin: 0px auto; background: url('web/logo.png') no-repeat center; position: relative; text-align: center; text-decoration: none; outline: none;}
+	body {background: url('web/bg.png') repeat-x top #161616; padding: 0; margin: 0;}
+	.logo {display: block; max-width: 507px; height: 495px; margin: 0px auto; background: url('web/logo.png') no-repeat center; position: relative; text-align: center; text-decoration: none; outline: none;}
 	.logo span {position: relative; top: 340px; text-decoration: none; color: #666; font-family: "Segoe UI", "Droid Sans", sans-serif;}
 	.logo:hover {background-image: url('web/logohover.png');}
 	.logo:hover span strong {color: #fff;}
 	.dummy {background-image: url('web/logohover.png');}
+	.fork img {position: absolute; top: 0; right: 0; border: 0;}
+	.fork {opacity: .6}
+	.fork:hover {opacity: 1}
 </style>
 <body>
 	<a class="logo" href="doc"><span>Read <strong>documentation</strong></span></a>
 	<div class="dummy"></div>
+	<a class="fork" href="https://github.com/0101/pipetools"><img src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub"></a>
 </body>
 </html>
