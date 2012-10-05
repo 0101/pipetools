@@ -72,23 +72,6 @@ def _iterable(obj):
 
 
 class XObject(object):
-    """
-    Shortcut for writing simple, one-argument lambdas.
-
-    Example::
-
-        ~X.some_attr.some_func(1, 2, 3).whatever
-        # produces:
-        lambda x: x.some_attr.some_func(1, 2, 3).whatever
-
-        ~(X > 5)
-        # produces:
-        lambda x: x > 5
-
-    The ~ operator creates the actual function that can be called (without
-    creating just another X instance). But the X objects can be used without
-    it in pipe-utils (like :func:`where` or :func:`foreach`).
-    """
 
     def __init__(self, func=None):
         self._func = func or (lambda x: x)

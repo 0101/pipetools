@@ -1,4 +1,5 @@
 from pipetools import X, sort_by, take_first, foreach, where, select_first
+from pipetools import unless
 
 
 class TestPipeUtil:
@@ -65,9 +66,43 @@ class TestSelectFirst:
         result = select_first(X == 2)([0, 1, 0, 1])
         assert result == None
 
+    def test_select_first_empty(self):
+        assert select_first(X)([]) == None
+
 
 class TestAutoStringFormatter:
 
     def test_foreach_format(self):
         result = [1, 2] > foreach("Number {0}") | list
         assert result == ['Number 1', 'Number 2']
+
+
+class TestUnless:
+
+    def test_ok(self):
+        f = unless(AttributeError, foreach(X.lower())) | list
+        assert f("ABC") == ['a', 'b', 'c']
+
+    def test_with_exception(self):
+        f = unless(AttributeError, foreach(X.lower()) | list)
+        assert f(['A', 'B', 37]) == None
+
+    def test_with_exception_in_foreach(self):
+        f = foreach(unless(AttributeError, X.lower())) | list
+        assert f(['A', 'B', 37]) == ['a', 'b', None]
+
+    def test_partial_ok(self):
+        f = unless(TypeError, enumerate, start=3) | list
+        assert f('abc') == [(3, 'a'), (4, 'b'), (5, 'c')]
+
+    def test_partial_exc(self):
+        f = unless(TypeError, enumerate, start=3)
+        assert f(42) == None
+
+    def test_X_ok(self):
+        f = unless(TypeError, X * 'x')
+        assert f(3) == 'xxx'
+
+    def test_X_exception(self):
+        f = unless(TypeError, X * 'x')
+        assert f('x') == None
