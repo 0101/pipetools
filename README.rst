@@ -14,6 +14,11 @@ Inspired by Pipe_ and Околомонадное_ (whatever that means...)
 It allows piping of arbitrary functions and comes with a few handy shortcuts.
 
 
+Source is on github_.
+
+
+.. _github: https://github.com/0101/pipetools
+
 Why?
 ----
 

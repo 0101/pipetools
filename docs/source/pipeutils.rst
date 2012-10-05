@@ -1,6 +1,11 @@
 pipe-utils
 ==========
 
+Generic piping utilities.
+
+Other functions can be piped to them, from both sides, without having to use the
+``pipe`` object. The resulting function then also inherits this functionality.
+
 Built-in
 --------
 
@@ -20,6 +25,7 @@ Is the same as::
 They also automatically convert the :doc:`X object<xobject>` to an actual
 function.
 
+Here goes the list:
 
 .. automodule:: pipetools.utils
     :members:
@@ -36,13 +42,13 @@ free to add it via a pull request on github_.
 
 .. _github: https://github.com/0101/pipetools
 
-How to do it? Just write the function and stick the :func:`pipe_util` decorator
-on it.
+How to do it? Just write the function and stick the
+:func:`~pipetools.decorators.pipe_util` decorator on it.
 
-And optionally also :func:`auto_string_formatter` (see
-:ref:`auto-string-formatting`) or :func:`data_structure_builder` (see
-:ref:`auto-ds-creation`) if
-it makes sense.
+And optionally also :func:`~pipetools.decorators.auto_string_formatter` (see
+:ref:`auto-string-formatting`) or
+:func:`~pipetools.decorators.data_structure_builder`
+(see :ref:`auto-ds-creation`) if it makes sense.
 
 
 .. _auto-ds-creation:
