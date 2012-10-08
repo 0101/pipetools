@@ -1,4 +1,4 @@
-from pipetools import pipe, X
+from pipetools import pipe, X, maybe
 from pipetools.main import StringFormatter
 
 
@@ -7,31 +7,33 @@ class Bunch:
         self.__dict__.update(kwargs)
 
 
-class TestPipe:
+class TestPipe(object):
+
+    pipe = pipe
 
     def test_pipe(self):
 
-        p = pipe | str | (lambda x: x * 2)
+        p = self.pipe | str | (lambda x: x * 2)
 
         assert p(5) == '55'
 
     def test_pipe_right(self):
-        f = sum | pipe | str
+        f = sum | self.pipe | str
 
         assert f([1, 2, 3]) == '6'
 
     def test_pipe_input(self):
-        result = [1, 2, 3] > pipe | sum
+        result = [1, 2, 3] > self.pipe | sum
 
         assert result == 6
 
     def test_pipe_right_X(self):
-        f = X[0] | pipe | str
+        f = X[0] | self.pipe | str
 
         assert f([1, 2, 3]) == '1'
 
     def test_string_formatting(self):
-        f = pipe | 'The answer is {0}.'
+        f = self.pipe | 'The answer is {0}.'
 
         assert f(42) == 'The answer is 42.'
 
@@ -175,3 +177,17 @@ class TestStringFormatter:
     def test_unicode2(self):
         f = StringFormatter(u'Asdf {0}')
         assert f(u'Žluťoučký kůň') == u'Asdf Žluťoučký kůň'
+
+
+class TestMaybe(TestPipe):
+
+    # maybe should also pass default pipe tests
+    pipe = maybe
+
+    def test_maybe_basic(self):
+        f = maybe | (lambda: None) | X * 2
+
+        assert f() == None
+
+    def test_none_input(self):
+        assert (None > maybe | sum) == None

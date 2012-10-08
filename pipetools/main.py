@@ -15,19 +15,22 @@ class Pipe(object):
     def __init__(self, func=None):
         self.func = func
 
-    def bind(self, next_func):
-        return Pipe(next_func if self.func is None else
-            lambda *args, **kwargs: next_func(self.func(*args, **kwargs)))
+    @staticmethod
+    def compose(first, second):
+        return lambda *args, **kwargs: second(first(*args, **kwargs))
 
-    def rbind(self, prev_func):
-        return Pipe(prev_func if self.func is None else
-            lambda *args, **kwargs: self.func(prev_func(*args, **kwargs)))
+    @classmethod
+    def bind(cls, first, second):
+        return cls(
+            first if second is None else
+            second if first is None else
+            cls.compose(first, second))
 
     def __or__(self, next_func):
-        return self.bind(prepare_function_for_pipe(next_func))
+        return self.bind(self.func, prepare_function_for_pipe(next_func))
 
     def __ror__(self, prev_func):
-        return self.rbind(prepare_function_for_pipe(prev_func))
+        return self.bind(prepare_function_for_pipe(prev_func), self.func)
 
     def __lt__(self, thing):
         return self.func(thing) if self.func else thing
@@ -35,8 +38,25 @@ class Pipe(object):
     def __call__(self, *args, **kwargs):
         return self.func(*args, **kwargs)
 
-
 pipe = Pipe()
+
+
+class Maybe(Pipe):
+
+    @staticmethod
+    def compose(first, second):
+        def composite(*args, **kwargs):
+            result = first(*args, **kwargs)
+            return None if result is None else second(result)
+        return composite
+
+    def __lt__(self, thing):
+        return (
+            None if thing is None else
+            self.func(thing) if self.func else
+            thing)
+
+maybe = Maybe()
 
 
 def prepare_function_for_pipe(thing):
