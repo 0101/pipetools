@@ -103,6 +103,8 @@ Installation
 Usage
 -----
 
+.. _the-pipe:
+
 The pipe
 """"""""
 The ``pipe`` object can be used to pipe functions together to
