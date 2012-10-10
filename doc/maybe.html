@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>decorators module &mdash; pipetools 0.1.5 documentation</title>
+    <title>The Maybe Pipe &mdash; pipetools 0.1.5 documentation</title>
     
     <link rel="stylesheet" href="_static/override.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favico.png"/>
     <link rel="top" title="pipetools 0.1.5 documentation" href="index.html" />
-    <link rel="prev" title="The Maybe Pipe" href="maybe.html" />
+    <link rel="next" title="decorators module" href="decorators.html" />
+    <link rel="prev" title="The X object" href="xobject.html" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
@@ -53,7 +54,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="maybe.html" title="The Maybe Pipe"
+          <a href="decorators.html" title="decorators module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="xobject.html" title="The X object"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">pipetools 0.1.5 documentation</a> &raquo;</li> 
       </ul>
@@ -64,29 +68,23 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="decorators-module">
-<h1><tt class="xref py py-mod docutils literal"><span class="pre">decorators</span></tt> module<a class="headerlink" href="#decorators-module" title="Permalink to this headline">¶</a></h1>
-<p>This module contains decorators that handle some common tasks for <a class="reference internal" href="pipeutils.html"><em>pipe-utils</em></a></p>
-<span class="target" id="module-pipetools.decorators"></span><dl class="function">
-<dt id="pipetools.decorators.auto_string_formatter">
-<tt class="descclassname">pipetools.decorators.</tt><tt class="descname">auto_string_formatter</tt><big>(</big><em>func</em><big>)</big><a class="headerlink" href="#pipetools.decorators.auto_string_formatter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Decorator that handles automatic string formatting.</p>
-<p>By converting a string argument to a function that does formatting on said
-string.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="pipetools.decorators.data_structure_builder">
-<tt class="descclassname">pipetools.decorators.</tt><tt class="descname">data_structure_builder</tt><big>(</big><em>func</em><big>)</big><a class="headerlink" href="#pipetools.decorators.data_structure_builder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Decorator to handle automatic data structure creation for pipe-utils.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="pipetools.decorators.pipe_util">
-<tt class="descclassname">pipetools.decorators.</tt><tt class="descname">pipe_util</tt><big>(</big><em>func</em><big>)</big><a class="headerlink" href="#pipetools.decorators.pipe_util" title="Permalink to this definition">¶</a></dt>
-<dd><p>Decorator that handles X objects and currying for pipe-utils.</p>
-</dd></dl>
-
+  <div class="section" id="the-maybe-pipe">
+<h1>The Maybe Pipe<a class="headerlink" href="#the-maybe-pipe" title="Permalink to this headline">¶</a></h1>
+<p><tt class="docutils literal"><span class="pre">maybe</span></tt> is just like <a class="reference internal" href="overview.html#the-pipe"><em>pipe</em></a>, except if any of the piped functions
+returns <tt class="docutils literal"><span class="pre">None</span></tt> the execution is stopped and <tt class="docutils literal"><span class="pre">None</span></tt> is returned immediately.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pipetools</span> <span class="kn">import</span> <span class="n">maybe</span><span class="p">,</span> <span class="n">X</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">maybe</span> <span class="o">|</span> <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">,</span> <span class="s">r&#39;^number-(\d+)$&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">X</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="nb">int</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="s">&#39;number-7&#39;</span><span class="p">)</span>
+<span class="go">7</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="s">&#39;something else&#39;</span><span class="p">)</span>
+<span class="go">None</span>
+</pre></div>
+</div>
+<p>Can be used together with <a class="reference internal" href="pipeutils.html#pipetools.utils.unless" title="pipetools.utils.unless"><tt class="xref py py-func docutils literal"><span class="pre">unless()</span></tt></a> to great effect:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="s">&#39;file.txt&#39;</span> <span class="o">&gt;</span> <span class="n">maybe</span> <span class="o">|</span> <span class="n">unless</span><span class="p">(</span><span class="ne">IOError</span><span class="p">,</span> <span class="nb">open</span><span class="p">)</span> <span class="o">|</span> <span class="n">X</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
 </div>
 
 
@@ -96,8 +94,11 @@ string.</p>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="maybe.html"
-                        title="previous chapter">The Maybe Pipe</a></p>
+  <p class="topless"><a href="xobject.html"
+                        title="previous chapter">The X object</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="decorators.html"
+                        title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">decorators</span></tt> module</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -125,7 +126,10 @@ string.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="maybe.html" title="The Maybe Pipe"
+          <a href="decorators.html" title="decorators module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="xobject.html" title="The X object"
              >previous</a> |</li>
         <li><a href="index.html">pipetools 0.1.5 documentation</a> &raquo;</li> 
       </ul>
