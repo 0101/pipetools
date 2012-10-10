@@ -4,8 +4,8 @@ A script for generating a README file and publishing docs on github pages.
 
 import codecs
 import re
-from paver.easy import sh
-from pipetools import foreach, foreach_do, where, X, pipe
+from paver.easy import sh, BuildFailure
+from pipetools import foreach, foreach_do, where, X, pipe, unless
 
 
 DOC_ROOT = 'http://0101.github.com/pipetools/doc/'
@@ -71,7 +71,7 @@ git checkout master
 
 """
 
-runscript = X.split('\n') | where(X) | foreach_do(sh)
+runscript = X.split('\n') | where(X) | unless(BuildFailure, foreach_do(sh))
 
 
 if __name__ == '__main__':
