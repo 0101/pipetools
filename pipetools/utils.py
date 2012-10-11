@@ -136,34 +136,6 @@ def take_first(count):
     return pipe | _take_first
 
 
-@pipe_util
-def select_first(condition):
-    """
-    Returns first item from input sequence that satisfies `condition`. Or
-    ``None`` if none does.
-
-    >>> ['py', 'pie', 'pi'] > select_first(X.startswith('pi'))
-    'pie'
-    """
-    return where(condition) | unless(StopIteration, X.next())
-
-
-@pipe_util
-@auto_string_formatter
-@data_structure_builder
-def group_by(function):
-    """
-    Returns a dictionary of input sequence items grouped by `function`.
-    """
-    def _group_by(seq):
-        result = {}
-        for item in seq:
-            result.setdefault(function(item), []).append(item)
-        return result
-
-    return _group_by
-
-
 def unless(exception_class_or_tuple, func, *args, **kwargs):
     """
     When `exception_class_or_tuple` occurs while executing `func`, it will
@@ -187,6 +159,43 @@ def unless(exception_class_or_tuple, func, *args, **kwargs):
                 pass
         return _unless
     return construct_unless(func, *args, **kwargs)
+
+
+@pipe_util
+def select_first(condition):
+    """
+    Returns first item from input sequence that satisfies `condition`. Or
+    ``None`` if none does.
+
+    >>> ['py', 'pie', 'pi'] > select_first(X.startswith('pi'))
+    'pie'
+
+    There is also a shortcut for ``select_first(X)`` called ``first_of``:
+
+    >>> first_of(['', None, 0, 3, 'something'])
+    3
+    >>> first_of([])
+    None
+    """
+    return where(condition) | unless(StopIteration, X.next())
+
+first_of = select_first(X)
+
+
+@pipe_util
+@auto_string_formatter
+@data_structure_builder
+def group_by(function):
+    """
+    Returns a dictionary of input sequence items grouped by `function`.
+    """
+    def _group_by(seq):
+        result = {}
+        for item in seq:
+            result.setdefault(function(item), []).append(item)
+        return result
+
+    return _group_by
 
 
 def _flatten(x):
