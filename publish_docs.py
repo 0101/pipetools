@@ -12,15 +12,17 @@ DOC_ROOT = 'http://0101.github.com/pipetools/doc/'
 
 
 readme_template = """
+`Complete documentation in full color <{0}>`_.
+
 Pipetools
 =========
 
-{0}
+{{0}}
 
-Documentation
--------------
-See the `full documentation <%s#contents>`_.
-""" % DOC_ROOT
+But wait, there is more
+-----------------------
+See the `full documentation <{0}#contents>`_.
+""".format(DOC_ROOT)
 
 
 link_template = u"`{text} <%s{url}>`_" % DOC_ROOT
