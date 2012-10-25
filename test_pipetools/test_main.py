@@ -1,3 +1,4 @@
+# encoding: utf-8
 from pipetools import pipe, X, maybe
 from pipetools.main import StringFormatter
 
@@ -146,6 +147,15 @@ class TestX:
 
         assert f('a')
         assert not f('b')
+
+    def test_name(self):
+        f = ~X.attr(1, 2, three='four')
+        assert f.__name__ == "X.attr | X(1, 2, three='four')"
+
+    def test_name_unicode(self):
+        f = ~(X + u"Žluťoučký kůň")
+        # in this case I'll just consider not throwing an error a success
+        assert f.__name__
 
 
 class TestStringFormatter:

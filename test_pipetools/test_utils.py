@@ -1,5 +1,5 @@
 from pipetools import X, sort_by, take_first, foreach, where, select_first
-from pipetools import unless
+from pipetools import unless, flatten
 
 
 class TestPipeUtil:
@@ -106,3 +106,14 @@ class TestUnless:
     def test_X_exception(self):
         f = unless(TypeError, X * 'x')
         assert f('x') == None
+
+
+class TestFlatten:
+
+    def test_flatten(self):
+        assert (list(flatten([1, [2, 3], (4, ('five', 6))]))
+            == [1, 2, 3, 4, 'five', 6])
+
+    def test_flatten_args(self):
+        assert (list(flatten(1, [2, 3], (4, ('five', 6))))
+            == [1, 2, 3, 4, 'five', 6])
