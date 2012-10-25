@@ -1,4 +1,6 @@
 
+`Complete documentation in full color <http://0101.github.com/pipetools/doc/>`_.
+
 Pipetools
 =========
 
@@ -220,6 +222,6 @@ It can also be done using the ``>`` operator::
 Which also isn't ideal, but I couldn't think of anything better so far...
 
 
-Documentation
--------------
+But wait, there is more
+-----------------------
 See the `full documentation <http://0101.github.com/pipetools/doc/#contents>`_.

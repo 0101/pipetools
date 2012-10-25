@@ -54,7 +54,7 @@ def fix_links(string):
 commit_readme = """
 
 git add README.rst
-git commit -m "readme update"
+git commit -m "(readme update)"
 
 """
 
