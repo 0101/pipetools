@@ -68,6 +68,7 @@ yourself or create an issue on github_.
 * attribute access (``__getattr__``)::
 
     X.attr
+    getattr(X, 'something')
 
 
 * item access, slicing (``__getitem__``)::

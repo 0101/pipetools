@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome to pipetools’ documentation! &mdash; pipetools 0.1.6 documentation</title>
+    <title>Welcome to pipetools’ documentation! &mdash; pipetools 0.1.7 documentation</title>
     
     <link rel="stylesheet" href="_static/override.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.1.6',
+        VERSION:     '0.1.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favico.png"/>
-    <link rel="top" title="pipetools 0.1.6 documentation" href="#" />
+    <link rel="top" title="pipetools 0.1.7 documentation" href="#" />
     <link rel="next" title="pipe-utils" href="pipeutils.html" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -55,7 +55,7 @@
         <li class="right" >
           <a href="pipeutils.html" title="pipe-utils"
              accesskey="N">next</a> |</li>
-        <li><a href="#">pipetools 0.1.6 documentation</a> &raquo;</li> 
+        <li><a href="#">pipetools 0.1.7 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -174,7 +174,7 @@ result as the previous example:</p>
 <h3>Built-in tools<a class="headerlink" href="#built-in-tools" title="Permalink to this headline">¶</a></h3>
 <p>Pipetools contain a set of <em>pipe-utils</em> that solve some common tasks. For
 example there is a shortcut for the ifilter from our example, called
-<a class="reference internal" href="pipeutils.html#pipetools.utils.where" title="pipetools.utils.where"><tt class="xref py py-func docutils literal"><span class="pre">where()</span></tt></a>:</p>
+<tt class="xref py py-func docutils literal"><span class="pre">where()</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pipetools</span> <span class="kn">import</span> <span class="n">pipe</span><span class="p">,</span> <span class="n">where</span>
 
 <span class="n">odd_sum</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="nb">xrange</span> <span class="o">|</span> <span class="n">where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="nb">sum</span>
@@ -191,8 +191,8 @@ quite often) the <tt class="docutils literal"><span class="pre">pipe</span></tt>
 </div>
 <div class="section" id="ok-but-what-about-the-ugly-lambda">
 <h3>OK, but what about the ugly lambda?<a class="headerlink" href="#ok-but-what-about-the-ugly-lambda" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference internal" href="pipeutils.html#pipetools.utils.where" title="pipetools.utils.where"><tt class="xref py py-func docutils literal"><span class="pre">where()</span></tt></a>, but also <a class="reference internal" href="pipeutils.html#pipetools.utils.foreach" title="pipetools.utils.foreach"><tt class="xref py py-func docutils literal"><span class="pre">foreach()</span></tt></a>,
-<a class="reference internal" href="pipeutils.html#pipetools.utils.sort_by" title="pipetools.utils.sort_by"><tt class="xref py py-func docutils literal"><span class="pre">sort_by()</span></tt></a> and other <a class="reference internal" href="pipeutils.html"><em>pipe-utils</em></a> can be
+<p><tt class="xref py py-func docutils literal"><span class="pre">where()</span></tt>, but also <tt class="xref py py-func docutils literal"><span class="pre">foreach()</span></tt>,
+<tt class="xref py py-func docutils literal"><span class="pre">sort_by()</span></tt> and other <a class="reference internal" href="pipeutils.html"><em>pipe-utils</em></a> can be
 quite useful, but require a function as an argument, which can either be a named
 function &#8211; which is OK if it does something complicated &#8211; but often it&#8217;s
 something simple, so it&#8217;s appropriate to use a <tt class="docutils literal"><span class="pre">lambda</span></tt>. Except Python&#8217;s
@@ -248,6 +248,10 @@ especially when the pipe spans multiple lines):</p>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="maybe.html">The Maybe Pipe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="decorators.html"><tt class="docutils literal"><span class="pre">decorators</span></tt> module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change log</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id1">0.1.7</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -325,7 +329,7 @@ especially when the pipe spans multiple lines):</p>
         <li class="right" >
           <a href="pipeutils.html" title="pipe-utils"
              >next</a> |</li>
-        <li><a href="#">pipetools 0.1.6 documentation</a> &raquo;</li> 
+        <li><a href="#">pipetools 0.1.7 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

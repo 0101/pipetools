@@ -16,6 +16,7 @@ But wait, there is more
    xobject
    maybe
    decorators
+   changelog
 
 
 
