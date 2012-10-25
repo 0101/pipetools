@@ -2,9 +2,10 @@ from functools import partial
 from itertools import imap, ifilter, islice
 import operator
 
-from pipetools.main import pipe, X, _iterable
-from pipetools.decorators import pipe_util, auto_string_formatter
+from pipetools.debug import set_name, repr_args, get_name
 from pipetools.decorators import data_structure_builder
+from pipetools.decorators import pipe_util, auto_string_formatter
+from pipetools.main import pipe, X, _iterable
 
 
 KEY, VALUE = X[0], X[1]
@@ -133,7 +134,7 @@ def take_first(count):
     """
     def _take_first(iterable):
         return islice(iterable, count)
-    return pipe | _take_first
+    return pipe | set_name('take_first(%s)' % count, _take_first)
 
 
 def unless(exception_class_or_tuple, func, *args, **kwargs):
@@ -158,7 +159,11 @@ def unless(exception_class_or_tuple, func, *args, **kwargs):
             except exception_class_or_tuple:
                 pass
         return _unless
-    return construct_unless(func, *args, **kwargs)
+
+    name = 'unless(%s, %s)' % (exception_class_or_tuple, ', '.join(
+        filter(None, (get_name(func), repr_args(*args, **kwargs)))))
+
+    return set_name(name, construct_unless(func, *args, **kwargs))
 
 
 @pipe_util
