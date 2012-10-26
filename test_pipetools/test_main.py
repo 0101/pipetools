@@ -157,6 +157,10 @@ class TestX:
         # in this case I'll just consider not throwing an error a success
         assert f.__name__
 
+    def test_name_tuple(self):
+        f = ~(X + (1, 2))
+        assert f.__name__ == "X + (1, 2)"
+
 
 class TestStringFormatter:
 
