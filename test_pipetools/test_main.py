@@ -60,7 +60,7 @@ class TestX:
 
         f = ~X
 
-        assert f(42), 42
+        assert f(42) == 42
 
     def test_mod(self):
 
@@ -94,7 +94,7 @@ class TestX:
 
         f = ~(X['item'])
 
-        assert f({'item': 42}), 42
+        assert f({'item': 42}) == 42
 
     def test_eq(self):
 
@@ -114,19 +114,19 @@ class TestX:
 
         f = ~-X
 
-        assert f(5), -5
+        assert f(5) == -5
 
     def test_pipe_right(self):
 
         f = str | X[0]
 
-        assert f(10), '1'
+        assert f(10) == '1'
 
     def test_call(self):
 
         f = ~X(42)
 
-        assert f(lambda n: n / 2), 21
+        assert f(lambda n: n / 2) == 21
 
     def test_mul(self):
 
