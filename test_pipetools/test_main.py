@@ -122,6 +122,12 @@ class TestX:
 
         assert f(10) == '1'
 
+    def test_pipe_left(self):
+
+        f = X[0] | int
+
+        assert f('10') == 1
+
     def test_call(self):
 
         f = ~X(42)

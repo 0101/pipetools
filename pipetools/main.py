@@ -162,6 +162,11 @@ class XObject(object):
     def __ror__(self, func):
         return pipe | func | self
 
+    def __or__(self, func):
+        if isinstance(func, Pipe):
+            return func.__ror__(self)
+        return pipe | self | func
+
     def _in_(self, y):
         return self.bind(u'X._in_({0})'.format(y), lambda x: x in y)
 
