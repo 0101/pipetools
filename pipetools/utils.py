@@ -1,5 +1,5 @@
 from functools import partial
-from itertools import imap, ifilter, islice
+from itertools import imap, ifilter, islice, takewhile
 import operator
 
 from pipetools.debug import set_name, repr_args, get_name
@@ -226,3 +226,12 @@ def count(iterable):
     """
     return sum(1 for whatever in iterable)
 count = pipe | count
+
+
+@pipe_util
+def take_until(function):
+    """
+    >>> [1, 3, 5, 6, 9, 11] > take_until(X > 5) | list
+    [1, 4]
+    """
+    return partial(takewhile, pipe | function | operator.not_)
