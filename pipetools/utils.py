@@ -239,7 +239,7 @@ count = pipe | count
 @pipe_util
 def take_until(function):
     """
-    >>> [1, 3, 5, 6, 9, 11] > take_until(X > 5) | list
-    [1, 3, 5]
+    >>> [1, 4, 6, 4, 1] > take_until(X > 5) | list
+    [1, 4]
     """
     return partial(takewhile, pipe | function | operator.not_)
