@@ -1,5 +1,5 @@
 from functools import partial
-from itertools import imap, ifilter, islice
+from itertools import imap, ifilter, islice, takewhile
 import operator
 
 from pipetools.debug import set_name, repr_args, get_name
@@ -123,6 +123,14 @@ def as_args(function):
     return lambda x: function(*x)
 
 
+@pipe_util
+def as_kwargs(function):
+    """
+    Applies the dictionary in the input as keyword arguments to `function`.
+    """
+    return lambda x: function(**x)
+
+
 def take_first(count):
     """
     Assumes an iterable on the input, returns an iterable with first `count`
@@ -226,3 +234,12 @@ def count(iterable):
     """
     return sum(1 for whatever in iterable)
 count = pipe | count
+
+
+@pipe_util
+def take_until(function):
+    """
+    >>> [1, 3, 5, 6, 9, 11] > take_until(X > 5) | list
+    [1, 4]
+    """
+    return partial(takewhile, pipe | function | operator.not_)

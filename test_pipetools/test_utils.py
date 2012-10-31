@@ -1,5 +1,5 @@
 from pipetools import X, sort_by, take_first, foreach, where, select_first
-from pipetools import unless, flatten
+from pipetools import unless, flatten, take_until, as_kwargs
 
 
 class TestPipeUtil:
@@ -117,3 +117,17 @@ class TestFlatten:
     def test_flatten_args(self):
         assert (list(flatten(1, [2, 3], (4, ('five', 6))))
             == [1, 2, 3, 4, 'five', 6])
+
+
+class TestTakeUntil:
+
+    def test_basic(self):
+        f = take_until(X > 5)
+        assert list(f([1, 2, 3, 1, 6, 1, 3])) == [1, 2, 3, 1]
+
+
+class TestAsKwargs:
+
+    def test_as_kwargs(self):
+        d = {'foo': 4, 'bar': 2}
+        assert as_kwargs(lambda **kw: kw)(d) == d
