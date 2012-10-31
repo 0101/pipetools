@@ -123,6 +123,14 @@ def as_args(function):
     return lambda x: function(*x)
 
 
+@pipe_util
+def as_kwargs(function):
+    """
+    Applies the dictionary in the input as keyword arguments to `function`.
+    """
+    return lambda x: function(**x)
+
+
 def take_first(count):
     """
     Assumes an iterable on the input, returns an iterable with first `count`
