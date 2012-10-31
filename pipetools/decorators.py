@@ -9,6 +9,7 @@ def pipe_util(func):
     """
     Decorator that handles X objects and currying for pipe-utils.
     """
+    @wraps(func)
     def pipe_util_wrapper(function, *args, **kwargs):
         if isinstance(function, XObject):
             function = ~function
