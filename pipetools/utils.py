@@ -240,6 +240,6 @@ count = pipe | count
 def take_until(function):
     """
     >>> [1, 3, 5, 6, 9, 11] > take_until(X > 5) | list
-    [1, 4]
+    [1, 3, 5]
     """
     return partial(takewhile, pipe | function | operator.not_)
