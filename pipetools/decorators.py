@@ -1,8 +1,8 @@
-from functools import partial, wraps
+from functools import wraps
 
 from pipetools.debug import repr_args, set_name, get_name
 from pipetools.ds_builder import DSBuilder, NoBuilder
-from pipetools.main import pipe, XObject, StringFormatter
+from pipetools.main import pipe, XObject, StringFormatter, xcurry
 
 
 def pipe_util(func):
@@ -17,7 +17,7 @@ def pipe_util(func):
         function_name = get_name(function)
 
         if args or kwargs:
-            function = partial(function, *args, **kwargs)
+            function = xcurry(function, *args, **kwargs)
 
         name = '%s(%s)' % (func.__name__, ', '.join(
             filter(None, (function_name, repr_args(*args, **kwargs)))))

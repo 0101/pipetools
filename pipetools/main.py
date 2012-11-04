@@ -1,5 +1,3 @@
-from functools import partial
-
 from pipetools.debug import get_name, set_name, repr_args
 from pipetools.debug import pipe_exception_handler
 
@@ -78,7 +76,7 @@ def prepare_function_for_pipe(thing):
     if isinstance(thing, XObject):
         return ~thing
     if isinstance(thing, tuple):
-        return partial(*thing)
+        return xcurry(*thing)
     if isinstance(thing, basestring):
         return StringFormatter(thing)
     if callable(thing):
@@ -172,3 +170,52 @@ class XObject(object):
 
 
 X = XObject()
+
+
+def xcurry(func, *xargs, **xkwargs):
+    """
+    Like :func:`functools.partial`, but can take an :class:`XObject`
+    placeholder that will be replaced with the first positional argument
+    when the curried function is called.
+
+    Useful when the function's positional arguments' order doesn't fit your
+    situation, e.g.:
+
+    >>> reverse_range = xcurry(range, X, 0, -1)
+    >>> reverse_range(5)
+    [5, 4, 3, 2, 1]
+
+    It can also be used to transform the positional argument to a keyword
+    argument, which can come in handy inside a *pipe*::
+
+        xcurry(objects.get, id=X)
+
+    Also the XObjects are evaluated, which can be used for some sort of
+    destructuring of the argument::
+
+        xcurry(somefunc, name=X.name, number=X.contacts['number'])
+
+    Lastly, unlike :func:`functools.partial`, this creates a regular function
+    which will bind to classes (like the ``curry`` function from
+    ``django.utils.functional``).
+    """
+    any_x = any(isinstance(a, XObject) for a in xargs + tuple(xkwargs.values()))
+    use = lambda x, value: (~x)(value) if isinstance(x, XObject) else x
+
+    def xcurried(*func_args, **func_kwargs):
+        if any_x:
+            if not func_args:
+                raise ValueError('Function "%s" curried with an X placeholder '
+                    'but called with no positional arguments.' % get_name(func))
+            first = func_args[0]
+            rest = func_args[1:]
+            args = tuple(use(x, first) for x in xargs) + rest
+            kwargs = dict((k, use(x, first)) for k, x in xkwargs.iteritems())
+            kwargs.update(func_kwargs)
+        else:
+            args = xargs + func_args
+            kwargs = dict(xkwargs, **func_kwargs)
+        return func(*args, **kwargs)
+
+    name = '%s(%s)' % (get_name(func), repr_args(*xargs, **xkwargs))
+    return set_name(name, xcurried)
