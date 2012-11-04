@@ -142,6 +142,8 @@ result as the previous example::
 
     odd_sum = pipe | xrange | (ifilter, lambda x: x % 2) | sum
 
+As of ``0.1.9``, this is even more powerful, see `X-curry  <http://0101.github.com/pipetools/doc/xcurry.html>`_.
+
 
 Built-in tools
 """"""""""""""
