@@ -1,5 +1,3 @@
-from functools import partial
-
 from pipetools.debug import get_name, set_name, repr_args
 from pipetools.debug import pipe_exception_handler
 
@@ -78,7 +76,7 @@ def prepare_function_for_pipe(thing):
     if isinstance(thing, XObject):
         return ~thing
     if isinstance(thing, tuple):
-        return partial(*thing)
+        return xcurry(*thing)
     if isinstance(thing, basestring):
         return StringFormatter(thing)
     if callable(thing):
@@ -110,10 +108,10 @@ class XObject(object):
 
     def __init__(self, func=None):
         self._func = func
-        self.__name__ = get_name(func)
+        self.__name__ = get_name(func) if func else 'X'
 
     def __repr__(self):
-        return self.__name__ or 'X'
+        return self.__name__
 
     def __invert__(self):
         return self._func or set_name('X', lambda x: x)
@@ -130,34 +128,34 @@ class XObject(object):
         return self.bind(name, lambda x: x(*args, **kwargs))
 
     def __eq__(self, other):
-        return self.bind(u'X == {0}'.format(other), lambda x: x == other)
+        return self.bind('X == {0!r}'.format(other), lambda x: x == other)
 
     def __getattr__(self, name):
         return self.bind(u'X.{0}'.format(name), lambda x: getattr(x, name))
 
     def __getitem__(self, item):
-        return self.bind(u'X[{0}]'.format(item), lambda x: x[item])
+        return self.bind('X[{0!r}]'.format(item), lambda x: x[item])
 
     def __gt__(self, other):
-        return self.bind(u'X > {0}'.format(other), lambda x: x > other)
+        return self.bind('X > {0!r}'.format(other), lambda x: x > other)
 
     def __lt__(self, other):
-        return self.bind(u'X < {0}'.format(other), lambda x: x < other)
+        return self.bind('X < {0!r}'.format(other), lambda x: x < other)
 
     def __mod__(self, y):
-        return self.bind(u'X % {0}'.format(y), lambda x: x % y)
+        return self.bind('X % {0!r}'.format(y), lambda x: x % y)
 
     def __ne__(self, other):
-        return self.bind(u'X != {0}'.format(other), lambda x: x != other)
+        return self.bind('X != {0!r}'.format(other), lambda x: x != other)
 
     def __neg__(self):
         return self.bind('-X', lambda x: -x)
 
     def __mul__(self, other):
-        return self.bind(u'X * {0}'.format(other), lambda x: x * other)
+        return self.bind('X * {0!r}'.format(other), lambda x: x * other)
 
     def __add__(self, other):
-        return self.bind(u'X + {0}'.format(other), lambda x: x + other)
+        return self.bind('X + {0!r}'.format(other), lambda x: x + other)
 
     def __ror__(self, func):
         return pipe | func | self
@@ -168,7 +166,56 @@ class XObject(object):
         return pipe | self | func
 
     def _in_(self, y):
-        return self.bind(u'X._in_({0})'.format(y), lambda x: x in y)
+        return self.bind('X._in_({0!r})'.format(y), lambda x: x in y)
 
 
 X = XObject()
+
+
+def xcurry(func, *xargs, **xkwargs):
+    """
+    Like :func:`functools.partial`, but can take an :class:`XObject`
+    placeholder that will be replaced with the first positional argument
+    when the curried function is called.
+
+    Useful when the function's positional arguments' order doesn't fit your
+    situation, e.g.:
+
+    >>> reverse_range = xcurry(range, X, 0, -1)
+    >>> reverse_range(5)
+    [5, 4, 3, 2, 1]
+
+    It can also be used to transform the positional argument to a keyword
+    argument, which can come in handy inside a *pipe*::
+
+        xcurry(objects.get, id=X)
+
+    Also the XObjects are evaluated, which can be used for some sort of
+    destructuring of the argument::
+
+        xcurry(somefunc, name=X.name, number=X.contacts['number'])
+
+    Lastly, unlike :func:`functools.partial`, this creates a regular function
+    which will bind to classes (like the ``curry`` function from
+    ``django.utils.functional``).
+    """
+    any_x = any(isinstance(a, XObject) for a in xargs + tuple(xkwargs.values()))
+    use = lambda x, value: (~x)(value) if isinstance(x, XObject) else x
+
+    def xcurried(*func_args, **func_kwargs):
+        if any_x:
+            if not func_args:
+                raise ValueError('Function "%s" curried with an X placeholder '
+                    'but called with no positional arguments.' % get_name(func))
+            first = func_args[0]
+            rest = func_args[1:]
+            args = tuple(use(x, first) for x in xargs) + rest
+            kwargs = dict((k, use(x, first)) for k, x in xkwargs.iteritems())
+            kwargs.update(func_kwargs)
+        else:
+            args = xargs + func_args
+            kwargs = dict(xkwargs, **func_kwargs)
+        return func(*args, **kwargs)
+
+    name = '%s(%s)' % (get_name(func), repr_args(*xargs, **xkwargs))
+    return set_name(name, xcurried)

@@ -5,6 +5,11 @@ def my_func(*args, **kwargs):
     pass
 
 
+def test_pipe_util_xcurry():
+    f = xrange | foreach(range, X, 0, -1) | list
+    assert f(3, 5) == [[3, 2, 1], [4, 3, 2, 1]]
+
+
 class TestPipeUtilNames:
 
     def test_basic(self):
