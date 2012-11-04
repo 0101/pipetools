@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The Maybe Pipe &mdash; pipetools 0.1.9 documentation</title>
+    <title>X-curry &mdash; pipetools 0.1.9 documentation</title>
     
     <link rel="stylesheet" href="_static/override.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,8 +26,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favico.png"/>
     <link rel="top" title="pipetools 0.1.9 documentation" href="index.html" />
-    <link rel="next" title="decorators module" href="decorators.html" />
-    <link rel="prev" title="X-curry" href="xcurry.html" />
+    <link rel="next" title="The Maybe Pipe" href="maybe.html" />
+    <link rel="prev" title="The X object" href="xobject.html" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
@@ -54,10 +54,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="decorators.html" title="decorators module"
+          <a href="maybe.html" title="The Maybe Pipe"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="xcurry.html" title="X-curry"
+          <a href="xobject.html" title="The X object"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">pipetools 0.1.9 documentation</a> &raquo;</li> 
       </ul>
@@ -68,23 +68,37 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="the-maybe-pipe">
-<h1>The Maybe Pipe<a class="headerlink" href="#the-maybe-pipe" title="Permalink to this headline">¶</a></h1>
-<p><tt class="docutils literal"><span class="pre">maybe</span></tt> is just like <a class="reference internal" href="overview.html#the-pipe"><em>pipe</em></a>, except if any of the piped functions
-returns <tt class="docutils literal"><span class="pre">None</span></tt> the execution is stopped and <tt class="docutils literal"><span class="pre">None</span></tt> is returned immediately.</p>
-<p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pipetools</span> <span class="kn">import</span> <span class="n">maybe</span><span class="p">,</span> <span class="n">X</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">maybe</span> <span class="o">|</span> <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">,</span> <span class="s">r&#39;^number-(\d+)$&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">X</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="nb">int</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="s">&#39;number-7&#39;</span><span class="p">)</span>
-<span class="go">7</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="s">&#39;something else&#39;</span><span class="p">)</span>
-<span class="go">None</span>
+  <div class="section" id="x-curry">
+<h1>X-curry<a class="headerlink" href="#x-curry" title="Permalink to this headline">¶</a></h1>
+<p>More powerful partial application with the <a class="reference internal" href="xobject.html"><em>X object</em></a></p>
+<dl class="function">
+<dt id="pipetools.xcurry">
+<tt class="descclassname">pipetools.</tt><tt class="descname">xcurry</tt><big>(</big><em>func</em>, <em>*xargs</em>, <em>**xkwargs</em><big>)</big><a class="headerlink" href="#pipetools.xcurry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Like <tt class="xref py py-func docutils literal"><span class="pre">functools.partial()</span></tt>, but can take an <tt class="xref py py-class docutils literal"><span class="pre">XObject</span></tt>
+placeholder that will be replaced with the first positional argument
+when the curried function is called.</p>
+<p>Useful when the function&#8217;s positional arguments&#8217; order doesn&#8217;t fit your
+situation, e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">reverse_range</span> <span class="o">=</span> <span class="n">xcurry</span><span class="p">(</span><span class="nb">range</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reverse_range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="go">[5, 4, 3, 2, 1]</span>
 </pre></div>
 </div>
-<p>Can be used together with <a class="reference internal" href="pipeutils.html#pipetools.utils.unless" title="pipetools.utils.unless"><tt class="xref py py-func docutils literal"><span class="pre">unless()</span></tt></a> to great effect:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="s">&#39;file.txt&#39;</span> <span class="o">&gt;</span> <span class="n">maybe</span> <span class="o">|</span> <span class="n">unless</span><span class="p">(</span><span class="ne">IOError</span><span class="p">,</span> <span class="nb">open</span><span class="p">)</span> <span class="o">|</span> <span class="n">X</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<p>It can also be used to transform the positional argument to a keyword
+argument, which can come in handy inside a <em>pipe</em>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">xcurry</span><span class="p">(</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">X</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Also the XObjects are evaluated, which can be used for some sort of
+destructuring of the argument:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">xcurry</span><span class="p">(</span><span class="n">somefunc</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">contacts</span><span class="p">[</span><span class="s">&#39;number&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Lastly, unlike <tt class="xref py py-func docutils literal"><span class="pre">functools.partial()</span></tt>, this creates a regular function
+which will bind to classes (like the <tt class="docutils literal"><span class="pre">curry</span></tt> function from
+<tt class="docutils literal"><span class="pre">django.utils.functional</span></tt>).</p>
+</dd></dl>
+
 </div>
 
 
@@ -94,11 +108,11 @@ returns <tt class="docutils literal"><span class="pre">None</span></tt> the exec
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="xcurry.html"
-                        title="previous chapter">X-curry</a></p>
+  <p class="topless"><a href="xobject.html"
+                        title="previous chapter">The X object</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="decorators.html"
-                        title="next chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">decorators</span></tt> module</a></p>
+  <p class="topless"><a href="maybe.html"
+                        title="next chapter">The Maybe Pipe</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -126,10 +140,10 @@ returns <tt class="docutils literal"><span class="pre">None</span></tt> the exec
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="decorators.html" title="decorators module"
+          <a href="maybe.html" title="The Maybe Pipe"
              >next</a> |</li>
         <li class="right" >
-          <a href="xcurry.html" title="X-curry"
+          <a href="xobject.html" title="The X object"
              >previous</a> |</li>
         <li><a href="index.html">pipetools 0.1.9 documentation</a> &raquo;</li> 
       </ul>

@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pipe-utils &mdash; pipetools 0.1.8 documentation</title>
+    <title>pipe-utils &mdash; pipetools 0.1.9 documentation</title>
     
     <link rel="stylesheet" href="_static/override.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.1.8',
+        VERSION:     '0.1.9',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favico.png"/>
-    <link rel="top" title="pipetools 0.1.8 documentation" href="index.html" />
+    <link rel="top" title="pipetools 0.1.9 documentation" href="index.html" />
     <link rel="next" title="The X object" href="xobject.html" />
     <link rel="prev" title="Welcome to pipetools’ documentation!" href="index.html" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -59,7 +59,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to pipetools’ documentation!"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pipetools 0.1.8 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pipetools 0.1.9 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -86,10 +86,13 @@ the given function with positional and/or keyword arguments, for example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">foreach</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">some_func</span><span class="p">,</span> <span class="n">foo</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="bp">None</span><span class="p">))</span>
 </pre></div>
 </div>
+<p>(As of <tt class="docutils literal"><span class="pre">0.1.9</span></tt> this uses <a class="reference internal" href="xcurry.html"><em>X-curry</em></a>)</p>
 <p>They also automatically convert the <a class="reference internal" href="xobject.html"><em>X object</em></a> to an actual
 function.</p>
-<p>Here goes the list:</p>
-<span class="target" id="module-pipetools.utils"></span><dl class="function">
+</div>
+<div class="section" id="module-pipetools.utils">
+<span id="list-of-built-in-utils"></span><h2>List of built-in utils<a class="headerlink" href="#module-pipetools.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
 <dt id="pipetools.utils.as_args">
 <tt class="descclassname">pipetools.utils.</tt><tt class="descname">as_args</tt><big>(</big><em>function</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pipetools.utils.as_args" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the sequence in the input as positional arguments to <cite>function</cite>.</p>
@@ -283,6 +286,7 @@ otherwise it would just give us <tt class="docutils literal"><span class="pre">&
   <ul>
 <li><a class="reference internal" href="#">pipe-utils</a><ul>
 <li><a class="reference internal" href="#built-in">Built-in</a></li>
+<li><a class="reference internal" href="#module-pipetools.utils">List of built-in utils</a></li>
 <li><a class="reference internal" href="#make-your-own">Make your own</a></li>
 <li><a class="reference internal" href="#automatic-data-structure-creation">Automatic data-structure creation</a></li>
 </ul>
@@ -327,7 +331,7 @@ otherwise it would just give us <tt class="docutils literal"><span class="pre">&
         <li class="right" >
           <a href="index.html" title="Welcome to pipetools’ documentation!"
              >previous</a> |</li>
-        <li><a href="index.html">pipetools 0.1.8 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pipetools 0.1.9 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

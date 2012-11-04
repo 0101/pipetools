@@ -21,11 +21,14 @@ Is the same as::
 
     foreach(partial(some_func, foo, bar=None))
 
+(As of ``0.1.9`` this uses :doc:`xcurry`)
+
 
 They also automatically convert the :doc:`X object<xobject>` to an actual
 function.
 
-Here goes the list:
+List of built-in utils
+----------------------
 
 .. automodule:: pipetools.utils
     :members:
