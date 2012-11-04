@@ -110,10 +110,10 @@ class XObject(object):
 
     def __init__(self, func=None):
         self._func = func
-        self.__name__ = get_name(func)
+        self.__name__ = get_name(func) if func else 'X'
 
     def __repr__(self):
-        return self.__name__ or 'X'
+        return self.__name__
 
     def __invert__(self):
         return self._func or set_name('X', lambda x: x)
@@ -130,34 +130,34 @@ class XObject(object):
         return self.bind(name, lambda x: x(*args, **kwargs))
 
     def __eq__(self, other):
-        return self.bind(u'X == {0}'.format(other), lambda x: x == other)
+        return self.bind('X == {0!r}'.format(other), lambda x: x == other)
 
     def __getattr__(self, name):
         return self.bind(u'X.{0}'.format(name), lambda x: getattr(x, name))
 
     def __getitem__(self, item):
-        return self.bind(u'X[{0}]'.format(item), lambda x: x[item])
+        return self.bind('X[{0!r}]'.format(item), lambda x: x[item])
 
     def __gt__(self, other):
-        return self.bind(u'X > {0}'.format(other), lambda x: x > other)
+        return self.bind('X > {0!r}'.format(other), lambda x: x > other)
 
     def __lt__(self, other):
-        return self.bind(u'X < {0}'.format(other), lambda x: x < other)
+        return self.bind('X < {0!r}'.format(other), lambda x: x < other)
 
     def __mod__(self, y):
-        return self.bind(u'X % {0}'.format(y), lambda x: x % y)
+        return self.bind('X % {0!r}'.format(y), lambda x: x % y)
 
     def __ne__(self, other):
-        return self.bind(u'X != {0}'.format(other), lambda x: x != other)
+        return self.bind('X != {0!r}'.format(other), lambda x: x != other)
 
     def __neg__(self):
         return self.bind('-X', lambda x: -x)
 
     def __mul__(self, other):
-        return self.bind(u'X * {0}'.format(other), lambda x: x * other)
+        return self.bind('X * {0!r}'.format(other), lambda x: x * other)
 
     def __add__(self, other):
-        return self.bind(u'X + {0}'.format(other), lambda x: x + other)
+        return self.bind('X + {0!r}'.format(other), lambda x: x + other)
 
     def __ror__(self, func):
         return pipe | func | self
@@ -168,7 +168,7 @@ class XObject(object):
         return pipe | self | func
 
     def _in_(self, y):
-        return self.bind(u'X._in_({0})'.format(y), lambda x: x in y)
+        return self.bind('X._in_({0!r})'.format(y), lambda x: x in y)
 
 
 X = XObject()
