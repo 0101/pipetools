@@ -43,8 +43,8 @@ remember to prefix it with ``~``
 Currently supported operations
 ------------------------------
 
-These are added as I need them. If you're missing something you can add it
-yourself or create an issue on github_.
+These are added as I need them. It's quite complete now, but if you're still
+missing something you can add it yourself or create an issue on github_.
 
 .. _github: https://github.com/0101/pipetools
 
@@ -84,9 +84,19 @@ yourself or create an issue on github_.
     X > 3
 
 
+* greater or equal (``__ge__``)::
+
+    X >= 3
+
+
 * less than (``__lt__``)::
 
     X < 3
+
+
+* less or equal (``__le__``)::
+
+    X <= 3
 
 
 * modulo (``__mod__``)::
@@ -110,9 +120,19 @@ yourself or create an issue on github_.
     X + " ...that's what she said!"
 
 
+* subtraction (``__sub__``)::
+
+    X - 3
+
+
+* power (``__pow__``)::
+
+    X ** 2
+
+
 * is contained in (``_in_``)
 
   Unfortunately, ``X in container`` can't be done (because the magic method is
-  called on the container) so theres a special method for that::
+  called on the container) so there's a special method for that::
 
         X._in_(container)
