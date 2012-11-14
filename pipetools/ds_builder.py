@@ -48,4 +48,4 @@ def ds_item(definition, data):
         return DSBuilder(definition)(data)
     except NoBuilder:
         # static item
-        return data
+        return definition

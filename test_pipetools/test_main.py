@@ -78,12 +78,26 @@ class TestX:
         assert f(6)
         assert not f(5)
 
+    def test_gte(self):
+
+        f = ~(X >= 5)
+
+        assert f(5)
+        assert not f(4)
+
     def test_lt(self):
 
         f = ~(X < 5)
 
         assert f(4)
         assert not f(5)
+
+    def test_lte(self):
+
+        f = ~(X <= 5)
+
+        assert f(5)
+        assert not f(6)
 
     def test_chained_gt(self):
 
@@ -147,6 +161,12 @@ class TestX:
         assert (~(X + 2))(40) == 42
         assert (~(X + '2'))('4') == '42'
         assert (~(X + [2]))([4]) == [4, 2]
+
+    def test_sub(self):
+        assert (~(X - 3))(5) == (5 - 3)
+
+    def test_pow(self):
+        assert (~(X ** 3))(5) == (5 ** 3)
 
     def test_in(self):
         container = 'asdf'

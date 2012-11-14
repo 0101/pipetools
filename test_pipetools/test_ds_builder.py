@@ -27,9 +27,9 @@ def test_build_dict():
 
 def test_constant_items():
 
-    f = DSBuilder({'key': X})
+    f = DSBuilder({42: X})
 
-    assert f('value') == {'key': 'value'}
+    assert f('value') == {42: 'value'}
 
 
 def test_format():

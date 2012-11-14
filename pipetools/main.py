@@ -58,7 +58,7 @@ class Maybe(Pipe):
         name = '{0} ?| {1}'.format(get_name(first), get_name(second))
 
         def composite(*args, **kwargs):
-            with pipe_exception_handler('maybe | ' + name):
+            with pipe_exception_handler('maybe ?| ' + name):
                 result = first(*args, **kwargs)
                 return None if result is None else second(result)
         return set_name(name, composite)
@@ -139,8 +139,14 @@ class XObject(object):
     def __gt__(self, other):
         return self.bind('X > {0!r}'.format(other), lambda x: x > other)
 
+    def __ge__(self, other):
+        return self.bind('X >= {0!r}'.format(other), lambda x: x >= other)
+
     def __lt__(self, other):
         return self.bind('X < {0!r}'.format(other), lambda x: x < other)
+
+    def __le__(self, other):
+        return self.bind('X <= {0!r}'.format(other), lambda x: x <= other)
 
     def __mod__(self, y):
         return self.bind('X % {0!r}'.format(y), lambda x: x % y)
@@ -156,6 +162,12 @@ class XObject(object):
 
     def __add__(self, other):
         return self.bind('X + {0!r}'.format(other), lambda x: x + other)
+
+    def __sub__(self, other):
+        return self.bind('X - {0!r}'.format(other), lambda x: x - other)
+
+    def __pow__(self, other):
+        return self.bind('X ** {0!r}'.format(other), lambda x: x ** other)
 
     def __ror__(self, func):
         return pipe | func | self
