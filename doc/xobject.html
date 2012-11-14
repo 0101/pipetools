@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The X object &mdash; pipetools 0.1.9 documentation</title>
+    <title>The X object &mdash; pipetools 0.2.0 documentation</title>
     
     <link rel="stylesheet" href="_static/override.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.1.9',
+        VERSION:     '0.2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favico.png"/>
-    <link rel="top" title="pipetools 0.1.9 documentation" href="index.html" />
+    <link rel="top" title="pipetools 0.2.0 documentation" href="index.html" />
     <link rel="next" title="X-curry" href="xcurry.html" />
     <link rel="prev" title="pipe-utils" href="pipeutils.html" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -59,7 +59,7 @@
         <li class="right" >
           <a href="pipeutils.html" title="pipe-utils"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pipetools 0.1.9 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pipetools 0.2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -100,8 +100,8 @@ remember to prefix it with <tt class="docutils literal"><span class="pre">~</spa
 </div>
 <div class="section" id="currently-supported-operations">
 <span id="x-supported-operations"></span><h2>Currently supported operations<a class="headerlink" href="#currently-supported-operations" title="Permalink to this headline">¶</a></h2>
-<p>These are added as I need them. If you&#8217;re missing something you can add it
-yourself or create an issue on <a class="reference external" href="https://github.com/0101/pipetools">github</a>.</p>
+<p>These are added as I need them. It&#8217;s quite complete now, but if you&#8217;re still
+missing something you can add it yourself or create an issue on <a class="reference external" href="https://github.com/0101/pipetools">github</a>.</p>
 <ul>
 <li><p class="first">call (<tt class="docutils literal"><span class="pre">__call__</span></tt>):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">X</span><span class="p">()</span>
@@ -138,8 +138,18 @@ yourself or create an issue on <a class="reference external" href="https://githu
 </pre></div>
 </div>
 </li>
+<li><p class="first">greater or equal (<tt class="docutils literal"><span class="pre">__ge__</span></tt>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">X</span> <span class="o">&gt;=</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</li>
 <li><p class="first">less than (<tt class="docutils literal"><span class="pre">__lt__</span></tt>):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">X</span> <span class="o">&lt;</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">less or equal (<tt class="docutils literal"><span class="pre">__le__</span></tt>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">X</span> <span class="o">&lt;=</span> <span class="mi">3</span>
 </pre></div>
 </div>
 </li>
@@ -164,9 +174,19 @@ yourself or create an issue on <a class="reference external" href="https://githu
 </pre></div>
 </div>
 </li>
+<li><p class="first">subtraction (<tt class="docutils literal"><span class="pre">__sub__</span></tt>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">X</span> <span class="o">-</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">power (<tt class="docutils literal"><span class="pre">__pow__</span></tt>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">X</span> <span class="o">**</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</li>
 <li><p class="first">is contained in (<tt class="docutils literal"><span class="pre">_in_</span></tt>)</p>
 <p>Unfortunately, <tt class="docutils literal"><span class="pre">X</span> <span class="pre">in</span> <span class="pre">container</span></tt> can&#8217;t be done (because the magic method is
-called on the container) so theres a special method for that:</p>
+called on the container) so there&#8217;s a special method for that:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">X</span><span class="o">.</span><span class="n">_in_</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -227,7 +247,7 @@ called on the container) so theres a special method for that:</p>
         <li class="right" >
           <a href="pipeutils.html" title="pipe-utils"
              >previous</a> |</li>
-        <li><a href="index.html">pipetools 0.1.9 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pipetools 0.2.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
