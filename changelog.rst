@@ -1,4 +1,12 @@
 
+0.2.0
+----------
+2012-11-14
+
+* added support for X >=, <=, - and ** operations
+* fixed static item handling in ds_builder
+
+
 0.1.9
 ----------
 2012-11-05
