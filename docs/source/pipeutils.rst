@@ -12,8 +12,8 @@ Built-in
 Even though these are defined in the ``pipetools.utils`` module, they're
 importable directly from ``pipetools`` for convenience.
 
-All of these that take a function as an argument can automatically curry
-the given function with positional and/or keyword arguments, for example::
+All of these that take a function as an argument can automatically partially
+apply the given function with positional and/or keyword arguments, for example::
 
     foreach(some_func, foo, bar=None)
 
@@ -21,7 +21,7 @@ Is the same as::
 
     foreach(partial(some_func, foo, bar=None))
 
-(As of ``0.1.9`` this uses :doc:`xcurry`)
+(As of ``0.1.9`` this uses :doc:`xpartial`)
 
 
 They also automatically convert the :doc:`X object<xobject>` to an actual

@@ -1,7 +1,7 @@
 # encoding: utf-8
 import pytest
 
-from pipetools import pipe, X, maybe, xcurry
+from pipetools import pipe, X, maybe, xpartial
 from pipetools.main import StringFormatter
 
 
@@ -239,31 +239,31 @@ def dummy(*args, **kwargs):
     return args, kwargs
 
 
-class TestXCurry:
+class TestXPartial:
 
     def test_should_behave_like_partial(self):
-        xf = xcurry(dummy, 1, kwarg='kwarg')
+        xf = xpartial(dummy, 1, kwarg='kwarg')
         assert xf(2, foo='bar') == ((1, 2), {'kwarg': 'kwarg', 'foo': 'bar'})
 
     def test_x_placeholder(self):
-        xf = xcurry(dummy, X, 2)
+        xf = xpartial(dummy, X, 2)
         assert xf(1) == ((1, 2), {})
 
     def test_x_kw_placeholder(self):
-        xf = xcurry(dummy, kwarg=X)
+        xf = xpartial(dummy, kwarg=X)
         assert xf(1) == ((), {'kwarg': 1})
 
     def test_x_destructuring(self):
-        xf = xcurry(dummy, X['name'], number=X['number'])
+        xf = xpartial(dummy, X['name'], number=X['number'])
         d = {'name': "Fred", 'number': 42, 'something': 'else'}
         assert xf(d) == (('Fred',), {'number': 42})
 
     def test_name(self):
-        xf = xcurry(dummy, X, 3, something=X['something'])
+        xf = xpartial(dummy, X, 3, something=X['something'])
         assert xf.__name__ == "dummy(X, 3, something=X['something'])"
 
     def test_should_raise_error_when_not_given_an_argument(self):
         # -- when created with a placeholder
-        xf = xcurry(dummy, something=X)
+        xf = xpartial(dummy, something=X)
         with pytest.raises(ValueError):
             xf()

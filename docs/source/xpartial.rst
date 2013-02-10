@@ -1,6 +1,6 @@
-X-curry
-=======
+X-partial
+=========
 
 More powerful partial application with the :doc:`X object <xobject>`
 
-.. autofunction:: pipetools.xcurry
+.. autofunction:: pipetools.xpartial

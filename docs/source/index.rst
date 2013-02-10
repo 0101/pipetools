@@ -14,7 +14,7 @@ But wait, there is more
 
    pipeutils
    xobject
-   xcurry
+   xpartial
    maybe
    decorators
    changelog

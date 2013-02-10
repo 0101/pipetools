@@ -2,12 +2,12 @@ from functools import wraps
 
 from pipetools.debug import repr_args, set_name, get_name
 from pipetools.ds_builder import DSBuilder, NoBuilder
-from pipetools.main import pipe, XObject, StringFormatter, xcurry
+from pipetools.main import pipe, XObject, StringFormatter, xpartial
 
 
 def pipe_util(func):
     """
-    Decorator that handles X objects and currying for pipe-utils.
+    Decorator that handles X objects and partial application for pipe-utils.
     """
     @wraps(func)
     def pipe_util_wrapper(function, *args, **kwargs):
@@ -17,7 +17,7 @@ def pipe_util(func):
         function_name = get_name(function)
 
         if args or kwargs:
-            function = xcurry(function, *args, **kwargs)
+            function = xpartial(function, *args, **kwargs)
 
         name = '%s(%s)' % (func.__name__, ', '.join(
             filter(None, (function_name, repr_args(*args, **kwargs)))))
