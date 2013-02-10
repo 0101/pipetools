@@ -127,8 +127,8 @@ A real example, sum of odd numbers from 0 to *x*::
 Note that the chain up to the `sum` is lazy.
 
 
-Automatic partial application (currying) in the pipe
-""""""""""""""""""""""""""""""""""""""""""""""""""""
+Automatic partial application in the pipe
+"""""""""""""""""""""""""""""""""""""""""
 
 As partial application is often useful when piping things together, it is done
 automatically when the *pipe* encounters a tuple, so this produces the same
@@ -136,7 +136,7 @@ result as the previous example::
 
     odd_sum = pipe | xrange | (ifilter, lambda x: x % 2) | sum
 
-As of ``0.1.9``, this is even more powerful, see :doc:`X-curry <xcurry>`.
+As of ``0.1.9``, this is even more powerful, see :doc:`X-partial <xpartial>`.
 
 
 Built-in tools

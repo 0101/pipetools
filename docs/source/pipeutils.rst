@@ -12,8 +12,8 @@ Built-in
 Even though these are defined in the ``pipetools.utils`` module, they're
 importable directly from ``pipetools`` for convenience.
 
-All of these that take a function as an argument can automatically curry
-the given function with positional and/or keyword arguments, for example::
+All of these that take a function as an argument can automatically partially
+apply the given function with positional and/or keyword arguments, for example::
 
     foreach(some_func, foo, bar=None)
 
@@ -21,7 +21,7 @@ Is the same as::
 
     foreach(partial(some_func, foo, bar=None))
 
-(As of ``0.1.9`` this uses :doc:`xcurry`)
+(As of ``0.1.9`` this uses :doc:`xpartial`)
 
 
 They also automatically convert the :doc:`X object<xobject>` to an actual
@@ -77,3 +77,24 @@ It can also be combined with string formatting::
     >>> names > foreach({'name': "{0} {1}", 'initials': '{0[0]}. {1[0]}.'}) | tuple
     ({u'initials': u'J. M.', u'name': u'John Matrix'},
      {u'initials': u'J. S.', u'name': u'Jack Slater'})
+
+.. _auto-regex:
+
+Automatic regex conditions
+--------------------------
+If you use a string instead of a function as a condition in
+:func:`~pipetools.utils.where`, :func:`~pipetools.utils.where_not`,
+:func:`~pipetools.utils.select_first` or :func:`~pipetools.utils.take_until` the
+string will be used as a regex to match the input against. This will, of course,
+work only if the items of the input sequence are strings.
+
+Essentially::
+
+    where(r'^some\-regexp?$')
+
+is equivalent to::
+
+    where(re.match, r'^some\-regexp?$')
+
+If you want to easily add this functionality to your own functions, you can use
+the :func:`~pipetools.decorators.regex_condition` decorator.

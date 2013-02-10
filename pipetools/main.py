@@ -76,7 +76,7 @@ def prepare_function_for_pipe(thing):
     if isinstance(thing, XObject):
         return ~thing
     if isinstance(thing, tuple):
-        return xcurry(*thing)
+        return xpartial(*thing)
     if isinstance(thing, basestring):
         return StringFormatter(thing)
     if callable(thing):
@@ -184,28 +184,28 @@ class XObject(object):
 X = XObject()
 
 
-def xcurry(func, *xargs, **xkwargs):
+def xpartial(func, *xargs, **xkwargs):
     """
     Like :func:`functools.partial`, but can take an :class:`XObject`
     placeholder that will be replaced with the first positional argument
-    when the curried function is called.
+    when the partially applied function is called.
 
     Useful when the function's positional arguments' order doesn't fit your
     situation, e.g.:
 
-    >>> reverse_range = xcurry(range, X, 0, -1)
+    >>> reverse_range = xpartial(range, X, 0, -1)
     >>> reverse_range(5)
     [5, 4, 3, 2, 1]
 
     It can also be used to transform the positional argument to a keyword
     argument, which can come in handy inside a *pipe*::
 
-        xcurry(objects.get, id=X)
+        xpartial(objects.get, id=X)
 
     Also the XObjects are evaluated, which can be used for some sort of
     destructuring of the argument::
 
-        xcurry(somefunc, name=X.name, number=X.contacts['number'])
+        xpartial(somefunc, name=X.name, number=X.contacts['number'])
 
     Lastly, unlike :func:`functools.partial`, this creates a regular function
     which will bind to classes (like the ``curry`` function from
@@ -214,11 +214,12 @@ def xcurry(func, *xargs, **xkwargs):
     any_x = any(isinstance(a, XObject) for a in xargs + tuple(xkwargs.values()))
     use = lambda x, value: (~x)(value) if isinstance(x, XObject) else x
 
-    def xcurried(*func_args, **func_kwargs):
+    def xpartially_applied(*func_args, **func_kwargs):
         if any_x:
             if not func_args:
-                raise ValueError('Function "%s" curried with an X placeholder '
-                    'but called with no positional arguments.' % get_name(func))
+                raise ValueError('Function "%s" partially applied with an '
+                    'X placeholder but called with no positional arguments.'
+                    % get_name(func))
             first = func_args[0]
             rest = func_args[1:]
             args = tuple(use(x, first) for x in xargs) + rest
@@ -230,4 +231,4 @@ def xcurry(func, *xargs, **xkwargs):
         return func(*args, **kwargs)
 
     name = '%s(%s)' % (get_name(func), repr_args(*xargs, **xkwargs))
-    return set_name(name, xcurried)
+    return set_name(name, xpartially_applied)

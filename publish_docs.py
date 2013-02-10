@@ -14,6 +14,9 @@ DOC_ROOT = 'http://0101.github.com/pipetools/doc/'
 readme_template = """
 `Complete documentation in full color <{0}>`_.
 
+.. image:: https://travis-ci.org/0101/pipetools.png
+  :target: https://travis-ci.org/0101/pipetools
+
 Pipetools
 =========
 
@@ -36,7 +39,7 @@ link_replacements = (
     (ur":func:`~pipetools\.utils\.([^`]*)`",
         {'url': r'pipeutils.html#pipetools.utils.\1', 'text': r'\1()'}),
 
-) > foreach([~X[0] | re.compile, ~X[1] | link_template])
+) > foreach([X[0] | re.compile, X[1] | link_template])
 
 
 def create_readme():

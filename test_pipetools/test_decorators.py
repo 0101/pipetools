@@ -5,7 +5,7 @@ def my_func(*args, **kwargs):
     pass
 
 
-def test_pipe_util_xcurry():
+def test_pipe_util_xpartial():
     f = xrange | foreach(range, X, 0, -1) | list
     assert f(3, 5) == [[3, 2, 1], [4, 3, 2, 1]]
 
@@ -16,7 +16,7 @@ class TestPipeUtilNames:
         f = foreach(my_func)
         assert f.__name__ == 'foreach(my_func)'
 
-    def test_curried(self):
+    def test_partially_applied(self):
         f = foreach(my_func, 42, kwarg=2)
         assert f.__name__ == 'foreach(my_func, 42, kwarg=2)'
 
