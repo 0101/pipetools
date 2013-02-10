@@ -3,7 +3,7 @@ from itertools import imap, ifilter, islice, takewhile
 import operator
 
 from pipetools.debug import set_name, repr_args, get_name
-from pipetools.decorators import data_structure_builder
+from pipetools.decorators import data_structure_builder, regex_condition
 from pipetools.decorators import pipe_util, auto_string_formatter
 from pipetools.main import pipe, X, _iterable
 
@@ -46,7 +46,8 @@ def foreach_do(function):
 
 
 @pipe_util
-def where(function):
+@regex_condition
+def where(condition):
     """
     Pipe-able lazy filter.
 
@@ -55,15 +56,16 @@ def where(function):
     [1, 3, 5, 7, 9]
 
     """
-    return partial(ifilter, function)
+    return partial(ifilter, condition)
 
 
 @pipe_util
-def where_not(function):
+@regex_condition
+def where_not(condition):
     """
     Inverted :func:`where`.
     """
-    return partial(ifilter, pipe | function | operator.not_)
+    return partial(ifilter, pipe | condition | operator.not_)
 
 
 @pipe_util
@@ -175,12 +177,20 @@ def unless(exception_class_or_tuple, func, *args, **kwargs):
 
 
 @pipe_util
+@regex_condition
 def select_first(condition):
     """
     Returns first item from input sequence that satisfies `condition`. Or
     ``None`` if none does.
 
     >>> ['py', 'pie', 'pi'] > select_first(X.startswith('pi'))
+    'pie'
+
+    As of ``0.2.1`` you can also
+    :ref:`directly use regular expressions <auto-regex>` and write the above
+    as:
+
+    >>> ['py', 'pie', 'pi'] > select_first('^pi')
     'pie'
 
     There is also a shortcut for ``select_first(X)`` called ``first_of``:
@@ -237,9 +247,10 @@ count = pipe | count
 
 
 @pipe_util
-def take_until(function):
+@regex_condition
+def take_until(condition):
     """
     >>> [1, 4, 6, 4, 1] > take_until(X > 5) | list
     [1, 4]
     """
-    return partial(takewhile, pipe | function | operator.not_)
+    return partial(takewhile, pipe | condition | operator.not_)

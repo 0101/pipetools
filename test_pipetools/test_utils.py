@@ -131,3 +131,25 @@ class TestAsKwargs:
     def test_as_kwargs(self):
         d = {'foo': 4, 'bar': 2}
         assert as_kwargs(lambda **kw: kw)(d) == d
+
+
+class TestRegexCondidion:
+
+    def test_where_regex(self):
+        data = [
+            'foo bar',
+            'boo far',
+            'foolproof',
+        ]
+        assert (data > where(r'^foo') | list) == [
+            'foo bar',
+            'foolproof',
+        ]
+
+    def test_select_first_regex(self):
+        data = [
+            'foo bar',
+            'boo far',
+            'foolproof',
+        ]
+        assert (data > select_first(r'^b.*r$')) == 'boo far'

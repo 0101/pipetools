@@ -1,4 +1,5 @@
-from functools import wraps
+import re
+from functools import partial, wraps
 
 from pipetools.debug import repr_args, set_name, get_name
 from pipetools.ds_builder import DSBuilder, NoBuilder
@@ -57,3 +58,16 @@ def data_structure_builder(func):
         return func(function, *args, **kwargs)
 
     return ds_builder_wrapper
+
+
+def regex_condition(func):
+    """
+    If a condition is given as string instead of a function, it is turned
+    into a regex-matching function.
+    """
+    @wraps(func)
+    def regex_condition_wrapper(condition, *args, **kwargs):
+        if isinstance(condition, basestring):
+            condition = partial(re.match, condition)
+        return func(condition, *args, **kwargs)
+    return regex_condition_wrapper
