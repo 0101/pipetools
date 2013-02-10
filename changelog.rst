@@ -1,4 +1,12 @@
 
+0.2.1
+----------
+2013-02-10
+
+* added automatic regex conditions
+* renamed xcurry to xpartial (turns out currying is something else)
+
+
 0.2.0
 ----------
 2012-11-14
