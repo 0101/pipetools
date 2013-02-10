@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Why? &mdash; pipetools 0.2.0 documentation</title>
+    <title>Why? &mdash; pipetools 0.2.1 documentation</title>
     
     <link rel="stylesheet" href="_static/override.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.2.0',
+        VERSION:     '0.2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favico.png"/>
-    <link rel="top" title="pipetools 0.2.0 documentation" href="index.html" />
+    <link rel="top" title="pipetools 0.2.1 documentation" href="index.html" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
@@ -51,7 +51,7 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="index.html">pipetools 0.2.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pipetools 0.2.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -155,15 +155,15 @@ form new functions, and it works like this:</p>
 </div>
 <p>Note that the chain up to the <cite>sum</cite> is lazy.</p>
 </div>
-<div class="section" id="automatic-partial-application-currying-in-the-pipe">
-<h2>Automatic partial application (currying) in the pipe<a class="headerlink" href="#automatic-partial-application-currying-in-the-pipe" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="automatic-partial-application-in-the-pipe">
+<h2>Automatic partial application in the pipe<a class="headerlink" href="#automatic-partial-application-in-the-pipe" title="Permalink to this headline">¶</a></h2>
 <p>As partial application is often useful when piping things together, it is done
 automatically when the <em>pipe</em> encounters a tuple, so this produces the same
 result as the previous example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">odd_sum</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="nb">xrange</span> <span class="o">|</span> <span class="p">(</span><span class="n">ifilter</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="nb">sum</span>
 </pre></div>
 </div>
-<p>As of <tt class="docutils literal"><span class="pre">0.1.9</span></tt>, this is even more powerful, see <a class="reference internal" href="xcurry.html"><em>X-curry</em></a>.</p>
+<p>As of <tt class="docutils literal"><span class="pre">0.1.9</span></tt>, this is even more powerful, see <a class="reference internal" href="xpartial.html"><em>X-partial</em></a>.</p>
 </div>
 <div class="section" id="built-in-tools">
 <h2>Built-in tools<a class="headerlink" href="#built-in-tools" title="Permalink to this headline">¶</a></h2>
@@ -244,7 +244,7 @@ especially when the pipe spans multiple lines):</p>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#usage">Usage</a><ul>
 <li><a class="reference internal" href="#the-pipe">The pipe</a></li>
-<li><a class="reference internal" href="#automatic-partial-application-currying-in-the-pipe">Automatic partial application (currying) in the pipe</a></li>
+<li><a class="reference internal" href="#automatic-partial-application-in-the-pipe">Automatic partial application in the pipe</a></li>
 <li><a class="reference internal" href="#built-in-tools">Built-in tools</a></li>
 <li><a class="reference internal" href="#ok-but-what-about-the-ugly-lambda">OK, but what about the ugly lambda?</a></li>
 <li><a class="reference internal" href="#automatic-string-formatting">Automatic string formatting</a></li>
@@ -279,7 +279,7 @@ especially when the pipe spans multiple lines):</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="index.html">pipetools 0.2.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pipetools 0.2.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

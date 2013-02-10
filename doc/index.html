@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome to pipetools’ documentation! &mdash; pipetools 0.2.0 documentation</title>
+    <title>Welcome to pipetools’ documentation! &mdash; pipetools 0.2.1 documentation</title>
     
     <link rel="stylesheet" href="_static/override.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.2.0',
+        VERSION:     '0.2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favico.png"/>
-    <link rel="top" title="pipetools 0.2.0 documentation" href="#" />
+    <link rel="top" title="pipetools 0.2.1 documentation" href="#" />
     <link rel="next" title="pipe-utils" href="pipeutils.html" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -55,7 +55,7 @@
         <li class="right" >
           <a href="pipeutils.html" title="pipe-utils"
              accesskey="N">next</a> |</li>
-        <li><a href="#">pipetools 0.2.0 documentation</a> &raquo;</li> 
+        <li><a href="#">pipetools 0.2.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -161,15 +161,15 @@ form new functions, and it works like this:</p>
 </div>
 <p>Note that the chain up to the <cite>sum</cite> is lazy.</p>
 </div>
-<div class="section" id="automatic-partial-application-currying-in-the-pipe">
-<h3>Automatic partial application (currying) in the pipe<a class="headerlink" href="#automatic-partial-application-currying-in-the-pipe" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="automatic-partial-application-in-the-pipe">
+<h3>Automatic partial application in the pipe<a class="headerlink" href="#automatic-partial-application-in-the-pipe" title="Permalink to this headline">¶</a></h3>
 <p>As partial application is often useful when piping things together, it is done
 automatically when the <em>pipe</em> encounters a tuple, so this produces the same
 result as the previous example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">odd_sum</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="nb">xrange</span> <span class="o">|</span> <span class="p">(</span><span class="n">ifilter</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="nb">sum</span>
 </pre></div>
 </div>
-<p>As of <tt class="docutils literal"><span class="pre">0.1.9</span></tt>, this is even more powerful, see <a class="reference internal" href="xcurry.html"><em>X-curry</em></a>.</p>
+<p>As of <tt class="docutils literal"><span class="pre">0.1.9</span></tt>, this is even more powerful, see <a class="reference internal" href="xpartial.html"><em>X-partial</em></a>.</p>
 </div>
 <div class="section" id="built-in-tools">
 <h3>Built-in tools<a class="headerlink" href="#built-in-tools" title="Permalink to this headline">¶</a></h3>
@@ -242,20 +242,22 @@ especially when the pipe spans multiple lines):</p>
 <li class="toctree-l2"><a class="reference internal" href="pipeutils.html#module-pipetools.utils">List of built-in utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pipeutils.html#make-your-own">Make your own</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pipeutils.html#automatic-data-structure-creation">Automatic data-structure creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipeutils.html#automatic-regex-conditions">Automatic regex conditions</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="xobject.html">The X object</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="xobject.html#currently-supported-operations">Currently supported operations</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="xcurry.html">X-curry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xpartial.html">X-partial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="maybe.html">The Maybe Pipe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="decorators.html"><tt class="docutils literal"><span class="pre">decorators</span></tt> module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change log</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id1">0.2.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">0.1.9</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id3">0.1.8</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id4">0.1.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id1">0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">0.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id3">0.1.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id4">0.1.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id5">0.1.7</a></li>
 </ul>
 </li>
 </ul>
@@ -288,7 +290,7 @@ especially when the pipe spans multiple lines):</p>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#usage">Usage</a><ul>
 <li><a class="reference internal" href="#the-pipe">The pipe</a></li>
-<li><a class="reference internal" href="#automatic-partial-application-currying-in-the-pipe">Automatic partial application (currying) in the pipe</a></li>
+<li><a class="reference internal" href="#automatic-partial-application-in-the-pipe">Automatic partial application in the pipe</a></li>
 <li><a class="reference internal" href="#built-in-tools">Built-in tools</a></li>
 <li><a class="reference internal" href="#ok-but-what-about-the-ugly-lambda">OK, but what about the ugly lambda?</a></li>
 <li><a class="reference internal" href="#automatic-string-formatting">Automatic string formatting</a></li>
@@ -335,7 +337,7 @@ especially when the pipe spans multiple lines):</p>
         <li class="right" >
           <a href="pipeutils.html" title="pipe-utils"
              >next</a> |</li>
-        <li><a href="#">pipetools 0.2.0 documentation</a> &raquo;</li> 
+        <li><a href="#">pipetools 0.2.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
