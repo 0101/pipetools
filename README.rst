@@ -1,6 +1,9 @@
 
 `Complete documentation in full color <http://0101.github.com/pipetools/doc/>`_.
 
+.. image:: https://travis-ci.org/0101/pipetools.png
+  :target: https://travis-ci.org/0101/pipetools
+
 Pipetools
 =========
 
@@ -133,8 +136,8 @@ A real example, sum of odd numbers from 0 to *x*::
 Note that the chain up to the `sum` is lazy.
 
 
-Automatic partial application (currying) in the pipe
-""""""""""""""""""""""""""""""""""""""""""""""""""""
+Automatic partial application in the pipe
+"""""""""""""""""""""""""""""""""""""""""
 
 As partial application is often useful when piping things together, it is done
 automatically when the *pipe* encounters a tuple, so this produces the same
@@ -142,7 +145,7 @@ result as the previous example::
 
     odd_sum = pipe | xrange | (ifilter, lambda x: x % 2) | sum
 
-As of ``0.1.9``, this is even more powerful, see `X-curry  <http://0101.github.com/pipetools/doc/xcurry.html>`_.
+As of ``0.1.9``, this is even more powerful, see `X-partial  <http://0101.github.com/pipetools/doc/xpartial.html>`_.
 
 
 Built-in tools
