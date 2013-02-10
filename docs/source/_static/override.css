@@ -15,8 +15,11 @@ dt em, dd cite, cite {color:#329D29; font-style: normal;}
 dd {
 	background: #F7F7F7;
 	background: rgba(100, 100, 100, .05);
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 2px 10px 1px;
+    margin-left: 0;
+    margin-bottom: 30px;
+
 }
 h2 {border-bottom: 2px solid #D2D2D2;}
 div.header {background: #19162f url('headerbg.png') repeat-x top;}
