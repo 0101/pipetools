@@ -12,7 +12,7 @@ class Bunch:
 
 class TestPipe(object):
 
-    pipe = pipe
+    pipe = property(lambda self: pipe)
 
     def test_pipe(self):
 
@@ -39,6 +39,14 @@ class TestPipe(object):
         f = self.pipe | 'The answer is {0}.'
 
         assert f(42) == 'The answer is 42.'
+
+    def test_makes_a_bound_method(self):
+
+        class SomeClass(object):
+            attr = 'foo bar'
+            method = X.attr.split() | reversed | ' '.join
+
+        assert SomeClass().method() == 'bar foo'
 
 
 class TestX:
@@ -224,7 +232,7 @@ class TestStringFormatter:
 class TestMaybe(TestPipe):
 
     # maybe should also pass default pipe tests
-    pipe = maybe
+    pipe = property(lambda self: maybe)
 
     def test_maybe_basic(self):
         f = maybe | (lambda: None) | X * 2

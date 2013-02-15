@@ -1,3 +1,5 @@
+from functools import partial
+
 from pipetools.debug import get_name, set_name, repr_args
 from pipetools.debug import pipe_exception_handler
 
@@ -47,6 +49,10 @@ class Pipe(object):
 
     def __call__(self, *args, **kwargs):
         return self.func(*args, **kwargs)
+
+    def __get__(self, instance, owner):
+        return partial(self, instance) if instance else self
+
 
 pipe = Pipe()
 
