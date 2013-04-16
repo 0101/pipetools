@@ -166,6 +166,9 @@ class XObject(object):
     def __mul__(self, other):
         return self.bind('X * {0!r}'.format(other), lambda x: x * other)
 
+    def __div__(self, other):
+        return self.bind('X / {0!r}'.format(other), lambda x: x / other)
+
     def __add__(self, other):
         return self.bind('X + {0!r}'.format(other), lambda x: x + other)
 
