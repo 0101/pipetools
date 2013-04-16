@@ -114,6 +114,11 @@ missing something you can add it yourself or create an issue on github_.
     X * 3
 
 
+* division (``__div__``)::
+
+    X / 3
+
+
 * addition (``__add__``)::
 
     X + 3

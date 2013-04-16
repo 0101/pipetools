@@ -1,4 +1,12 @@
 
+0.2.2
+----------
+2013-04-16
+
+* X objects create bound methods on classes
+* added support for X division
+
+
 0.2.1
 ----------
 2013-02-10
