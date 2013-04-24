@@ -28,6 +28,17 @@ class TestSortBy:
             ('w', 1),
         ]
 
+    def test_descending(self):
+
+        result = zip('what', [1, 2, 3, 4]) > sort_by(X[1]).descending
+
+        assert result == [
+            ('t', 4),
+            ('a', 3),
+            ('h', 2),
+            ('w', 1),
+        ]
+
 
 class TestTakeFirst:
 
@@ -64,10 +75,10 @@ class TestSelectFirst:
 
     def test_select_first_none(self):
         result = select_first(X == 2)([0, 1, 0, 1])
-        assert result == None
+        assert result is None
 
     def test_select_first_empty(self):
-        assert select_first(X)([]) == None
+        assert select_first(X)([]) is None
 
 
 class TestAutoStringFormatter:
@@ -85,7 +96,7 @@ class TestUnless:
 
     def test_with_exception(self):
         f = unless(AttributeError, foreach(X.lower()) | list)
-        assert f(['A', 'B', 37]) == None
+        assert f(['A', 'B', 37]) is None
 
     def test_with_exception_in_foreach(self):
         f = foreach(unless(AttributeError, X.lower())) | list
@@ -97,7 +108,7 @@ class TestUnless:
 
     def test_partial_exc(self):
         f = unless(TypeError, enumerate, start=3)
-        assert f(42) == None
+        assert f(42) is None
 
     def test_X_ok(self):
         f = unless(TypeError, X * 'x')
@@ -105,7 +116,7 @@ class TestUnless:
 
     def test_X_exception(self):
         f = unless(TypeError, X * 'x')
-        assert f('x') == None
+        assert f('x') is None
 
 
 class TestFlatten:

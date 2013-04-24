@@ -85,8 +85,21 @@ def sort_by(function):
 
     >>> [4, 5, 8, -3, 0] > sort
     [-3, 0, 4, 5, 8]
+
+    And (as of 0.2.3) a shortcut for reversing the sort:
+
+    >>> 'asdfaSfa' > sort_by(X.lower()).descending
+    ['s', 'S', 'f', 'f', 'd', 'a', 'a', 'a']
     """
-    return partial(sorted, key=function)
+    f = partial(sorted, key=function)
+    f.attrs = {'descending': _descending_sort_by(function)}
+    return f
+
+
+@pipe_util
+def _descending_sort_by(function):
+    return partial(sorted, key=function, reverse=True)
+
 
 sort = sort_by(X)
 
