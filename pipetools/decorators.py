@@ -23,7 +23,17 @@ def pipe_util(func):
         name = '%s(%s)' % (func.__name__, ', '.join(
             filter(None, (function_name, repr_args(*args, **kwargs)))))
 
-        return pipe | set_name(name, func(function))
+        f = func(function)
+
+        result = pipe | set_name(name, f)
+
+        # if the util defines an 'attrs' mapping, copy it as attributes
+        # to the result
+        attrs = getattr(f, 'attrs', {})
+        for k, v in attrs.iteritems():
+            setattr(result, k, v)
+
+        return result
 
     return pipe_util_wrapper
 

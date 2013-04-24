@@ -1,4 +1,12 @@
 
+0.2.3
+----------
+2013-04-24
+
+* added sort_by.descending
+* group_by returns item iterator instead of a dictionary
+
+
 0.2.2
 ----------
 2013-04-16

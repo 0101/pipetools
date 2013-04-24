@@ -85,8 +85,21 @@ def sort_by(function):
 
     >>> [4, 5, 8, -3, 0] > sort
     [-3, 0, 4, 5, 8]
+
+    And (as of 0.2.3) a shortcut for reversing the sort:
+
+    >>> 'asdfaSfa' > sort_by(X.lower()).descending
+    ['s', 'S', 'f', 'f', 'd', 'a', 'a', 'a']
     """
-    return partial(sorted, key=function)
+    f = partial(sorted, key=function)
+    f.attrs = {'descending': _descending_sort_by(function)}
+    return f
+
+
+@pipe_util
+def _descending_sort_by(function):
+    return partial(sorted, key=function, reverse=True)
+
 
 sort = sort_by(X)
 
@@ -210,13 +223,23 @@ first_of = select_first(X)
 @data_structure_builder
 def group_by(function):
     """
-    Returns a dictionary of input sequence items grouped by `function`.
+    Groups input sequence by `function`.
+
+    Returns an iterator over a sequence of tuples where the first item is a
+    result of `function` and the second one a list of items matching this
+    result.
+
+    Ordering of the resulting iterator is undefined, but ordering of the items
+    in the groups is preserved.
+
+    >>> [1, 2, 3, 4, 5, 6] > group_by(X % 2) | list
+    [(0, [2, 4, 6]), (1, [1, 3, 5])]
     """
     def _group_by(seq):
         result = {}
         for item in seq:
             result.setdefault(function(item), []).append(item)
-        return result
+        return result.iteritems()
 
     return _group_by
 
