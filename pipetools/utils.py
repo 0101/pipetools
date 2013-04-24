@@ -210,13 +210,23 @@ first_of = select_first(X)
 @data_structure_builder
 def group_by(function):
     """
-    Returns a dictionary of input sequence items grouped by `function`.
+    Groups input sequence by `function`.
+
+    Returns an iterator over a sequence of tuples where the first item is a
+    result of `function` and the second one a list of items matching this
+    result.
+
+    Ordering of the resulting iterator is undefined, but ordering of the items
+    in the groups is preserved.
+
+    >>> [1, 2, 3, 4, 5, 6] > group_by(X % 2) | list
+    [(0, [2, 4, 6]), (1, [1, 3, 5])]
     """
     def _group_by(seq):
         result = {}
         for item in seq:
             result.setdefault(function(item), []).append(item)
-        return result
+        return result.iteritems()
 
     return _group_by
 
