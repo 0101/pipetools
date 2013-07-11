@@ -22,6 +22,8 @@ class Pipe(object):
     def __str__(self):
         return get_name(self.func)
 
+    __repr__ = __str__
+
     @staticmethod
     def compose(first, second):
         name = '{0} | {1}'.format(get_name(first), get_name(second))
