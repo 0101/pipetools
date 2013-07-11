@@ -1,2 +1,3 @@
 pipetools.egg-info
 docs/build
+*.pyc
