@@ -1,5 +1,5 @@
 from pipetools import X, sort_by, take_first, foreach, where, select_first, group_by
-from pipetools import unless, flatten, take_until, as_kwargs
+from pipetools import unless, flatten, take_until, as_kwargs, drop_first
 
 
 class TestPipeUtil:
@@ -171,3 +171,13 @@ class TestGroupBy:
     def test_basic(self):
         src = [1, 2, 3, 4, 5, 6]
         assert (src > group_by(X % 2) | dict) == {0: [2, 4, 6], 1: [1, 3, 5]}
+
+
+class TestDropFirst:
+
+    def test_list(self):
+        src = [1, 2, 3, 4, 5, 6]
+        assert (src > drop_first(3) | list) == [4, 5, 6]
+
+    def test_iterable(self):
+        assert (xrange(10000) > drop_first(9999) | list) == [9999]
