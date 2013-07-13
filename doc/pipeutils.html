@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pipe-utils &mdash; pipetools 0.2.3 documentation</title>
+    <title>pipe-utils &mdash; pipetools 0.2.4 documentation</title>
     
     <link rel="stylesheet" href="_static/override.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.2.3',
+        VERSION:     '0.2.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favico.png"/>
-    <link rel="top" title="pipetools 0.2.3 documentation" href="index.html" />
+    <link rel="top" title="pipetools 0.2.4 documentation" href="index.html" />
     <link rel="next" title="The X object" href="xobject.html" />
     <link rel="prev" title="Welcome to pipetools’ documentation!" href="index.html" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -58,7 +58,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to pipetools’ documentation!"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pipetools 0.2.3 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pipetools 0.2.4 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -116,6 +116,17 @@ function.</p>
     <span class="o">|</span> <span class="n">something_else</span>
     <span class="o">|</span> <span class="n">foreach</span><span class="p">(</span><span class="n">debug_print</span><span class="p">(</span><span class="s">&quot;attr is: {0.attr}&quot;</span><span class="p">))</span>
     <span class="o">|</span> <span class="n">etc</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pipetools.utils.drop_first">
+<tt class="descclassname">pipetools.utils.</tt><tt class="descname">drop_first</tt><big>(</big><em>count</em><big>)</big><a class="headerlink" href="#pipetools.utils.drop_first" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assumes an iterable on the input, returns an iterable with identical items
+except for the first <cite>count</cite>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">xrange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">drop_first</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">|</span> <span class="nb">tuple</span>
+<span class="go">(5, 6, 7, 8, 9)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -201,7 +212,7 @@ as:</p>
 <span class="go">[-3, 0, 4, 5, 8]</span>
 </pre></div>
 </div>
-<p>And (as of 0.2.3) a shortcut for reversing the sort:</p>
+<p>And (as of <tt class="docutils literal"><span class="pre">0.2.3</span></tt>) a shortcut for reversing the sort:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="s">&#39;asdfaSfa&#39;</span> <span class="o">&gt;</span> <span class="n">sort_by</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span><span class="o">.</span><span class="n">descending</span>
 <span class="go">[&#39;s&#39;, &#39;S&#39;, &#39;f&#39;, &#39;f&#39;, &#39;d&#39;, &#39;a&#39;, &#39;a&#39;, &#39;a&#39;]</span>
 </pre></div>
@@ -370,7 +381,7 @@ the <a class="reference internal" href="decorators.html#pipetools.decorators.reg
         <li class="right" >
           <a href="index.html" title="Welcome to pipetools’ documentation!"
              >previous</a> |</li>
-        <li><a href="index.html">pipetools 0.2.3 documentation</a> &raquo;</li> 
+        <li><a href="index.html">pipetools 0.2.4 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
