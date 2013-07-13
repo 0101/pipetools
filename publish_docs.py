@@ -8,7 +8,7 @@ from paver.easy import sh, BuildFailure
 from pipetools import foreach, foreach_do, where, X, pipe, unless
 
 
-DOC_ROOT = 'http://0101.github.com/pipetools/doc/'
+DOC_ROOT = 'http://0101.github.io/pipetools/doc/'
 
 
 readme_template = """
