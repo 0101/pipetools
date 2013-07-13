@@ -1,5 +1,5 @@
 
-`Complete documentation in full color <http://0101.github.com/pipetools/doc/>`_.
+`Complete documentation in full color <http://0101.github.io/pipetools/doc/>`_.
 
 .. image:: https://travis-ci.org/0101/pipetools.png
   :target: https://travis-ci.org/0101/pipetools
@@ -145,7 +145,7 @@ result as the previous example::
 
     odd_sum = pipe | xrange | (ifilter, lambda x: x % 2) | sum
 
-As of ``0.1.9``, this is even more powerful, see `X-partial  <http://0101.github.com/pipetools/doc/xpartial.html>`_.
+As of ``0.1.9``, this is even more powerful, see `X-partial  <http://0101.github.io/pipetools/doc/xpartial.html>`_.
 
 
 Built-in tools
@@ -153,7 +153,7 @@ Built-in tools
 
 Pipetools contain a set of *pipe-utils* that solve some common tasks. For
 example there is a shortcut for the ifilter from our example, called
-`where() <http://0101.github.com/pipetools/doc/pipeutils.html#pipetools.utils.where>`_::
+`where() <http://0101.github.io/pipetools/doc/pipeutils.html#pipetools.utils.where>`_::
 
     from pipetools import pipe, where
 
@@ -168,14 +168,14 @@ quite often) the ``pipe`` at the beginning can be omitted::
     odd_sum = xrange | where(lambda x: x % 2) | sum
 
 
-See `pipe-utils' documentation <http://0101.github.com/pipetools/doc/pipeutils.html>`_.
+See `pipe-utils' documentation <http://0101.github.io/pipetools/doc/pipeutils.html>`_.
 
 
 OK, but what about the ugly lambda?
 """""""""""""""""""""""""""""""""""
 
-`where() <http://0101.github.com/pipetools/doc/pipeutils.html#pipetools.utils.where>`_, but also `foreach() <http://0101.github.com/pipetools/doc/pipeutils.html#pipetools.utils.foreach>`_,
-`sort_by() <http://0101.github.com/pipetools/doc/pipeutils.html#pipetools.utils.sort_by>`_ and other `pipe-utils <http://0101.github.com/pipetools/doc/pipeutils.html>`_ can be
+`where() <http://0101.github.io/pipetools/doc/pipeutils.html#pipetools.utils.where>`_, but also `foreach() <http://0101.github.io/pipetools/doc/pipeutils.html#pipetools.utils.foreach>`_,
+`sort_by() <http://0101.github.io/pipetools/doc/pipeutils.html#pipetools.utils.sort_by>`_ and other `pipe-utils <http://0101.github.io/pipetools/doc/pipeutils.html>`_ can be
 quite useful, but require a function as an argument, which can either be a named
 function -- which is OK if it does something complicated -- but often it's
 something simple, so it's appropriate to use a ``lambda``. Except Python's
@@ -192,7 +192,7 @@ lambdas are quite verbose for simple tasks and the code gets cluttered...
 
 How 'bout that.
 
-`Read more about the X object and it's limitations. <http://0101.github.com/pipetools/doc/xobject.html>`_
+`Read more about the X object and it's limitations. <http://0101.github.io/pipetools/doc/xobject.html>`_
 
 
 .. _auto-string-formatting:
@@ -201,7 +201,7 @@ Automatic string formatting
 """""""""""""""""""""""""""
 
 Since it doesn't make sense to compose functions with strings, when a pipe (or a
-`pipe-util <http://0101.github.com/pipetools/doc/pipeutils.html>`_) encounters a string, it attempts to use it for
+`pipe-util <http://0101.github.io/pipetools/doc/pipeutils.html>`_) encounters a string, it attempts to use it for
 `(advanced) formatting`_::
 
     >>> countdown = pipe | (xrange, 1) | reversed | foreach('{0}...') | ' '.join | '{0} boom'
@@ -229,4 +229,4 @@ Which also isn't ideal, but I couldn't think of anything better so far...
 
 But wait, there is more
 -----------------------
-See the `full documentation <http://0101.github.com/pipetools/doc/#contents>`_.
+See the `full documentation <http://0101.github.io/pipetools/doc/#contents>`_.
