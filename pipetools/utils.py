@@ -1,5 +1,5 @@
 from functools import partial
-from itertools import imap, ifilter, islice, takewhile
+from itertools import imap, ifilter, islice, takewhile, dropwhile
 import operator
 
 from pipetools.debug import set_name, repr_args, get_name
@@ -86,7 +86,7 @@ def sort_by(function):
     >>> [4, 5, 8, -3, 0] > sort
     [-3, 0, 4, 5, 8]
 
-    And (as of 0.2.3) a shortcut for reversing the sort:
+    And (as of ``0.2.3``) a shortcut for reversing the sort:
 
     >>> 'asdfaSfa' > sort_by(X.lower()).descending
     ['s', 'S', 'f', 'f', 'd', 'a', 'a', 'a']
@@ -158,6 +158,20 @@ def take_first(count):
     def _take_first(iterable):
         return islice(iterable, count)
     return pipe | set_name('take_first(%s)' % count, _take_first)
+
+
+def drop_first(count):
+    """
+    Assumes an iterable on the input, returns an iterable with identical items
+    except for the first `count`.
+
+    >>> xrange(10) > drop_first(5) | tuple
+    (5, 6, 7, 8, 9)
+    """
+    def _drop_first(iterable):
+        g = (x for x in xrange(1, count + 1))
+        return dropwhile(lambda i: unless(StopIteration, g.next)(), iterable)
+    return pipe | set_name('drop_first(%s)' % count, _drop_first)
 
 
 def unless(exception_class_or_tuple, func, *args, **kwargs):

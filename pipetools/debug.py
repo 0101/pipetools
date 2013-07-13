@@ -5,7 +5,7 @@ from itertools import imap, chain
 def set_name(name, f):
     try:
         f.__name__ = str(name)
-    except AttributeError:
+    except (AttributeError, UnicodeEncodeError):
         pass
     return f
 

@@ -1,4 +1,12 @@
 
+0.2.4
+----------
+2013-07-13
+
+* added drop_first
+* fixed unicode formatting problem
+
+
 0.2.3
 ----------
 2013-04-24

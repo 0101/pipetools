@@ -40,6 +40,10 @@ class TestPipe(object):
 
         assert f(42) == 'The answer is 42.'
 
+    def test_unicode_formatting(self):
+        f = self.pipe | u'That will be £ {0}, please.'
+        assert f(42) == u'That will be £ 42, please.'
+
     def test_makes_a_bound_method(self):
 
         class SomeClass(object):
@@ -237,10 +241,10 @@ class TestMaybe(TestPipe):
     def test_maybe_basic(self):
         f = maybe | (lambda: None) | X * 2
 
-        assert f() == None
+        assert f() is None
 
     def test_none_input(self):
-        assert (None > maybe | sum) == None
+        assert (None > maybe | sum) is None
 
 
 def dummy(*args, **kwargs):
