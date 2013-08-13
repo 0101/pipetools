@@ -246,6 +246,9 @@ class TestMaybe(TestPipe):
     def test_none_input(self):
         assert (None > maybe | sum) is None
 
+    def test_none_input_call(self):
+        assert (maybe | sum)(None) is None
+
 
 def dummy(*args, **kwargs):
     return args, kwargs

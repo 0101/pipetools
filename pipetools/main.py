@@ -71,6 +71,11 @@ class Maybe(Pipe):
                 return None if result is None else second(result)
         return set_name(name, composite)
 
+    def __call__(self, *args, **kwargs):
+        if len(args) == 1 and args[0] is None and not kwargs:
+            return None
+        return self.func(*args, **kwargs)
+
     def __lt__(self, thing):
         return (
             None if thing is None else
