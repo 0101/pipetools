@@ -1,4 +1,12 @@
 
+0.2.5
+----------
+2013-08-13
+
+* Maybe returns None when called with None
+* not calling repr() on stuff if we don't need to
+
+
 0.2.4
 ----------
 2013-07-13
