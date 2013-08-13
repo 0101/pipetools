@@ -188,18 +188,18 @@ class TestX:
         assert f('a')
         assert not f('b')
 
-    def test_name(self):
+    def test_repr(self):
         f = ~X.attr(1, 2, three='four')
-        assert f.__name__ == "X.attr | X(1, 2, three='four')"
+        assert repr(f) == "X.attr | X(1, 2, three='four')"
 
-    def test_name_unicode(self):
+    def test_repr_unicode(self):
         f = ~(X + u"Žluťoučký kůň")
         # in this case I'll just consider not throwing an error a success
-        assert f.__name__
+        assert repr(f)
 
-    def test_name_tuple(self):
+    def test_repr_tuple(self):
         f = ~(X + (1, 2))
-        assert f.__name__ == "X + (1, 2)"
+        assert repr(f) == "X + (1, 2)"
 
 
 class TestStringFormatter:
@@ -246,6 +246,9 @@ class TestMaybe(TestPipe):
     def test_none_input(self):
         assert (None > maybe | sum) is None
 
+    def test_none_input_call(self):
+        assert (maybe | sum)(None) is None
+
 
 def dummy(*args, **kwargs):
     return args, kwargs
@@ -270,9 +273,9 @@ class TestXPartial:
         d = {'name': "Fred", 'number': 42, 'something': 'else'}
         assert xf(d) == (('Fred',), {'number': 42})
 
-    def test_name(self):
+    def test_repr(self):
         xf = xpartial(dummy, X, 3, something=X['something'])
-        assert xf.__name__ == "dummy(X, 3, something=X['something'])"
+        assert repr(X | xf) == "X | dummy(X, 3, something=X['something'])"
 
     def test_should_raise_error_when_not_given_an_argument(self):
         # -- when created with a placeholder

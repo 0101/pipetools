@@ -26,7 +26,7 @@ def test_pipe_exception_handler():
 
     with pytest.raises(MyException) as excinfo:
 
-        with pipe_exception_handler('NAME'):
+        with pipe_exception_handler(lambda: 'NAME'):
 
             raise MyException('boo hoo')
 
