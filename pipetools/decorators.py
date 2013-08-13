@@ -15,13 +15,13 @@ def pipe_util(func):
         if isinstance(function, XObject):
             function = ~function
 
-        function_name = get_name(function)
+        original_function = function
 
         if args or kwargs:
             function = xpartial(function, *args, **kwargs)
 
-        name = '%s(%s)' % (func.__name__, ', '.join(
-            filter(None, (function_name, repr_args(*args, **kwargs)))))
+        name = lambda: '%s(%s)' % (get_name(func), ', '.join(
+            filter(None, (get_name(original_function), repr_args(*args, **kwargs)))))
 
         f = func(function)
 

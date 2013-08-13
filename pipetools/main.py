@@ -1,4 +1,4 @@
-from functools import partial
+from functools import partial, wraps
 
 from pipetools.debug import get_name, set_name, repr_args
 from pipetools.debug import pipe_exception_handler
@@ -17,7 +17,7 @@ class Pipe(object):
     """
     def __init__(self, func=None):
         self.func = func
-        self.__name__ = str(self)
+        self.__name__ = 'Pipe'
 
     def __str__(self):
         return get_name(self.func)
@@ -26,10 +26,10 @@ class Pipe(object):
 
     @staticmethod
     def compose(first, second):
-        name = '{0} | {1}'.format(get_name(first), get_name(second))
+        name = lambda: '{0} | {1}'.format(get_name(first), get_name(second))
 
         def composite(*args, **kwargs):
-            with pipe_exception_handler('pipe | ' + name):
+            with pipe_exception_handler(lambda: 'pipe | ' + name()):
                 return second(first(*args, **kwargs))
         return set_name(name, composite)
 
@@ -63,10 +63,10 @@ class Maybe(Pipe):
 
     @staticmethod
     def compose(first, second):
-        name = '{0} ?| {1}'.format(get_name(first), get_name(second))
+        name = lambda: '{0} ?| {1}'.format(get_name(first), get_name(second))
 
         def composite(*args, **kwargs):
-            with pipe_exception_handler('maybe ?| ' + name):
+            with pipe_exception_handler(lambda: 'maybe ?| ' + name()):
                 result = first(*args, **kwargs)
                 return None if result is None else second(result)
         return set_name(name, composite)
@@ -108,7 +108,7 @@ def StringFormatter(template):
             return f(*content)
         return f(content)
 
-    return set_name("format('%s')" % template[:20], format)
+    return set_name(lambda: "format('%s')" % template[:20], format)
 
 
 def _iterable(obj):
@@ -121,69 +121,66 @@ class XObject(object):
 
     def __init__(self, func=None):
         self._func = func
-        self.__name__ = get_name(func) if func else 'X'
+        set_name(lambda: get_name(func) if func else 'X', self)
 
     def __repr__(self):
-        return self.__name__
+        return get_name(self)
 
     def __invert__(self):
         return self._func or set_name('X', lambda x: x)
 
     def bind(self, name, func):
-        try:
-            func.__name__ = str(name)
-        except UnicodeError:
-            func.__name__ = repr(name)
+        set_name(name, func)
         return XObject((self._func | func) if self._func else (pipe | func))
 
     def __call__(self, *args, **kwargs):
-        name = 'X(%s)' % repr_args(*args, **kwargs)
+        name = lambda: 'X(%s)' % repr_args(*args, **kwargs)
         return self.bind(name, lambda x: x(*args, **kwargs))
 
     def __eq__(self, other):
-        return self.bind('X == {0!r}'.format(other), lambda x: x == other)
+        return self.bind(lambda: 'X == {0!r}'.format(other), lambda x: x == other)
 
     def __getattr__(self, name):
-        return self.bind(u'X.{0}'.format(name), lambda x: getattr(x, name))
+        return self.bind(lambda: 'X.{0}'.format(name), lambda x: getattr(x, name))
 
     def __getitem__(self, item):
-        return self.bind('X[{0!r}]'.format(item), lambda x: x[item])
+        return self.bind(lambda: 'X[{0!r}]'.format(item), lambda x: x[item])
 
     def __gt__(self, other):
-        return self.bind('X > {0!r}'.format(other), lambda x: x > other)
+        return self.bind(lambda: 'X > {0!r}'.format(other), lambda x: x > other)
 
     def __ge__(self, other):
-        return self.bind('X >= {0!r}'.format(other), lambda x: x >= other)
+        return self.bind(lambda: 'X >= {0!r}'.format(other), lambda x: x >= other)
 
     def __lt__(self, other):
-        return self.bind('X < {0!r}'.format(other), lambda x: x < other)
+        return self.bind(lambda: 'X < {0!r}'.format(other), lambda x: x < other)
 
     def __le__(self, other):
-        return self.bind('X <= {0!r}'.format(other), lambda x: x <= other)
+        return self.bind(lambda: 'X <= {0!r}'.format(other), lambda x: x <= other)
 
     def __mod__(self, y):
-        return self.bind('X % {0!r}'.format(y), lambda x: x % y)
+        return self.bind(lambda: 'X % {0!r}'.format(y), lambda x: x % y)
 
     def __ne__(self, other):
-        return self.bind('X != {0!r}'.format(other), lambda x: x != other)
+        return self.bind(lambda: 'X != {0!r}'.format(other), lambda x: x != other)
 
     def __neg__(self):
-        return self.bind('-X', lambda x: -x)
+        return self.bind(lambda: '-X', lambda x: -x)
 
     def __mul__(self, other):
-        return self.bind('X * {0!r}'.format(other), lambda x: x * other)
+        return self.bind(lambda: 'X * {0!r}'.format(other), lambda x: x * other)
 
     def __div__(self, other):
-        return self.bind('X / {0!r}'.format(other), lambda x: x / other)
+        return self.bind(lambda: 'X / {0!r}'.format(other), lambda x: x / other)
 
     def __add__(self, other):
-        return self.bind('X + {0!r}'.format(other), lambda x: x + other)
+        return self.bind(lambda: 'X + {0!r}'.format(other), lambda x: x + other)
 
     def __sub__(self, other):
-        return self.bind('X - {0!r}'.format(other), lambda x: x - other)
+        return self.bind(lambda: 'X - {0!r}'.format(other), lambda x: x - other)
 
     def __pow__(self, other):
-        return self.bind('X ** {0!r}'.format(other), lambda x: x ** other)
+        return self.bind(lambda: 'X ** {0!r}'.format(other), lambda x: x ** other)
 
     def __ror__(self, func):
         return pipe | func | self
@@ -194,7 +191,7 @@ class XObject(object):
         return pipe | self | func
 
     def _in_(self, y):
-        return self.bind('X._in_({0!r})'.format(y), lambda x: x in y)
+        return self.bind(lambda: 'X._in_({0!r})'.format(y), lambda x: x in y)
 
 
 X = XObject()
@@ -230,6 +227,7 @@ def xpartial(func, *xargs, **xkwargs):
     any_x = any(isinstance(a, XObject) for a in xargs + tuple(xkwargs.values()))
     use = lambda x, value: (~x)(value) if isinstance(x, XObject) else x
 
+    @wraps(func)
     def xpartially_applied(*func_args, **func_kwargs):
         if any_x:
             if not func_args:
@@ -246,5 +244,5 @@ def xpartial(func, *xargs, **xkwargs):
             kwargs = dict(xkwargs, **func_kwargs)
         return func(*args, **kwargs)
 
-    name = '%s(%s)' % (get_name(func), repr_args(*xargs, **xkwargs))
+    name = lambda: '%s(%s)' % (get_name(func), repr_args(*xargs, **xkwargs))
     return set_name(name, xpartially_applied)

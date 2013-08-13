@@ -197,7 +197,7 @@ def unless(exception_class_or_tuple, func, *args, **kwargs):
                 pass
         return _unless
 
-    name = 'unless(%s, %s)' % (exception_class_or_tuple, ', '.join(
+    name = lambda: 'unless(%s, %s)' % (exception_class_or_tuple, ', '.join(
         filter(None, (get_name(func), repr_args(*args, **kwargs)))))
 
     return set_name(name, construct_unless(func, *args, **kwargs))

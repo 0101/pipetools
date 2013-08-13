@@ -11,7 +11,7 @@ def DSBuilder(definition):
     builder = select_builder(definition)
     if builder:
         return builder(definition)
-    raise NoBuilder("Don't know how to build %s" % definition)
+    raise NoBuilder("Don't know how to build %s" % type(definition))
 
 
 def SequenceBuilder(cls, definition):
