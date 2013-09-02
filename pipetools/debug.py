@@ -1,4 +1,3 @@
-from contextlib import contextmanager
 from itertools import imap, chain
 
 
@@ -20,21 +19,6 @@ def get_name(f):
         return repr(f)
 
     return f.__name__ if hasattr(f, '__name__') else repr(f)
-
-
-@contextmanager
-def pipe_exception_handler(name):
-    try:
-        yield
-    except Exception, ex:
-        message = '%s\n  in %s' % (ex, name())
-        try:
-            # some exceptions might be bit more complicated to construct
-            # in which case... we're screwed
-            pipe_exception = type(ex)(message)
-            raise pipe_exception
-        except:
-            raise
 
 
 def repr_args(*args, **kwargs):
