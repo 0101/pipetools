@@ -1,4 +1,11 @@
 
+0.2.6
+----------
+2013-09-02
+
+* removed pipe_exception_handler (did more harm than good most of the time)
+
+
 0.2.5
 ----------
 2013-08-13
