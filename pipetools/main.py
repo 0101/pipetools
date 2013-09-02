@@ -1,7 +1,6 @@
 from functools import partial, wraps
 
 from pipetools.debug import get_name, set_name, repr_args
-from pipetools.debug import pipe_exception_handler
 
 
 class Pipe(object):
@@ -29,8 +28,7 @@ class Pipe(object):
         name = lambda: '{0} | {1}'.format(get_name(first), get_name(second))
 
         def composite(*args, **kwargs):
-            with pipe_exception_handler(lambda: 'pipe | ' + name()):
-                return second(first(*args, **kwargs))
+            return second(first(*args, **kwargs))
         return set_name(name, composite)
 
     @classmethod
@@ -66,9 +64,8 @@ class Maybe(Pipe):
         name = lambda: '{0} ?| {1}'.format(get_name(first), get_name(second))
 
         def composite(*args, **kwargs):
-            with pipe_exception_handler(lambda: 'maybe ?| ' + name()):
-                result = first(*args, **kwargs)
-                return None if result is None else second(result)
+            result = first(*args, **kwargs)
+            return None if result is None else second(result)
         return set_name(name, composite)
 
     def __call__(self, *args, **kwargs):
