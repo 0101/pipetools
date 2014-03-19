@@ -1,4 +1,11 @@
 
+0.2.7
+----------
+2014-03-19
+
+* fixed checking if objects are iterable
+
+
 0.2.6
 ----------
 2013-09-02

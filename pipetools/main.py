@@ -1,3 +1,4 @@
+from collections import Iterable
 from functools import partial, wraps
 
 from pipetools.debug import get_name, set_name, repr_args
@@ -109,9 +110,8 @@ def StringFormatter(template):
 
 
 def _iterable(obj):
-    return (hasattr(obj, '__iter__')
-        or hasattr(obj, '__getitem__')
-        and not isinstance(obj, basestring))
+    "Iterable but not a string"
+    return isinstance(obj, Iterable) and not isinstance(obj, basestring)
 
 
 class XObject(object):
