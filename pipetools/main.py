@@ -2,6 +2,7 @@ from collections import Iterable
 from functools import partial, wraps
 
 from pipetools.debug import get_name, set_name, repr_args
+from pipetools.compat import text_type, string_types, dict_items
 
 
 class Pipe(object):
@@ -88,7 +89,7 @@ def prepare_function_for_pipe(thing):
         return ~thing
     if isinstance(thing, tuple):
         return xpartial(*thing)
-    if isinstance(thing, basestring):
+    if isinstance(thing, string_types):
         return StringFormatter(thing)
     if callable(thing):
         return thing
@@ -97,7 +98,7 @@ def prepare_function_for_pipe(thing):
 
 def StringFormatter(template):
 
-    f = unicode(template).format
+    f = text_type(template).format
 
     def format(content):
         if isinstance(content, dict):
@@ -111,7 +112,7 @@ def StringFormatter(template):
 
 def _iterable(obj):
     "Iterable but not a string"
-    return isinstance(obj, Iterable) and not isinstance(obj, basestring)
+    return isinstance(obj, Iterable) and not isinstance(obj, string_types)
 
 
 class XObject(object):
@@ -234,7 +235,7 @@ def xpartial(func, *xargs, **xkwargs):
             first = func_args[0]
             rest = func_args[1:]
             args = tuple(use(x, first) for x in xargs) + rest
-            kwargs = dict((k, use(x, first)) for k, x in xkwargs.iteritems())
+            kwargs = dict((k, use(x, first)) for k, x in dict_items(xkwargs))
             kwargs.update(func_kwargs)
         else:
             args = xargs + func_args

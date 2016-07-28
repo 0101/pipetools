@@ -4,6 +4,7 @@ from functools import partial, wraps
 from pipetools.debug import repr_args, set_name, get_name
 from pipetools.ds_builder import DSBuilder, NoBuilder
 from pipetools.main import pipe, XObject, StringFormatter, xpartial
+from pipetools.compat import string_types, dict_items
 
 
 def pipe_util(func):
@@ -30,7 +31,7 @@ def pipe_util(func):
         # if the util defines an 'attrs' mapping, copy it as attributes
         # to the result
         attrs = getattr(f, 'attrs', {})
-        for k, v in attrs.iteritems():
+        for k, v in dict_items(attrs):
             setattr(result, k, v)
 
         return result
@@ -47,7 +48,7 @@ def auto_string_formatter(func):
     """
     @wraps(func)
     def auto_string_formatter_wrapper(function, *args, **kwargs):
-        if isinstance(function, basestring):
+        if isinstance(function, string_types):
             function = StringFormatter(function)
 
         return func(function, *args, **kwargs)
@@ -77,7 +78,7 @@ def regex_condition(func):
     """
     @wraps(func)
     def regex_condition_wrapper(condition, *args, **kwargs):
-        if isinstance(condition, basestring):
+        if isinstance(condition, string_types):
             condition = partial(re.match, condition)
         return func(condition, *args, **kwargs)
     return regex_condition_wrapper
