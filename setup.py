@@ -1,5 +1,7 @@
+import sys
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
+
 from pipetools import X
 import pipetools
 
@@ -12,9 +14,10 @@ class PyTest(TestCommand):
         self.test_suite = True
 
     def run_tests(self):
-        #import here, cause outside the eggs aren't loaded
+        # import here, cause outside the eggs aren't loaded
         import pytest
-        pytest.main(self.test_args)
+        error_code = pytest.main(self.test_args)
+        sys.exit(error_code)
 
 
 setup(
@@ -43,6 +46,7 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 3',
         'Topic :: Utilities',
     ]
 )
