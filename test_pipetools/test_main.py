@@ -3,6 +3,7 @@ import pytest
 
 from pipetools import pipe, X, maybe, xpartial
 from pipetools.main import StringFormatter
+from pipetools.compat import range
 
 
 class Bunch:
@@ -214,7 +215,7 @@ class TestStringFormatter:
 
     def test_format_generator(self):
         f = StringFormatter('{0} + {0} = {1}')
-        assert f(xrange(1, 3)) == '1 + 1 = 2'
+        assert f(range(1, 3)) == '1 + 1 = 2'
 
     def test_format_dict(self):
         f = StringFormatter('{a} and {b}')

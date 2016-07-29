@@ -2,6 +2,7 @@ import pytest
 
 from pipetools.ds_builder import DSBuilder
 from pipetools.main import X
+from pipetools.compat import range
 
 
 def test_build_tuple():
@@ -41,7 +42,7 @@ def test_format():
 
 def test_nested():
 
-    f = DSBuilder({'seq': [X * y for y in xrange(4)]})
+    f = DSBuilder({'seq': [X * y for y in range(4)]})
 
     assert f(2) == {'seq': [0, 2, 4, 6]}
 
