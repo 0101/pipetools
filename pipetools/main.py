@@ -135,6 +135,9 @@ class XObject(object):
         name = lambda: 'X(%s)' % repr_args(*args, **kwargs)
         return self.bind(name, lambda x: x(*args, **kwargs))
 
+    def __hash__(self):
+        return super(XObject, self).__hash__()
+
     def __eq__(self, other):
         return self.bind(lambda: 'X == {0!r}'.format(other), lambda x: x == other)
 
