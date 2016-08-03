@@ -125,10 +125,9 @@ form new functions, and it works like this::
 A real example, sum of odd numbers from 0 to *x*::
 
     from functools import partial
-    from itertools import ifilter
     from pipetools import pipe
 
-    odd_sum = pipe | xrange | partial(ifilter, lambda x: x % 2) | sum
+    odd_sum = pipe | range | partial(filter, lambda x: x % 2) | sum
 
     odd_sum(10)  # -> 25
 
@@ -143,7 +142,7 @@ As partial application is often useful when piping things together, it is done
 automatically when the *pipe* encounters a tuple, so this produces the same
 result as the previous example::
 
-    odd_sum = pipe | xrange | (ifilter, lambda x: x % 2) | sum
+    odd_sum = pipe | range | (filter, lambda x: x % 2) | sum
 
 As of ``0.1.9``, this is even more powerful, see `X-partial  <http://0101.github.io/pipetools/doc/xpartial.html>`_.
 
@@ -152,12 +151,12 @@ Built-in tools
 """"""""""""""
 
 Pipetools contain a set of *pipe-utils* that solve some common tasks. For
-example there is a shortcut for the ifilter from our example, called
+example there is a shortcut for the filter class from our example, called
 `where() <http://0101.github.io/pipetools/doc/pipeutils.html#pipetools.utils.where>`_::
 
     from pipetools import pipe, where
 
-    odd_sum = pipe | xrange | where(lambda x: x % 2) | sum
+    odd_sum = pipe | range | where(lambda x: x % 2) | sum
 
 Well that might be a bit more readable, but not really a huge improvement, but
 wait!
@@ -165,7 +164,7 @@ wait!
 If a *pipe-util* is used as first or second item in the pipe (which happens
 quite often) the ``pipe`` at the beginning can be omitted::
 
-    odd_sum = xrange | where(lambda x: x % 2) | sum
+    odd_sum = range | where(lambda x: x % 2) | sum
 
 
 See `pipe-utils' documentation <http://0101.github.io/pipetools/doc/pipeutils.html>`_.
@@ -187,7 +186,7 @@ lambdas are quite verbose for simple tasks and the code gets cluttered...
 
     from pipetools import where, X
 
-    odd_sum = xrange | where(X % 2) | sum
+    odd_sum = range | where(X % 2) | sum
 
 
 How 'bout that.
@@ -204,7 +203,7 @@ Since it doesn't make sense to compose functions with strings, when a pipe (or a
 `pipe-util <http://0101.github.io/pipetools/doc/pipeutils.html>`_) encounters a string, it attempts to use it for
 `(advanced) formatting`_::
 
-    >>> countdown = pipe | (xrange, 1) | reversed | foreach('{0}...') | ' '.join | '{0} boom'
+    >>> countdown = pipe | (range, 1) | reversed | foreach('{0}...') | ' '.join | '{0} boom'
     >>> countdown(5)
     u'4... 3... 2... 1... boom'
 
