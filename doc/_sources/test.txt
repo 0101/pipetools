@@ -1,0 +1,7 @@
+test.rst
+
+List of built-in utils
+----------------------
+
+.. automodule:: pipetools.utils
+    :members:

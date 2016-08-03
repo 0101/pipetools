@@ -65,10 +65,10 @@ creating basic python data structures - ``list``, ``tuple`` and ``dict``.
 It works like this (the ``| tuple`` at the end is just so we can see the result,
 otherwise it would just give us ``<iterable thing at 0xasdf123>``)::
 
-    >>> xrange(5) > foreach({X: X * 2}) | tuple
+    >>> range(5) > foreach({X: X * 2}) | tuple
     ({0: 0}, {1: 2}, {2: 4}, {3: 6}, {4: 8})
 
-    >>> xrange(5) > foreach([X, X * u'★']) | tuple
+    >>> range(5) > foreach([X, X * u'★']) | tuple
     ([0, u''], [1, u'★'], [2, u'★★'], [3, u'★★★'], [4, u'★★★★'])
 
 It can also be combined with string formatting::

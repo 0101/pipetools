@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>X-partial &mdash; pipetools 0.2.7 documentation</title>
+    <title>X-partial &mdash; pipetools 0.3.0 documentation</title>
     
     <link rel="stylesheet" href="_static/override.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.2.7',
+        VERSION:     '0.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,18 +24,18 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favico.png"/>
-    <link rel="top" title="pipetools 0.2.7 documentation" href="index.html" />
+    <link rel="top" title="pipetools 0.3.0 documentation" href="index.html" />
     <link rel="next" title="The Maybe Pipe" href="maybe.html" />
     <link rel="prev" title="The X object" href="xobject.html" />
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
 <link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
 <![endif]-->
 
   </head>
-  <body>
-<div class="header">
+  <body role="document">
+<div class="header" role="banner">
   <div class="logo">
     <a href="index.html">
       <img class="logo" src="_static/logo.png" alt="Logo"/>
@@ -43,7 +43,7 @@
   </div>
 </div>
 
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -58,44 +58,44 @@
         <li class="right" >
           <a href="xobject.html" title="The X object"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">pipetools 0.2.7 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pipetools 0.3.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="x-partial">
 <h1>X-partial<a class="headerlink" href="#x-partial" title="Permalink to this headline">¶</a></h1>
-<p>More powerful partial application with the <a class="reference internal" href="xobject.html"><em>X object</em></a></p>
+<p>More powerful partial application with the <a class="reference internal" href="xobject.html"><span class="doc">X object</span></a></p>
 <dl class="function">
 <dt id="pipetools.xpartial">
-<tt class="descclassname">pipetools.</tt><tt class="descname">xpartial</tt><big>(</big><em>func</em>, <em>*xargs</em>, <em>**xkwargs</em><big>)</big><a class="headerlink" href="#pipetools.xpartial" title="Permalink to this definition">¶</a></dt>
-<dd><p>Like <tt class="xref py py-func docutils literal"><span class="pre">functools.partial()</span></tt>, but can take an <tt class="xref py py-class docutils literal"><span class="pre">XObject</span></tt>
+<code class="descclassname">pipetools.</code><code class="descname">xpartial</code><span class="sig-paren">(</span><em>func</em>, <em>*xargs</em>, <em>**xkwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pipetools.xpartial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Like <code class="xref py py-func docutils literal"><span class="pre">functools.partial()</span></code>, but can take an <code class="xref py py-class docutils literal"><span class="pre">XObject</span></code>
 placeholder that will be replaced with the first positional argument
 when the partially applied function is called.</p>
 <p>Useful when the function&#8217;s positional arguments&#8217; order doesn&#8217;t fit your
 situation, e.g.:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">reverse_range</span> <span class="o">=</span> <span class="n">xpartial</span><span class="p">(</span><span class="nb">range</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reverse_range</span> <span class="o">=</span> <span class="n">xpartial</span><span class="p">(</span><span class="nb">range</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reverse_range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <span class="go">[5, 4, 3, 2, 1]</span>
 </pre></div>
 </div>
 <p>It can also be used to transform the positional argument to a keyword
 argument, which can come in handy inside a <em>pipe</em>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">xpartial</span><span class="p">(</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">X</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">xpartial</span><span class="p">(</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">X</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Also the XObjects are evaluated, which can be used for some sort of
 destructuring of the argument:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">xpartial</span><span class="p">(</span><span class="n">somefunc</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">contacts</span><span class="p">[</span><span class="s">&#39;number&#39;</span><span class="p">])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">xpartial</span><span class="p">(</span><span class="n">somefunc</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">contacts</span><span class="p">[</span><span class="s1">&#39;number&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>Lastly, unlike <tt class="xref py py-func docutils literal"><span class="pre">functools.partial()</span></tt>, this creates a regular function
-which will bind to classes (like the <tt class="docutils literal"><span class="pre">curry</span></tt> function from
-<tt class="docutils literal"><span class="pre">django.utils.functional</span></tt>).</p>
+<p>Lastly, unlike <code class="xref py py-func docutils literal"><span class="pre">functools.partial()</span></code>, this creates a regular function
+which will bind to classes (like the <code class="docutils literal"><span class="pre">curry</span></code> function from
+<code class="docutils literal"><span class="pre">django.utils.functional</span></code>).</p>
 </dd></dl>
 
 </div>
@@ -104,7 +104,7 @@ which will bind to classes (like the <tt class="docutils literal"><span class="p
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="xobject.html"
@@ -112,24 +112,21 @@ which will bind to classes (like the <tt class="docutils literal"><span class="p
   <h4>Next topic</h4>
   <p class="topless"><a href="maybe.html"
                         title="next chapter">The Maybe Pipe</a></p>
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -144,12 +141,12 @@ which will bind to classes (like the <tt class="docutils literal"><span class="p
         <li class="right" >
           <a href="xobject.html" title="The X object"
              >previous</a> |</li>
-        <li><a href="index.html">pipetools 0.2.7 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pipetools 0.3.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2012, 0101.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.
     </div>
   </body>
 </html>
