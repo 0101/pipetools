@@ -1,17 +1,18 @@
 from pipetools import X, sort_by, take_first, foreach, where, select_first, group_by
 from pipetools import unless, flatten, take_until, as_kwargs, drop_first
+from pipetools.compat import range
 
 
 class TestPipeUtil:
 
     def test_pipability(self):
-        f = xrange | foreach(X) | sum
+        f = range | foreach(X) | sum
 
         result = f(4)
         assert result == 6
 
     def test_input(self):
-        result = xrange(5) > where(X % 2) | list
+        result = range(5) > where(X % 2) | list
         assert result == [1, 3]
 
 
@@ -43,7 +44,7 @@ class TestSortBy:
 class TestTakeFirst:
 
     def test_take_first(self):
-        assert [0, 1, 2] == list(take_first(3)(xrange(10)))
+        assert [0, 1, 2] == list(take_first(3)(range(10)))
 
 
 class TestTupleMaker:
@@ -180,4 +181,4 @@ class TestDropFirst:
         assert (src > drop_first(3) | list) == [4, 5, 6]
 
     def test_iterable(self):
-        assert (xrange(10000) > drop_first(9999) | list) == [9999]
+        assert (range(10000) > drop_first(9999) | list) == [9999]

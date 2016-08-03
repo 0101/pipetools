@@ -1,11 +1,13 @@
+from __future__ import print_function
 from functools import partial
-from itertools import imap, ifilter, islice, takewhile, dropwhile
+from itertools import islice, takewhile, dropwhile
 import operator
 
 from pipetools.debug import set_name, repr_args, get_name
 from pipetools.decorators import data_structure_builder, regex_condition
 from pipetools.decorators import pipe_util, auto_string_formatter
 from pipetools.main import pipe, X, _iterable
+from pipetools.compat import map, filter, range, dict_items
 
 
 KEY, VALUE = X[0], X[1]
@@ -19,10 +21,10 @@ def foreach(function):
     Returns a function that takes an iterable and returns an iterator over the
     results of calling `function` on each item of the iterable.
 
-    >>> xrange(5) > foreach(factorial) | list
+    >>> range(5) > foreach(factorial) | list
     [1, 1, 2, 6, 24]
     """
-    return partial(imap, function)
+    return partial(map, function)
 
 
 @pipe_util
@@ -51,12 +53,12 @@ def where(condition):
     """
     Pipe-able lazy filter.
 
-    >>> odd_range = xrange | where(X % 2) | list
+    >>> odd_range = range | where(X % 2) | list
     >>> odd_range(10)
     [1, 3, 5, 7, 9]
 
     """
-    return partial(ifilter, condition)
+    return partial(filter, condition)
 
 
 @pipe_util
@@ -65,7 +67,7 @@ def where_not(condition):
     """
     Inverted :func:`where`.
     """
-    return partial(ifilter, pipe | condition | operator.not_)
+    return partial(filter, pipe | condition | operator.not_)
 
 
 @pipe_util
@@ -74,7 +76,7 @@ def sort_by(function):
     """
     Sorts an incoming sequence by using the given `function` as key.
 
-    >>> xrange(10) > sort_by(-X)
+    >>> range(10) > sort_by(-X)
     [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
 
     Supports automatic data-structure creation::
@@ -121,7 +123,7 @@ def debug_print(function):
             | etc)
     """
     def debug(thing):
-        print function(thing)
+        print(function(thing))
         return thing
     return debug
 
@@ -151,7 +153,7 @@ def take_first(count):
     Assumes an iterable on the input, returns an iterable with first `count`
     items from the input (or possibly less, if there isn't that many).
 
-    >>> xrange(9000) > where(X % 100 == 0) | take_first(5) | tuple
+    >>> range(9000) > where(X % 100 == 0) | take_first(5) | tuple
     (0, 100, 200, 300, 400)
 
     """
@@ -165,12 +167,13 @@ def drop_first(count):
     Assumes an iterable on the input, returns an iterable with identical items
     except for the first `count`.
 
-    >>> xrange(10) > drop_first(5) | tuple
+    >>> range(10) > drop_first(5) | tuple
     (5, 6, 7, 8, 9)
     """
     def _drop_first(iterable):
-        g = (x for x in xrange(1, count + 1))
-        return dropwhile(lambda i: unless(StopIteration, g.next)(), iterable)
+        g = (x for x in range(1, count + 1))
+        return dropwhile(
+            lambda i: unless(StopIteration, lambda: next(g))(), iterable)
     return pipe | set_name('drop_first(%s)' % count, _drop_first)
 
 
@@ -227,7 +230,7 @@ def select_first(condition):
     >>> first_of([])
     None
     """
-    return where(condition) | unless(StopIteration, X.next())
+    return where(condition) | unless(StopIteration, next)
 
 first_of = select_first(X)
 
@@ -253,7 +256,7 @@ def group_by(function):
         result = {}
         for item in seq:
             result.setdefault(function(item), []).append(item)
-        return result.iteritems()
+        return dict_items(result)
 
     return _group_by
 
