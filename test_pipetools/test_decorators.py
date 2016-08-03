@@ -1,4 +1,5 @@
 from pipetools import foreach, sort_by, X, unless
+from pipetools.compat import range
 
 
 def my_func(*args, **kwargs):
@@ -6,7 +7,7 @@ def my_func(*args, **kwargs):
 
 
 def test_pipe_util_xpartial():
-    f = xrange | foreach(range, X, 0, -1) | list
+    f = range | foreach(range, X, 0, -1) | foreach(list) | list
     assert f(3, 5) == [[3, 2, 1], [4, 3, 2, 1]]
 
 

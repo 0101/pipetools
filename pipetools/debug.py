@@ -1,4 +1,6 @@
-from itertools import imap, chain
+from itertools import chain
+
+from pipetools.compat import map, dict_items
 
 
 def set_name(name, f):
@@ -23,5 +25,5 @@ def get_name(f):
 
 def repr_args(*args, **kwargs):
     return ', '.join(chain(
-        imap('{0!r}'.format, args),
-        imap('{0[0]}={0[1]!r}'.format, kwargs.iteritems())))
+        map('{0!r}'.format, args),
+        map('{0[0]}={0[1]!r}'.format, dict_items(kwargs))))
