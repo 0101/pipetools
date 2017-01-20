@@ -1,7 +1,7 @@
 
 `Complete documentation in full color <http://0101.github.io/pipetools/doc/>`_.
 
-.. image:: https://travis-ci.org/0101/pipetools.png
+.. image:: https://travis-ci.org/0101/pipetools.svg?branch=master
   :target: https://travis-ci.org/0101/pipetools
 
 Pipetools
