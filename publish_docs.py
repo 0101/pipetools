@@ -14,7 +14,7 @@ DOC_ROOT = 'http://0101.github.io/pipetools/doc/'
 readme_template = """
 `Complete documentation in full color <{0}>`_.
 
-.. image:: https://travis-ci.org/0101/pipetools.png
+.. image:: https://travis-ci.org/0101/pipetools.svg?branch=master
   :target: https://travis-ci.org/0101/pipetools
 
 Pipetools

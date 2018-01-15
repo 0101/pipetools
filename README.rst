@@ -1,7 +1,7 @@
 
 `Complete documentation in full color <http://0101.github.io/pipetools/doc/>`_.
 
-.. image:: https://travis-ci.org/0101/pipetools.png
+.. image:: https://travis-ci.org/0101/pipetools.svg?branch=master
   :target: https://travis-ci.org/0101/pipetools
 
 Pipetools
@@ -223,7 +223,13 @@ It can also be done using the ``>`` operator::
 
     result = some_input > pipe | foo | bar | boo
 
-Which also isn't ideal, but I couldn't think of anything better so far...
+.. note::
+    Note that the above method of input won't work if the input object
+    defines `__gt__ <https://docs.python.org/3/reference/datamodel.html#object.__gt__>`_
+    for *any* object - including the pipe. This can be the case for example with
+    some objects from math libraries such as NumPy. If you experience strange
+    results try falling back to the standard way of passing input into a pipe.
+
 
 
 But wait, there is more
