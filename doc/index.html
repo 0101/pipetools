@@ -229,7 +229,14 @@ especially when the pipe spans multiple lines):</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">some_input</span> <span class="o">&gt;</span> <span class="n">pipe</span> <span class="o">|</span> <span class="n">foo</span> <span class="o">|</span> <span class="n">bar</span> <span class="o">|</span> <span class="n">boo</span>
 </pre></div>
 </div>
-<p>Which also isn&#8217;t ideal, but I couldn&#8217;t think of anything better so far...</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Note that the above method of input won&#8217;t work if the input object
+defines <a class="reference external" href="https://docs.python.org/3/reference/datamodel.html#object.__gt__">__gt__</a>
+for <em>any</em> object - including the pipe. This can be the case for example with
+some objects from math libraries such as NumPy. If you experience strange
+results try falling back to the standard way of passing input into a pipe.</p>
+</div>
 </div>
 </div>
 <div class="section" id="but-wait-there-is-more">
