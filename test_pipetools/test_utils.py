@@ -1,5 +1,5 @@
 from pipetools import X, sort_by, take_first, foreach, where, select_first, group_by
-from pipetools import unless, flatten, take_until, as_kwargs, drop_first
+from pipetools import unless, flatten, take_until, as_kwargs, drop_first, tee
 from pipetools.compat import range
 
 
@@ -130,6 +130,10 @@ class TestFlatten:
         assert (list(flatten(1, [2, 3], (4, ('five', 6))))
             == [1, 2, 3, 4, 'five', 6])
 
+    def test_flatten_dict(self):
+        assert (list(flatten([[{'a': 1}], {'b': 2}, 'c'], {'d': 3}))
+            == [{'a': 1}, {'b': 2}, 'c', {'d': 3}])
+
 
 class TestTakeUntil:
 
@@ -182,3 +186,14 @@ class TestDropFirst:
 
     def test_iterable(self):
         assert (range(10000) > drop_first(9999) | list) == [9999]
+
+
+class TestTee:
+
+    def test_tee(self):
+        store = []
+
+        result = "input" > X | tee(X | reversed | "".join | store.append) | X[2:]
+
+        assert store == ["tupni"]
+        assert result == "put"

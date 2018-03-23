@@ -1,13 +1,14 @@
 from __future__ import print_function
+from collections import Mapping
 from functools import partial
 from itertools import islice, takewhile, dropwhile
 import operator
 
+from pipetools.compat import map, filter, range, dict_items
 from pipetools.debug import set_name, repr_args, get_name
 from pipetools.decorators import data_structure_builder, regex_condition
 from pipetools.decorators import pipe_util, auto_string_formatter
 from pipetools.main import pipe, X, _iterable
-from pipetools.compat import map, filter, range, dict_items
 
 
 KEY, VALUE = X[0], X[1]
@@ -129,6 +130,17 @@ def debug_print(function):
 
 
 @pipe_util
+def tee(function):
+    """
+    Sends a copy of the input into function - like a T junction.
+    """
+    def _tee(thing):
+        function(thing)
+        return thing
+    return _tee
+
+
+@pipe_util
 def as_args(function):
     """
     Applies the sequence in the input as positional arguments to `function`.
@@ -232,6 +244,7 @@ def select_first(condition):
     """
     return where(condition) | unless(StopIteration, next)
 
+
 first_of = select_first(X)
 
 
@@ -262,7 +275,7 @@ def group_by(function):
 
 
 def _flatten(x):
-    if not _iterable(x):
+    if not _iterable(x) or isinstance(x, Mapping):
         yield x
     else:
         for y in x:
@@ -273,6 +286,9 @@ def _flatten(x):
 def flatten(*args):
     """
     Flattens an arbitrarily deep nested iterable(s).
+
+    Does not treat strings and (as of ``0.3.1``) mappings (dictionaries)
+    as iterables so these are left alone.
     """
     return _flatten(args)
 flatten = pipe | flatten
