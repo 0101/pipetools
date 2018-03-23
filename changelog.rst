@@ -1,4 +1,12 @@
 
+0.3.1
+----------
+2018-03-23
+
+* Added tee util
+* flatten will leave dictionaries (Mappings) alone
+
+
 0.3.0
 ----------
 2016-08-03
