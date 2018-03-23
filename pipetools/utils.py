@@ -262,7 +262,7 @@ def group_by(function):
 
 
 def _flatten(x):
-    if not _iterable(x):
+    if not _iterable(x) or isinstance(x, Mapping):
         yield x
     else:
         for y in x:
@@ -273,6 +273,9 @@ def _flatten(x):
 def flatten(*args):
     """
     Flattens an arbitrarily deep nested iterable(s).
+
+    Does not treat strings and (as of ``0.3.1``) mappings (dictionaries)
+    as iterables so these are left alone.
     """
     return _flatten(args)
 flatten = pipe | flatten

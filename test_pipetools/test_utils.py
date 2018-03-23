@@ -130,6 +130,10 @@ class TestFlatten:
         assert (list(flatten(1, [2, 3], (4, ('five', 6))))
             == [1, 2, 3, 4, 'five', 6])
 
+    def test_flatten_dict(self):
+        assert (list(flatten([[{'a': 1}], {'b': 2}, 'c'], {'d': 3}))
+            == [{'a': 1}, {'b': 2}, 'c', {'d': 3}])
+
 
 class TestTakeUntil:
 
