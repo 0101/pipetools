@@ -170,6 +170,18 @@ class TestRegexCondidion:
         ]
         assert (data > select_first(r'^b.*r$')) == 'boo far'
 
+    def test_none_doesnt_match(self):
+        data = [
+            'foo bar',
+            'boo far',
+            None,
+            'foolproof',
+        ]
+        assert (data > where(r'^foo') | list) == [
+            'foo bar',
+            'foolproof',
+        ]
+
 
 class TestGroupBy:
 

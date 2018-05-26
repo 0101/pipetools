@@ -3,7 +3,7 @@ from functools import partial, wraps
 
 from pipetools.debug import repr_args, set_name, get_name
 from pipetools.ds_builder import DSBuilder, NoBuilder
-from pipetools.main import pipe, XObject, StringFormatter, xpartial
+from pipetools.main import pipe, XObject, StringFormatter, xpartial, maybe
 from pipetools.compat import string_types, dict_items
 
 
@@ -79,6 +79,6 @@ def regex_condition(func):
     @wraps(func)
     def regex_condition_wrapper(condition, *args, **kwargs):
         if isinstance(condition, string_types):
-            condition = partial(re.match, condition)
+            condition = maybe | partial(re.match, condition)
         return func(condition, *args, **kwargs)
     return regex_condition_wrapper
