@@ -82,23 +82,23 @@ filename length, as a string, each file on one line and also with line numbers:<
 </pre></div>
 </div>
 <p>So you might write it like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pyfiles_by_length</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pyfiles_by_length</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
     <span class="n">all_files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
     <span class="n">py_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">all_files</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">)]</span>
     <span class="n">py_files</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)</span>
     <span class="n">numbered</span> <span class="o">=</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">py_files</span><span class="p">)</span>
-    <span class="n">rows</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">. </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">numbered</span><span class="p">)</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;{0}. {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">numbered</span><span class="p">)</span>
     <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Or perhaps like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pyfiles_by_length</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
-    <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">. </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pyfiles_by_length</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;{0}. {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span>
         <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">)],</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)))</span>
 </pre></div>
 </div>
 <p>Or, if you’re a mad scientist, you would probably do it like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pyfiles_by_length</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="p">(</span><span class="n">reduce</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="se">\n</span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">,</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pyfiles_by_length</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="p">(</span><span class="nb">reduce</span><span class="p">(</span><span class="s1">&#39;{0}</span><span class="se">\n</span><span class="s1">{1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">,</span>
     <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">. </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">x</span><span class="p">,</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span>
         <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">d</span><span class="p">)),</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)))))</span>
 </pre></div>
@@ -106,12 +106,12 @@ filename length, as a string, each file on one line and also with line numbers:<
 <p>But <em>there should be one – and preferably only one – obvious way to do it</em>.</p>
 <p>So which one is it? Well, to redeem the situation, <code class="docutils literal notranslate"><span class="pre">pipetools</span></code> give you yet
 another possibility!</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pyfiles_by_length</span> <span class="o">=</span> <span class="p">(</span><span class="n">pipe</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pyfiles_by_length</span> <span class="o">=</span> <span class="p">(</span><span class="n">pipe</span>
     <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span>
     <span class="o">|</span> <span class="n">where</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">))</span>
     <span class="o">|</span> <span class="n">sort_by</span><span class="p">(</span><span class="nb">len</span><span class="p">)</span>
     <span class="o">|</span> <span class="nb">enumerate</span>
-    <span class="o">|</span> <span class="n">foreach</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">. </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="o">|</span> <span class="n">foreach</span><span class="p">(</span><span class="s2">&quot;{0}. {1}&quot;</span><span class="p">)</span>
     <span class="o">|</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span>
 <span class="p">)</span>
 </pre></div>
@@ -132,7 +132,7 @@ should give it a try! Read on to see how it works.</p>
 <span id="id2"></span><h3>The pipe<a class="headerlink" href="#the-pipe" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">pipe</span></code> object can be used to pipe functions together to
 form new functions, and it works like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pipetools</span> <span class="k">import</span> <span class="n">pipe</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pipetools</span> <span class="kn">import</span> <span class="n">pipe</span>
 
 <span class="n">f</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="n">a</span> <span class="o">|</span> <span class="n">b</span> <span class="o">|</span> <span class="n">c</span>
 
@@ -140,8 +140,8 @@ form new functions, and it works like this:</p>
 </pre></div>
 </div>
 <p>A real example, sum of odd numbers from 0 to <em>x</em>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
-<span class="kn">from</span> <span class="nn">pipetools</span> <span class="k">import</span> <span class="n">pipe</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">pipetools</span> <span class="kn">import</span> <span class="n">pipe</span>
 
 <span class="n">odd_sum</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="nb">range</span> <span class="o">|</span> <span class="n">partial</span><span class="p">(</span><span class="nb">filter</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="nb">sum</span>
 
@@ -155,7 +155,7 @@ form new functions, and it works like this:</p>
 <p>As partial application is often useful when piping things together, it is done
 automatically when the <em>pipe</em> encounters a tuple, so this produces the same
 result as the previous example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">odd_sum</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="nb">range</span> <span class="o">|</span> <span class="p">(</span><span class="nb">filter</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="nb">sum</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">odd_sum</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="nb">range</span> <span class="o">|</span> <span class="p">(</span><span class="nb">filter</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="nb">sum</span>
 </pre></div>
 </div>
 <p>As of <code class="docutils literal notranslate"><span class="pre">0.1.9</span></code>, this is even more powerful, see <a class="reference internal" href="xpartial.html"><span class="doc">X-partial</span></a>.</p>
@@ -165,7 +165,7 @@ result as the previous example:</p>
 <p>Pipetools contain a set of <em>pipe-utils</em> that solve some common tasks. For
 example there is a shortcut for the filter class from our example, called
 <a class="reference internal" href="pipeutils.html#pipetools.utils.where" title="pipetools.utils.where"><code class="xref py py-func docutils literal notranslate"><span class="pre">where()</span></code></a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pipetools</span> <span class="k">import</span> <span class="n">pipe</span><span class="p">,</span> <span class="n">where</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pipetools</span> <span class="kn">import</span> <span class="n">pipe</span><span class="p">,</span> <span class="n">where</span>
 
 <span class="n">odd_sum</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="nb">range</span> <span class="o">|</span> <span class="n">where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="nb">sum</span>
 </pre></div>
@@ -174,7 +174,7 @@ example there is a shortcut for the filter class from our example, called
 wait!</p>
 <p>If a <em>pipe-util</em> is used as first or second item in the pipe (which happens
 quite often) the <code class="docutils literal notranslate"><span class="pre">pipe</span></code> at the beginning can be omitted:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">odd_sum</span> <span class="o">=</span> <span class="nb">range</span> <span class="o">|</span> <span class="n">where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="nb">sum</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">odd_sum</span> <span class="o">=</span> <span class="nb">range</span> <span class="o">|</span> <span class="n">where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="nb">sum</span>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="pipeutils.html"><span class="doc">pipe-utils’ documentation</span></a>.</p>
@@ -188,7 +188,7 @@ function – which is OK if it does something complicated – but often it’s
 something simple, so it’s appropriate to use a <code class="docutils literal notranslate"><span class="pre">lambda</span></code>. Except Python’s
 lambdas are quite verbose for simple tasks and the code gets cluttered…</p>
 <p><strong>X object</strong> to the rescue!</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pipetools</span> <span class="k">import</span> <span class="n">where</span><span class="p">,</span> <span class="n">X</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pipetools</span> <span class="kn">import</span> <span class="n">where</span><span class="p">,</span> <span class="n">X</span>
 
 <span class="n">odd_sum</span> <span class="o">=</span> <span class="nb">range</span> <span class="o">|</span> <span class="n">where</span><span class="p">(</span><span class="n">X</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="nb">sum</span>
 </pre></div>
@@ -201,7 +201,7 @@ lambdas are quite verbose for simple tasks and the code gets cluttered…</p>
 <p>Since it doesn’t make sense to compose functions with strings, when a pipe (or a
 <a class="reference internal" href="pipeutils.html"><span class="doc">pipe-util</span></a>) encounters a string, it attempts to use it for
 <a class="reference external" href="http://docs.python.org/library/string.html#formatstrings">(advanced) formatting</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">countdown</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="p">(</span><span class="nb">range</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="nb">reversed</span> <span class="o">|</span> <span class="n">foreach</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">...&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span> <span class="o">|</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> boom&#39;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">countdown</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="p">(</span><span class="nb">range</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="nb">reversed</span> <span class="o">|</span> <span class="n">foreach</span><span class="p">(</span><span class="s1">&#39;{0}...&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span> <span class="o">|</span> <span class="s1">&#39;{0} boom&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">countdown</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <span class="go">u&#39;4... 3... 2... 1... boom&#39;</span>
 </pre></div>
@@ -212,11 +212,11 @@ lambdas are quite verbose for simple tasks and the code gets cluttered…</p>
 <p>Sometimes it’s useful to create a one-off pipe and immediately run some input
 through it. And since this is somewhat awkward (and not very readable,
 especially when the pipe spans multiple lines):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">pipe</span> <span class="o">|</span> <span class="n">foo</span> <span class="o">|</span> <span class="n">bar</span> <span class="o">|</span> <span class="n">boo</span><span class="p">)(</span><span class="n">some_input</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">pipe</span> <span class="o">|</span> <span class="n">foo</span> <span class="o">|</span> <span class="n">bar</span> <span class="o">|</span> <span class="n">boo</span><span class="p">)(</span><span class="n">some_input</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>It can also be done using the <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> operator:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">some_input</span> <span class="o">&gt;</span> <span class="n">pipe</span> <span class="o">|</span> <span class="n">foo</span> <span class="o">|</span> <span class="n">bar</span> <span class="o">|</span> <span class="n">boo</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">some_input</span> <span class="o">&gt;</span> <span class="n">pipe</span> <span class="o">|</span> <span class="n">foo</span> <span class="o">|</span> <span class="n">bar</span> <span class="o">|</span> <span class="n">boo</span>
 </pre></div>
 </div>
 <div class="admonition note">
