@@ -35,10 +35,10 @@ link_template = u"`{text} <%s{url}>`_" % DOC_ROOT
 
 link_replacements = (
     # :doc:`pipe-utils' documentation<pipeutils>`.
-    (ur":doc:`([^<]*)<([^>]*)>`", {'url': r'\2.html', 'text': r'\1'}),
+    (r":doc:`([^<]*)<([^>]*)>`", {'url': r'\2.html', 'text': r'\1'}),
 
     # :func:`~pipetools.utils.where`
-    (ur":func:`~pipetools\.utils\.([^`]*)`",
+    (r":func:`~pipetools\.utils\.([^`]*)`",
         {'url': r'pipeutils.html#pipetools.utils.\1', 'text': r'\1()'}),
 
 ) > foreach([X[0] | re.compile, X[1] | link_template])
