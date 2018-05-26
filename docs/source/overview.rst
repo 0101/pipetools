@@ -31,7 +31,9 @@ Example
 -------
 
 Say you want to create a list of python files in a given directory, ordered by
-filename length, as a string, each file on one line and also with line numbers::
+filename length, as a string, each file on one line and also with line numbers:
+
+.. code-block:: pycon
 
     >>> print pyfiles_by_length('../pipetools')
     0. main.py
@@ -89,7 +91,7 @@ should give it a try! Read on to see how it works.
 Installation
 ------------
 
-::
+.. code-block:: console
 
     $ pip install pipetools
 
@@ -220,4 +222,3 @@ It can also be done using the ``>`` operator::
     for *any* object - including the pipe. This can be the case for example with
     some objects from math libraries such as NumPy. If you experience strange
     results try falling back to the standard way of passing input into a pipe.
-
