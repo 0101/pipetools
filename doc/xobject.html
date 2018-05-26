@@ -1,30 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>The X object &mdash; pipetools 0.3.1 documentation</title>
-    
+    <title>The X object &#8212; pipetools 0.3.2 documentation</title>
     <link rel="stylesheet" href="_static/override.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.3.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favico.png"/>
-    <link rel="top" title="pipetools 0.3.1 documentation" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="X-partial" href="xpartial.html" />
     <link rel="prev" title="pipe-utils" href="pipeutils.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -33,8 +24,7 @@
 <link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
 <![endif]-->
 
-  </head>
-  <body role="document">
+  </head><body>
 <div class="header" role="banner">
   <div class="logo">
     <a href="index.html">
@@ -58,7 +48,7 @@
         <li class="right" >
           <a href="pipeutils.html" title="pipe-utils"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pipetools 0.3.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pipetools 0.3.2 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -69,10 +59,10 @@
             
   <div class="section" id="the-x-object">
 <h1>The X object<a class="headerlink" href="#the-x-object" title="Permalink to this headline">¶</a></h1>
-<p>The <code class="docutils literal"><span class="pre">X</span></code> object is a shortcut for writing simple, one-argument lambdas.</p>
-<p>It&#8217;s roughly equivalent to this: <code class="docutils literal"><span class="pre">lambda</span> <span class="pre">x:</span> <span class="pre">x</span></code></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">X</span></code> object is a shortcut for writing simple, one-argument lambdas.</p>
+<p>It’s roughly equivalent to this: <code class="docutils literal notranslate"><span class="pre">lambda</span> <span class="pre">x:</span> <span class="pre">x</span></code></p>
 <p>Example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">~</span><span class="n">X</span><span class="o">.</span><span class="n">some_attr</span><span class="o">.</span><span class="n">some_func</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">whatever</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">~</span><span class="n">X</span><span class="o">.</span><span class="n">some_attr</span><span class="o">.</span><span class="n">some_func</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">whatever</span>
 <span class="c1"># produces:</span>
 <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">some_attr</span><span class="o">.</span><span class="n">some_func</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">whatever</span>
 
@@ -82,116 +72,116 @@
 </pre></div>
 </div>
 <p>Any of the <a class="reference internal" href="#x-supported-operations"><span class="std std-ref">supported operations</span></a> performed on an
-<code class="docutils literal"><span class="pre">X</span></code> object yield another one that remembers what was done to it, so they
+<code class="docutils literal notranslate"><span class="pre">X</span></code> object yield another one that remembers what was done to it, so they
 can be chained.</p>
-<p>The <code class="docutils literal"><span class="pre">~</span></code> operator creates the actual function that can be called (without
-creating just another <code class="docutils literal"><span class="pre">X</span></code> instance). However, this can be omitted within
-<em>pipe</em> and <a class="reference internal" href="pipeutils.html"><span class="doc">pipe-utils</span></a> context where <code class="docutils literal"><span class="pre">X</span></code> is converted to a function
+<p>The <code class="docutils literal notranslate"><span class="pre">~</span></code> operator creates the actual function that can be called (without
+creating just another <code class="docutils literal notranslate"><span class="pre">X</span></code> instance). However, this can be omitted within
+<em>pipe</em> and <a class="reference internal" href="pipeutils.html"><span class="doc">pipe-utils</span></a> context where <code class="docutils literal notranslate"><span class="pre">X</span></code> is converted to a function
 automatically:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">users</span> <span class="o">&gt;</span> <span class="n">where</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">is_staff</span><span class="p">)</span> <span class="o">|</span> <span class="n">foreach</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">first_name</span><span class="p">)</span> <span class="o">|</span> <span class="n">X</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">users</span> <span class="o">&gt;</span> <span class="n">where</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">is_staff</span><span class="p">)</span> <span class="o">|</span> <span class="n">foreach</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">first_name</span><span class="p">)</span> <span class="o">|</span> <span class="n">X</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>But you can make use of <code class="docutils literal"><span class="pre">X</span></code> even outside <em>pipetools</em>, you just have to
-remember to prefix it with <code class="docutils literal"><span class="pre">~</span></code></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">users</span><span class="p">)</span>
+<p>But you can make use of <code class="docutils literal notranslate"><span class="pre">X</span></code> even outside <em>pipetools</em>, you just have to
+remember to prefix it with <code class="docutils literal notranslate"><span class="pre">~</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">users</span><span class="p">)</span>
 <span class="n">my_list</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=~</span><span class="n">X</span><span class="o">.</span><span class="n">last_login</span><span class="o">.</span><span class="n">date</span><span class="p">())</span>
 </pre></div>
 </div>
 <div class="section" id="currently-supported-operations">
 <span id="x-supported-operations"></span><h2>Currently supported operations<a class="headerlink" href="#currently-supported-operations" title="Permalink to this headline">¶</a></h2>
-<p>These are added as I need them. It&#8217;s quite complete now, but if you&#8217;re still
+<p>These are added as I need them. It’s quite complete now, but if you’re still
 missing something you can add it yourself or create an issue on <a class="reference external" href="https://github.com/0101/pipetools">github</a>.</p>
 <ul>
-<li><p class="first">call (<code class="docutils literal"><span class="pre">__call__</span></code>):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">()</span>
+<li><p class="first">call (<code class="docutils literal notranslate"><span class="pre">__call__</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">()</span>
 <span class="n">X</span><span class="p">(</span><span class="n">some</span><span class="p">,</span> <span class="n">agrs</span><span class="p">,</span> <span class="n">some</span><span class="o">=</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">equals (<code class="docutils literal"><span class="pre">__eq__</span></code>):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">==</span> <span class="n">something</span>
+<li><p class="first">equals (<code class="docutils literal notranslate"><span class="pre">__eq__</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">==</span> <span class="n">something</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">not equal (<code class="docutils literal"><span class="pre">__ne__</span></code>):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">!=</span> <span class="n">something</span>
+<li><p class="first">not equal (<code class="docutils literal notranslate"><span class="pre">__ne__</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">!=</span> <span class="n">something</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">attribute access (<code class="docutils literal"><span class="pre">__getattr__</span></code>):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">X</span><span class="o">.</span><span class="n">attr</span>
+<li><p class="first">attribute access (<code class="docutils literal notranslate"><span class="pre">__getattr__</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="o">.</span><span class="n">attr</span>
 <span class="nb">getattr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="s1">&#39;something&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">item access, slicing (<code class="docutils literal"><span class="pre">__getitem__</span></code>):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span>
+<li><p class="first">item access, slicing (<code class="docutils literal notranslate"><span class="pre">__getitem__</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span>
 <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">X</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
 <span class="n">X</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">greater than (<code class="docutils literal"><span class="pre">__gt__</span></code>):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">&gt;</span> <span class="mi">3</span>
+<li><p class="first">greater than (<code class="docutils literal notranslate"><span class="pre">__gt__</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">&gt;</span> <span class="mi">3</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">greater or equal (<code class="docutils literal"><span class="pre">__ge__</span></code>):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">&gt;=</span> <span class="mi">3</span>
+<li><p class="first">greater or equal (<code class="docutils literal notranslate"><span class="pre">__ge__</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">&gt;=</span> <span class="mi">3</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">less than (<code class="docutils literal"><span class="pre">__lt__</span></code>):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">&lt;</span> <span class="mi">3</span>
+<li><p class="first">less than (<code class="docutils literal notranslate"><span class="pre">__lt__</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">&lt;</span> <span class="mi">3</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">less or equal (<code class="docutils literal"><span class="pre">__le__</span></code>):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">&lt;=</span> <span class="mi">3</span>
+<li><p class="first">less or equal (<code class="docutils literal notranslate"><span class="pre">__le__</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">&lt;=</span> <span class="mi">3</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">modulo (<code class="docutils literal"><span class="pre">__mod__</span></code>):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">%</span> <span class="mi">2</span>
+<li><p class="first">modulo (<code class="docutils literal notranslate"><span class="pre">__mod__</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">%</span> <span class="mi">2</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">negate (<code class="docutils literal"><span class="pre">__neg__</span></code>):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">X</span>
+<li><p class="first">negate (<code class="docutils literal notranslate"><span class="pre">__neg__</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">X</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">multiplication (<code class="docutils literal"><span class="pre">__mul__</span></code>):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">*</span> <span class="mi">3</span>
+<li><p class="first">multiplication (<code class="docutils literal notranslate"><span class="pre">__mul__</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">*</span> <span class="mi">3</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">division (<code class="docutils literal"><span class="pre">__div__</span></code>):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">/</span> <span class="mi">3</span>
+<li><p class="first">division (<code class="docutils literal notranslate"><span class="pre">__div__</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">/</span> <span class="mi">3</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">addition (<code class="docutils literal"><span class="pre">__add__</span></code>):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">+</span> <span class="mi">3</span>
+<li><p class="first">addition (<code class="docutils literal notranslate"><span class="pre">__add__</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">+</span> <span class="mi">3</span>
 <span class="n">X</span> <span class="o">+</span> <span class="s2">&quot; ...that&#39;s what she said!&quot;</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">subtraction (<code class="docutils literal"><span class="pre">__sub__</span></code>):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">-</span> <span class="mi">3</span>
+<li><p class="first">subtraction (<code class="docutils literal notranslate"><span class="pre">__sub__</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">-</span> <span class="mi">3</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">power (<code class="docutils literal"><span class="pre">__pow__</span></code>):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">**</span> <span class="mi">2</span>
+<li><p class="first">power (<code class="docutils literal notranslate"><span class="pre">__pow__</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">**</span> <span class="mi">2</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">is contained in (<code class="docutils literal"><span class="pre">_in_</span></code>)</p>
-<p>Unfortunately, <code class="docutils literal"><span class="pre">X</span> <span class="pre">in</span> <span class="pre">container</span></code> can&#8217;t be done (because the magic method is
-called on the container) so there&#8217;s a special method for that:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">X</span><span class="o">.</span><span class="n">_in_</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
+<li><p class="first">is contained in (<code class="docutils literal notranslate"><span class="pre">_in_</span></code>)</p>
+<p>Unfortunately, <code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">in</span> <span class="pre">container</span></code> can’t be done (because the magic method is
+called on the container) so there’s a special method for that:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="o">.</span><span class="n">_in_</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
@@ -219,14 +209,23 @@ called on the container) so there&#8217;s a special method for that:</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="xpartial.html"
                         title="next chapter">X-partial</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/xobject.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -248,12 +247,12 @@ called on the container) so there&#8217;s a special method for that:</p>
         <li class="right" >
           <a href="pipeutils.html" title="pipe-utils"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pipetools 0.3.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pipetools 0.3.2 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2012, 0101.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.
+        &#169; Copyright 2012, 0101.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
     </div>
   </body>
 </html>

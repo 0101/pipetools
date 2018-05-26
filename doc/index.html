@@ -1,30 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Welcome to pipetools’ documentation! &mdash; pipetools 0.3.1 documentation</title>
-    
+    <title>Welcome to pipetools’ documentation! &#8212; pipetools 0.3.2 documentation</title>
     <link rel="stylesheet" href="_static/override.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.3.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="shortcut icon" href="_static/favico.png"/>
-    <link rel="top" title="pipetools 0.3.1 documentation" href="#" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="pipe-utils" href="pipeutils.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -32,8 +23,7 @@
 <link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
 <![endif]-->
 
-  </head>
-  <body role="document">
+  </head><body>
 <div class="header" role="banner">
   <div class="logo">
     <a href="#">
@@ -54,7 +44,7 @@
         <li class="right" >
           <a href="pipeutils.html" title="pipe-utils"
              accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">pipetools 0.3.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="#">pipetools 0.3.2 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -64,10 +54,10 @@
           <div class="body" role="main">
             
   <div class="section" id="welcome-to-pipetools-documentation">
-<h1>Welcome to pipetools&#8217; documentation!<a class="headerlink" href="#welcome-to-pipetools-documentation" title="Permalink to this headline">¶</a></h1>
-<p><code class="docutils literal"><span class="pre">pipetools</span></code> is a python package that enables function composition similar to
+<h1>Welcome to pipetools’ documentation!<a class="headerlink" href="#welcome-to-pipetools-documentation" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">pipetools</span></code> is a python package that enables function composition similar to
 using Unix pipes.</p>
-<p>Inspired by <a class="reference external" href="http://dev-tricks.net/pipe-infix-syntax-for-python">Pipe</a> and <a class="reference external" href="http://honeyman.livejournal.com/122675.html?nojs=1">Околомонадное</a> (whatever that means...)</p>
+<p>Inspired by <a class="reference external" href="http://dev-tricks.net/pipe-infix-syntax-for-python">Pipe</a> and <a class="reference external" href="http://honeyman.livejournal.com/122675.html?nojs=1">Околомонадное</a> (whatever that means…)</p>
 <p>It allows piping of arbitrary functions and comes with a few handy shortcuts.</p>
 <p>Source is on <a class="reference external" href="https://github.com/0101/pipetools">github</a>.</p>
 <div class="section" id="why">
@@ -76,15 +66,15 @@ using Unix pipes.</p>
 <div class="section" id="why-piping-instead-of-regular-composition">
 <h3>Why piping instead of regular composition?<a class="headerlink" href="#why-piping-instead-of-regular-composition" title="Permalink to this headline">¶</a></h3>
 <p>I believe it to be easier to read, write and think about from left to right /
-top to bottom in the order that it&#8217;s actually executed, instead of reversed
-order as it is with regular function composition (<code class="docutils literal"><span class="pre">(f</span> <span class="pre">•</span> <span class="pre">g)(x)</span> <span class="pre">==</span> <span class="pre">f(g(x))</span></code>).</p>
+top to bottom in the order that it’s actually executed, instead of reversed
+order as it is with regular function composition (<code class="docutils literal notranslate"><span class="pre">(f</span> <span class="pre">•</span> <span class="pre">g)(x)</span> <span class="pre">==</span> <span class="pre">f(g(x))</span></code>).</p>
 </div>
 </div>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>Say you want to create a list of python files in a given directory, ordered by
 filename length, as a string, each file on one line and also with line numbers:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">pyfiles_by_length</span><span class="p">(</span><span class="s1">&#39;../pipetools&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">pyfiles_by_length</span><span class="p">(</span><span class="s1">&#39;../pipetools&#39;</span><span class="p">)</span>
 <span class="go">0. main.py</span>
 <span class="go">1. utils.py</span>
 <span class="go">2. __init__.py</span>
@@ -92,7 +82,7 @@ filename length, as a string, each file on one line and also with line numbers:<
 </pre></div>
 </div>
 <p>So you might write it like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pyfiles_by_length</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pyfiles_by_length</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
     <span class="n">all_files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
     <span class="n">py_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">all_files</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">)]</span>
     <span class="n">py_files</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)</span>
@@ -102,21 +92,21 @@ filename length, as a string, each file on one line and also with line numbers:<
 </pre></div>
 </div>
 <p>Or perhaps like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pyfiles_by_length</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pyfiles_by_length</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
     <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">. </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span>
         <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">)],</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)))</span>
 </pre></div>
 </div>
-<p>Or, if you&#8217;re a mad scientist, you would probably do it like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pyfiles_by_length</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="p">(</span><span class="n">reduce</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="se">\n</span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">,</span>
+<p>Or, if you’re a mad scientist, you would probably do it like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pyfiles_by_length</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="p">(</span><span class="n">reduce</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="se">\n</span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">,</span>
     <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">. </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">x</span><span class="p">,</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span>
         <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">d</span><span class="p">)),</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)))))</span>
 </pre></div>
 </div>
-<p>But <em>there should be one &#8211; and preferably only one &#8211; obvious way to do it</em>.</p>
-<p>So which one is it? Well, to redeem the situation, <code class="docutils literal"><span class="pre">pipetools</span></code> give you yet
+<p>But <em>there should be one – and preferably only one – obvious way to do it</em>.</p>
+<p>So which one is it? Well, to redeem the situation, <code class="docutils literal notranslate"><span class="pre">pipetools</span></code> give you yet
 another possibility!</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pyfiles_by_length</span> <span class="o">=</span> <span class="p">(</span><span class="n">pipe</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pyfiles_by_length</span> <span class="o">=</span> <span class="p">(</span><span class="n">pipe</span>
     <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span>
     <span class="o">|</span> <span class="n">where</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">))</span>
     <span class="o">|</span> <span class="n">sort_by</span><span class="p">(</span><span class="nb">len</span><span class="p">)</span>
@@ -126,23 +116,23 @@ another possibility!</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>So is this <a class="reference external" href="http://www.python.org/dev/peps/pep-0020/">The Right Way™</a>? Probably not, but I think it&#8217;s pretty cool, so you
+<p>So is this <a class="reference external" href="http://www.python.org/dev/peps/pep-0020/">The Right Way™</a>? Probably not, but I think it’s pretty cool, so you
 should give it a try! Read on to see how it works.</p>
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ pip install pipetools
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install pipetools
 </pre></div>
 </div>
-<p><a class="reference external" href="http://www.pip-installer.org">Uh, what&#8217;s that?</a></p>
+<p><a class="reference external" href="http://www.pip-installer.org">Uh, what’s that?</a></p>
 </div>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="the-pipe">
 <span id="id2"></span><h3>The pipe<a class="headerlink" href="#the-pipe" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">pipe</span></code> object can be used to pipe functions together to
+<p>The <code class="docutils literal notranslate"><span class="pre">pipe</span></code> object can be used to pipe functions together to
 form new functions, and it works like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pipetools</span> <span class="k">import</span> <span class="n">pipe</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pipetools</span> <span class="k">import</span> <span class="n">pipe</span>
 
 <span class="n">f</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="n">a</span> <span class="o">|</span> <span class="n">b</span> <span class="o">|</span> <span class="n">c</span>
 
@@ -150,7 +140,7 @@ form new functions, and it works like this:</p>
 </pre></div>
 </div>
 <p>A real example, sum of odd numbers from 0 to <em>x</em>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
 <span class="kn">from</span> <span class="nn">pipetools</span> <span class="k">import</span> <span class="n">pipe</span>
 
 <span class="n">odd_sum</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="nb">range</span> <span class="o">|</span> <span class="n">partial</span><span class="p">(</span><span class="nb">filter</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="nb">sum</span>
@@ -165,17 +155,17 @@ form new functions, and it works like this:</p>
 <p>As partial application is often useful when piping things together, it is done
 automatically when the <em>pipe</em> encounters a tuple, so this produces the same
 result as the previous example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">odd_sum</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="nb">range</span> <span class="o">|</span> <span class="p">(</span><span class="nb">filter</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="nb">sum</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">odd_sum</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="nb">range</span> <span class="o">|</span> <span class="p">(</span><span class="nb">filter</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="nb">sum</span>
 </pre></div>
 </div>
-<p>As of <code class="docutils literal"><span class="pre">0.1.9</span></code>, this is even more powerful, see <a class="reference internal" href="xpartial.html"><span class="doc">X-partial</span></a>.</p>
+<p>As of <code class="docutils literal notranslate"><span class="pre">0.1.9</span></code>, this is even more powerful, see <a class="reference internal" href="xpartial.html"><span class="doc">X-partial</span></a>.</p>
 </div>
 <div class="section" id="built-in-tools">
 <h3>Built-in tools<a class="headerlink" href="#built-in-tools" title="Permalink to this headline">¶</a></h3>
 <p>Pipetools contain a set of <em>pipe-utils</em> that solve some common tasks. For
 example there is a shortcut for the filter class from our example, called
-<a class="reference internal" href="pipeutils.html#pipetools.utils.where" title="pipetools.utils.where"><code class="xref py py-func docutils literal"><span class="pre">where()</span></code></a>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pipetools</span> <span class="k">import</span> <span class="n">pipe</span><span class="p">,</span> <span class="n">where</span>
+<a class="reference internal" href="pipeutils.html#pipetools.utils.where" title="pipetools.utils.where"><code class="xref py py-func docutils literal notranslate"><span class="pre">where()</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pipetools</span> <span class="k">import</span> <span class="n">pipe</span><span class="p">,</span> <span class="n">where</span>
 
 <span class="n">odd_sum</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="nb">range</span> <span class="o">|</span> <span class="n">where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="nb">sum</span>
 </pre></div>
@@ -183,35 +173,35 @@ example there is a shortcut for the filter class from our example, called
 <p>Well that might be a bit more readable, but not really a huge improvement, but
 wait!</p>
 <p>If a <em>pipe-util</em> is used as first or second item in the pipe (which happens
-quite often) the <code class="docutils literal"><span class="pre">pipe</span></code> at the beginning can be omitted:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">odd_sum</span> <span class="o">=</span> <span class="nb">range</span> <span class="o">|</span> <span class="n">where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="nb">sum</span>
+quite often) the <code class="docutils literal notranslate"><span class="pre">pipe</span></code> at the beginning can be omitted:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">odd_sum</span> <span class="o">=</span> <span class="nb">range</span> <span class="o">|</span> <span class="n">where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="nb">sum</span>
 </pre></div>
 </div>
-<p>See <a class="reference internal" href="pipeutils.html"><span class="doc">pipe-utils&#8217; documentation</span></a>.</p>
+<p>See <a class="reference internal" href="pipeutils.html"><span class="doc">pipe-utils’ documentation</span></a>.</p>
 </div>
 <div class="section" id="ok-but-what-about-the-ugly-lambda">
 <h3>OK, but what about the ugly lambda?<a class="headerlink" href="#ok-but-what-about-the-ugly-lambda" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference internal" href="pipeutils.html#pipetools.utils.where" title="pipetools.utils.where"><code class="xref py py-func docutils literal"><span class="pre">where()</span></code></a>, but also <a class="reference internal" href="pipeutils.html#pipetools.utils.foreach" title="pipetools.utils.foreach"><code class="xref py py-func docutils literal"><span class="pre">foreach()</span></code></a>,
-<a class="reference internal" href="pipeutils.html#pipetools.utils.sort_by" title="pipetools.utils.sort_by"><code class="xref py py-func docutils literal"><span class="pre">sort_by()</span></code></a> and other <a class="reference internal" href="pipeutils.html"><span class="doc">pipe-utils</span></a> can be
+<p><a class="reference internal" href="pipeutils.html#pipetools.utils.where" title="pipetools.utils.where"><code class="xref py py-func docutils literal notranslate"><span class="pre">where()</span></code></a>, but also <a class="reference internal" href="pipeutils.html#pipetools.utils.foreach" title="pipetools.utils.foreach"><code class="xref py py-func docutils literal notranslate"><span class="pre">foreach()</span></code></a>,
+<a class="reference internal" href="pipeutils.html#pipetools.utils.sort_by" title="pipetools.utils.sort_by"><code class="xref py py-func docutils literal notranslate"><span class="pre">sort_by()</span></code></a> and other <a class="reference internal" href="pipeutils.html"><span class="doc">pipe-utils</span></a> can be
 quite useful, but require a function as an argument, which can either be a named
-function &#8211; which is OK if it does something complicated &#8211; but often it&#8217;s
-something simple, so it&#8217;s appropriate to use a <code class="docutils literal"><span class="pre">lambda</span></code>. Except Python&#8217;s
-lambdas are quite verbose for simple tasks and the code gets cluttered...</p>
+function – which is OK if it does something complicated – but often it’s
+something simple, so it’s appropriate to use a <code class="docutils literal notranslate"><span class="pre">lambda</span></code>. Except Python’s
+lambdas are quite verbose for simple tasks and the code gets cluttered…</p>
 <p><strong>X object</strong> to the rescue!</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pipetools</span> <span class="k">import</span> <span class="n">where</span><span class="p">,</span> <span class="n">X</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pipetools</span> <span class="k">import</span> <span class="n">where</span><span class="p">,</span> <span class="n">X</span>
 
 <span class="n">odd_sum</span> <span class="o">=</span> <span class="nb">range</span> <span class="o">|</span> <span class="n">where</span><span class="p">(</span><span class="n">X</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="nb">sum</span>
 </pre></div>
 </div>
-<p>How &#8216;bout that.</p>
-<p><a class="reference internal" href="xobject.html"><span class="doc">Read more about the X object and it&#8217;s limitations.</span></a></p>
+<p>How ‘bout that.</p>
+<p><a class="reference internal" href="xobject.html"><span class="doc">Read more about the X object and it’s limitations.</span></a></p>
 </div>
 <div class="section" id="automatic-string-formatting">
 <span id="auto-string-formatting"></span><h3>Automatic string formatting<a class="headerlink" href="#automatic-string-formatting" title="Permalink to this headline">¶</a></h3>
-<p>Since it doesn&#8217;t make sense to compose functions with strings, when a pipe (or a
+<p>Since it doesn’t make sense to compose functions with strings, when a pipe (or a
 <a class="reference internal" href="pipeutils.html"><span class="doc">pipe-util</span></a>) encounters a string, it attempts to use it for
 <a class="reference external" href="http://docs.python.org/library/string.html#formatstrings">(advanced) formatting</a>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">countdown</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="p">(</span><span class="nb">range</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="nb">reversed</span> <span class="o">|</span> <span class="n">foreach</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">...&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span> <span class="o">|</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> boom&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">countdown</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="p">(</span><span class="nb">range</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="nb">reversed</span> <span class="o">|</span> <span class="n">foreach</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">...&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span> <span class="o">|</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> boom&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">countdown</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <span class="go">u&#39;4... 3... 2... 1... boom&#39;</span>
 </pre></div>
@@ -219,19 +209,19 @@ lambdas are quite verbose for simple tasks and the code gets cluttered...</p>
 </div>
 <div class="section" id="feeding-the-pipe">
 <h3>Feeding the pipe<a class="headerlink" href="#feeding-the-pipe" title="Permalink to this headline">¶</a></h3>
-<p>Sometimes it&#8217;s useful to create a one-off pipe and immediately run some input
+<p>Sometimes it’s useful to create a one-off pipe and immediately run some input
 through it. And since this is somewhat awkward (and not very readable,
 especially when the pipe spans multiple lines):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">pipe</span> <span class="o">|</span> <span class="n">foo</span> <span class="o">|</span> <span class="n">bar</span> <span class="o">|</span> <span class="n">boo</span><span class="p">)(</span><span class="n">some_input</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">pipe</span> <span class="o">|</span> <span class="n">foo</span> <span class="o">|</span> <span class="n">bar</span> <span class="o">|</span> <span class="n">boo</span><span class="p">)(</span><span class="n">some_input</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>It can also be done using the <code class="docutils literal"><span class="pre">&gt;</span></code> operator:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">some_input</span> <span class="o">&gt;</span> <span class="n">pipe</span> <span class="o">|</span> <span class="n">foo</span> <span class="o">|</span> <span class="n">bar</span> <span class="o">|</span> <span class="n">boo</span>
+<p>It can also be done using the <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> operator:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">some_input</span> <span class="o">&gt;</span> <span class="n">pipe</span> <span class="o">|</span> <span class="n">foo</span> <span class="o">|</span> <span class="n">bar</span> <span class="o">|</span> <span class="n">boo</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Note that the above method of input won&#8217;t work if the input object
+<p class="last">Note that the above method of input won’t work if the input object
 defines <a class="reference external" href="https://docs.python.org/3/reference/datamodel.html#object.__gt__">__gt__</a>
 for <em>any</em> object - including the pipe. This can be the case for example with
 some objects from math libraries such as NumPy. If you experience strange
@@ -257,21 +247,22 @@ results try falling back to the standard way of passing input into a pipe.</p>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="xpartial.html">X-partial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="maybe.html">The Maybe Pipe</a></li>
-<li class="toctree-l1"><a class="reference internal" href="decorators.html"><code class="docutils literal"><span class="pre">decorators</span></code> module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="decorators.html"><code class="docutils literal notranslate"><span class="pre">decorators</span></code> module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Change log</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id1">0.3.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">0.3.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id3">0.2.7</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id4">0.2.6</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id5">0.2.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id6">0.2.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id7">0.2.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id8">0.2.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id9">0.2.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id10">0.2.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id11">0.1.9</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id12">0.1.8</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id13">0.1.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id1">0.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">0.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id3">0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id4">0.2.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id5">0.2.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id6">0.2.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id7">0.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id8">0.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id9">0.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id10">0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id11">0.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id12">0.1.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id13">0.1.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id14">0.1.7</a></li>
 </ul>
 </li>
 </ul>
@@ -295,7 +286,7 @@ results try falling back to the standard way of passing input into a pipe.</p>
         <div class="sphinxsidebarwrapper">
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Welcome to pipetools&#8217; documentation!</a><ul>
+<li><a class="reference internal" href="#">Welcome to pipetools’ documentation!</a><ul>
 <li><a class="reference internal" href="#why">Why?</a><ul>
 <li><a class="reference internal" href="#why-piping-instead-of-regular-composition">Why piping instead of regular composition?</a></li>
 </ul>
@@ -320,14 +311,23 @@ results try falling back to the standard way of passing input into a pipe.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="pipeutils.html"
                         title="next chapter">pipe-utils</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -346,12 +346,12 @@ results try falling back to the standard way of passing input into a pipe.</p>
         <li class="right" >
           <a href="pipeutils.html" title="pipe-utils"
              >next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">pipetools 0.3.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="#">pipetools 0.3.2 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2012, 0101.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.
+        &#169; Copyright 2012, 0101.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.4.
     </div>
   </body>
 </html>
