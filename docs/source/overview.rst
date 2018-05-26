@@ -42,7 +42,9 @@ filename length, as a string, each file on one line and also with line numbers:
     3. ds_builder.py
 
 
-So you might write it like this::
+So you might write it like this:
+
+.. code-block:: python
 
     def pyfiles_by_length(directory):
         all_files = os.listdir(directory)
@@ -52,13 +54,17 @@ So you might write it like this::
         rows = ("{0}. {1}".format(i, f) for i, f in numbered)
         return '\n'.join(rows)
 
-Or perhaps like this::
+Or perhaps like this:
+
+.. code-block:: python
 
     def pyfiles_by_length(directory):
         return '\n'.join('{0}. {1}'.format(*x) for x in enumerate(sorted(
             [f for f in os.listdir(directory) if f.endswith('.py')], key=len)))
 
-Or, if you're a mad scientist, you would probably do it like this::
+Or, if you're a mad scientist, you would probably do it like this:
+
+.. code-block:: python
 
     pyfiles_by_length = lambda d: (reduce('{0}\n{1}'.format,
         map(lambda x: '%d. %s' % x, enumerate(sorted(
@@ -70,7 +76,7 @@ But *there should be one -- and preferably only one -- obvious way to do it*.
 So which one is it? Well, to redeem the situation, ``pipetools`` give you yet
 another possibility!
 
-::
+.. code-block:: python
 
     pyfiles_by_length = (pipe
         | os.listdir
@@ -106,7 +112,9 @@ Usage
 The pipe
 """"""""
 The ``pipe`` object can be used to pipe functions together to
-form new functions, and it works like this::
+form new functions, and it works like this:
+
+.. code-block:: python
 
     from pipetools import pipe
 
@@ -115,7 +123,9 @@ form new functions, and it works like this::
     f(x) == c(b(a(x)))
 
 
-A real example, sum of odd numbers from 0 to *x*::
+A real example, sum of odd numbers from 0 to *x*:
+
+.. code-block:: python
 
     from functools import partial
     from pipetools import pipe
@@ -133,7 +143,9 @@ Automatic partial application in the pipe
 
 As partial application is often useful when piping things together, it is done
 automatically when the *pipe* encounters a tuple, so this produces the same
-result as the previous example::
+result as the previous example:
+
+.. code-block:: python
 
     odd_sum = pipe | range | (filter, lambda x: x % 2) | sum
 
@@ -145,7 +157,9 @@ Built-in tools
 
 Pipetools contain a set of *pipe-utils* that solve some common tasks. For
 example there is a shortcut for the filter class from our example, called
-:func:`~pipetools.utils.where`::
+:func:`~pipetools.utils.where`:
+
+.. code-block:: python
 
     from pipetools import pipe, where
 
@@ -155,7 +169,9 @@ Well that might be a bit more readable, but not really a huge improvement, but
 wait!
 
 If a *pipe-util* is used as first or second item in the pipe (which happens
-quite often) the ``pipe`` at the beginning can be omitted::
+quite often) the ``pipe`` at the beginning can be omitted:
+
+.. code-block:: python
 
     odd_sum = range | where(lambda x: x % 2) | sum
 
@@ -175,7 +191,7 @@ lambdas are quite verbose for simple tasks and the code gets cluttered...
 
 **X object** to the rescue!
 
-::
+.. code-block:: python
 
     from pipetools import where, X
 
@@ -194,7 +210,9 @@ Automatic string formatting
 
 Since it doesn't make sense to compose functions with strings, when a pipe (or a
 :doc:`pipe-util<pipeutils>`) encounters a string, it attempts to use it for
-`(advanced) formatting`_::
+`(advanced) formatting`_:
+
+.. code-block:: pycon
 
     >>> countdown = pipe | (range, 1) | reversed | foreach('{0}...') | ' '.join | '{0} boom'
     >>> countdown(5)
@@ -208,11 +226,15 @@ Feeding the pipe
 
 Sometimes it's useful to create a one-off pipe and immediately run some input
 through it. And since this is somewhat awkward (and not very readable,
-especially when the pipe spans multiple lines)::
+especially when the pipe spans multiple lines):
+
+.. code-block:: python
 
     result = (pipe | foo | bar | boo)(some_input)
 
-It can also be done using the ``>`` operator::
+It can also be done using the ``>`` operator:
+
+.. code-block:: python
 
     result = some_input > pipe | foo | bar | boo
 

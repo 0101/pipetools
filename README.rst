@@ -4,8 +4,6 @@
 .. image:: https://travis-ci.org/0101/pipetools.svg?branch=master
   :target: https://travis-ci.org/0101/pipetools
 
-.. highlight:: python
-
 Pipetools
 =========
 
@@ -223,7 +221,11 @@ Since it doesn't make sense to compose functions with strings, when a pipe (or a
 `pipe-util <http://0101.github.io/pipetools/doc/pipeutils.html>`_) encounters a string, it attempts to use it for
 `(advanced) formatting`_:
 
+<<<<<<< HEAD
 .. code-block:: python
+=======
+.. code-block:: pycon
+>>>>>>> master
 
     >>> countdown = pipe | (range, 1) | reversed | foreach('{0}...') | ' '.join | '{0} boom'
     >>> countdown(5)
