@@ -303,3 +303,11 @@ class TestXPartial:
         xf = xpartial(dummy, something=X)
         with pytest.raises(ValueError):
             xf()
+
+    def test_can_xpartial_any_callable(self):
+        class my_callable(object):
+            def __call__(self, x):
+                return "hello %s" % x
+
+        f = xpartial(my_callable(), (X + "!"))
+        assert f("x") == "hello x!"

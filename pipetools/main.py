@@ -1,5 +1,5 @@
 from collections import Iterable
-from functools import partial, wraps
+from functools import partial, wraps, WRAPPER_ASSIGNMENTS
 
 from pipetools.debug import get_name, set_name, repr_args
 from pipetools.compat import text_type, string_types, dict_items
@@ -234,7 +234,7 @@ def xpartial(func, *xargs, **xkwargs):
     any_x = any(isinstance(a, XObject) for a in xargs + tuple(xkwargs.values()))
     use = lambda x, value: (~x)(value) if isinstance(x, XObject) else x
 
-    @wraps(func)
+    @wraps(func, assigned=filter(partial(hasattr, func), WRAPPER_ASSIGNMENTS))
     def xpartially_applied(*func_args, **func_kwargs):
         if any_x:
             if not func_args:
