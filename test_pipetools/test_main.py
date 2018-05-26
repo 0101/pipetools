@@ -251,6 +251,26 @@ class TestMaybe(TestPipe):
         assert (maybe | sum)(None) is None
 
 
+class TestPipeInAPipe:
+
+    def test_maybe_in_a_pipe_catches_none(self):
+        f = pipe | str | int | (lambda x: None) | maybe | X.hello
+        assert f(3) is None
+
+    def test_maybe_in_a_pipe_goes_through(self):
+        f = pipe | str | int | maybe | (X * 2)
+        assert f(3) == 6
+
+    def test_maybe_in_a_pipe_not_active_before_its_place(self):
+        f = pipe | str | (lambda x: None) | int | maybe | X.hello
+        with pytest.raises(TypeError):
+            f(3)
+
+    def test_pipe_in_a_pipe_because_why_not(self):
+        f = pipe | str | pipe | int
+        assert f(3) == 3
+
+
 def dummy(*args, **kwargs):
     return args, kwargs
 
