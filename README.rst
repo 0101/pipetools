@@ -4,6 +4,8 @@
 .. image:: https://travis-ci.org/0101/pipetools.svg?branch=master
   :target: https://travis-ci.org/0101/pipetools
 
+.. highlight:: python
+
 Pipetools
 =========
 

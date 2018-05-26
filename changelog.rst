@@ -1,4 +1,13 @@
 
+0.3.2
+----------
+2018-05-26
+
+* No crash in Python 2 when partially applying a non-standard callable
+* Regex conditions ignore None instead of throwing an exception
+* maybe can be inserted in the middle of a pipe without parentheses
+
+
 0.3.1
 ----------
 2018-03-23

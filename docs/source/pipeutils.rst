@@ -96,5 +96,10 @@ is equivalent to::
 
     where(re.match, r'^some\-regexp?$')
 
+As of ``0.3.2`` this also filters out ``None`` values instead of throwing an
+exception. Making it equivalent to::
+
+    where(maybe | (re.match, r'^some\-regexp?$'))
+
 If you want to easily add this functionality to your own functions, you can use
 the :func:`~pipetools.decorators.regex_condition` decorator.

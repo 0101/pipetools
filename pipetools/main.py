@@ -1,5 +1,5 @@
 from collections import Iterable
-from functools import partial, wraps
+from functools import partial, wraps, WRAPPER_ASSIGNMENTS
 
 from pipetools.debug import get_name, set_name, repr_args
 from pipetools.compat import text_type, string_types, dict_items
@@ -34,14 +34,19 @@ class Pipe(object):
         return set_name(name, composite)
 
     @classmethod
-    def bind(cls, first, second):
-        return cls(
+    def bind(cls, first, second, new_cls=None):
+        return (new_cls or cls)(
             first if second is None else
             second if first is None else
             cls.compose(first, second))
 
     def __or__(self, next_func):
-        return self.bind(self.func, prepare_function_for_pipe(next_func))
+        # Handle multiple pipes in pipe definition and also changing pipe type to e.g. Maybe
+        # this is needed because of evaluation order
+        pipe_in_a_pipe = isinstance(next_func, Pipe) and next_func.func is None
+        new_cls = type(next_func) if pipe_in_a_pipe else None
+        next = None if pipe_in_a_pipe else prepare_function_for_pipe(next_func)
+        return self.bind(self.func, next, new_cls)
 
     def __ror__(self, prev_func):
         return self.bind(prepare_function_for_pipe(prev_func), self.func)
@@ -80,6 +85,7 @@ class Maybe(Pipe):
             None if thing is None else
             self.func(thing) if self.func else
             thing)
+
 
 maybe = Maybe()
 
@@ -228,7 +234,7 @@ def xpartial(func, *xargs, **xkwargs):
     any_x = any(isinstance(a, XObject) for a in xargs + tuple(xkwargs.values()))
     use = lambda x, value: (~x)(value) if isinstance(x, XObject) else x
 
-    @wraps(func)
+    @wraps(func, assigned=filter(partial(hasattr, func), WRAPPER_ASSIGNMENTS))
     def xpartially_applied(*func_args, **func_kwargs):
         if any_x:
             if not func_args:
