@@ -212,7 +212,7 @@ Since it doesn't make sense to compose functions with strings, when a pipe (or a
 :doc:`pipe-util<pipeutils>`) encounters a string, it attempts to use it for
 `(advanced) formatting`_:
 
-.. code-block:: python
+.. code-block:: pycon
 
     >>> countdown = pipe | (range, 1) | reversed | foreach('{0}...') | ' '.join | '{0} boom'
     >>> countdown(5)
