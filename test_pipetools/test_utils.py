@@ -141,6 +141,14 @@ class TestTakeUntil:
         f = take_until(X > 5)
         assert list(f([1, 2, 3, 1, 6, 1, 3])) == [1, 2, 3, 1]
 
+    def test_including(self):
+        f = take_until(X > 5).including
+        assert ([1, 2, 3, 1, 6, 1, 3] > f | list) == [1, 2, 3, 1, 6]
+
+    def test_including_all(self):
+        f = take_until(X > 50).including
+        assert ([1, 2, 3, 1, 6, 1, 3] > f | list) == [1, 2, 3, 1, 6, 1, 3]
+
 
 class TestAsKwargs:
 

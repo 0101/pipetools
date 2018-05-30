@@ -308,5 +308,27 @@ def take_until(condition):
     """
     >>> [1, 4, 6, 4, 1] > take_until(X > 5) | list
     [1, 4]
+
+    >>> [1, 4, 6, 4, 1] > take_until(X > 5).including | list
+    [1, 4, 6]
     """
-    return partial(takewhile, pipe | condition | operator.not_)
+    f = partial(takewhile, pipe | condition | operator.not_)
+    f.attrs = {'including': take_until_including(condition)}
+    return f
+
+
+@pipe_util
+@regex_condition
+def take_until_including(condition):
+    """
+    >>> [1, 4, 6, 4, 1] > take_until_including(X > 5) | list
+    [1, 4, 6]
+    """
+    def take_until_including_(interable):
+        for i in interable:
+            if not condition(i):
+                yield i
+            else:
+                yield i
+                break
+    return take_until_including_
