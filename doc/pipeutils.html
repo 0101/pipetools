@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pipe-utils &#8212; pipetools 0.3.2 documentation</title>
+    <title>pipe-utils &#8212; pipetools 0.3.3 documentation</title>
     <link rel="stylesheet" href="_static/override.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="_static/documentation_options.js"></script>
@@ -48,7 +48,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to pipetools’ documentation!"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pipetools 0.3.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pipetools 0.3.3 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -96,6 +96,12 @@ function.</p>
 <dd><p>Applies the dictionary in the input as keyword arguments to <cite>function</cite>.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="pipetools.utils.count">
+<code class="descclassname">pipetools.utils.</code><code class="descname">count</code><a class="headerlink" href="#pipetools.utils.count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of items in <cite>iterable</cite>.</p>
+</dd></dl>
+
 <dl class="function">
 <dt id="pipetools.utils.debug_print">
 <code class="descclassname">pipetools.utils.</code><code class="descname">debug_print</code><span class="sig-paren">(</span><em>function</em><span class="sig-paren">)</span><a class="headerlink" href="#pipetools.utils.debug_print" title="Permalink to this definition">¶</a></dt>
@@ -117,6 +123,28 @@ function.</p>
 except for the first <cite>count</cite>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">drop_first</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">|</span> <span class="nb">tuple</span>
 <span class="go">(5, 6, 7, 8, 9)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pipetools.utils.flatten">
+<code class="descclassname">pipetools.utils.</code><code class="descname">flatten</code><a class="headerlink" href="#pipetools.utils.flatten" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flattens an arbitrarily deep nested iterable(s).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">[[[[[[</span><span class="mi">1</span><span class="p">]]],</span> <span class="mi">2</span><span class="p">],</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">foreach</span><span class="p">(</span><span class="n">X</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)]]</span> <span class="o">&gt;</span> <span class="n">flatten</span> <span class="o">|</span> <span class="nb">list</span>
+<span class="go">[1, 2, 3, 4]</span>
+</pre></div>
+</div>
+<p>Does not treat strings and (as of <code class="docutils literal notranslate"><span class="pre">0.3.1</span></code>) mappings (dictionaries)
+as iterables so these are left alone.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="p">[{</span><span class="s1">&#39;how&#39;</span><span class="p">:</span> <span class="s1">&#39;are&#39;</span><span class="p">},</span> <span class="p">[[</span><span class="s1">&#39;you&#39;</span><span class="p">]]])</span> <span class="o">&gt;</span> <span class="n">flatten</span> <span class="o">|</span> <span class="nb">list</span>
+<span class="go">[&#39;hello&#39;, {&#39;how&#39;: &#39;are&#39;}, &#39;you&#39;]</span>
+</pre></div>
+</div>
+<p>Also turns non-iterables into iterables which is convenient when you
+are not sure about the input.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;stuff&#39;</span> <span class="o">&gt;</span> <span class="n">flatten</span> <span class="o">|</span> <span class="nb">list</span>
+<span class="go">[&#39;stuff&#39;]</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -225,6 +253,19 @@ items from the input (or possibly less, if there isn’t that many).</p>
 <code class="descclassname">pipetools.utils.</code><code class="descname">take_until</code><span class="sig-paren">(</span><em>condition</em><span class="sig-paren">)</span><a class="headerlink" href="#pipetools.utils.take_until" title="Permalink to this definition">¶</a></dt>
 <dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">take_until</span><span class="p">(</span><span class="n">X</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">|</span> <span class="nb">list</span>
 <span class="go">[1, 4]</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">take_until</span><span class="p">(</span><span class="n">X</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">including</span> <span class="o">|</span> <span class="nb">list</span>
+<span class="go">[1, 4, 6]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pipetools.utils.take_until_including">
+<code class="descclassname">pipetools.utils.</code><code class="descname">take_until_including</code><span class="sig-paren">(</span><em>condition</em><span class="sig-paren">)</span><a class="headerlink" href="#pipetools.utils.take_until_including" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">take_until_including</span><span class="p">(</span><span class="n">X</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">|</span> <span class="nb">list</span>
+<span class="go">[1, 4, 6]</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -388,7 +429,7 @@ the <a class="reference internal" href="decorators.html#pipetools.decorators.reg
         <li class="right" >
           <a href="index.html" title="Welcome to pipetools’ documentation!"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pipetools 0.3.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pipetools 0.3.3 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
