@@ -1,6 +1,6 @@
 from __future__ import print_function
 from collections import Mapping
-from functools import partial
+from functools import partial, wraps
 from itertools import islice, takewhile, dropwhile
 import operator
 
@@ -287,11 +287,23 @@ def flatten(*args):
     """
     Flattens an arbitrarily deep nested iterable(s).
 
+    >>> [[[[[[1]]], 2], range(2) > foreach(X + 3)]] > flatten | list
+    [1, 2, 3, 4]
+
     Does not treat strings and (as of ``0.3.1``) mappings (dictionaries)
     as iterables so these are left alone.
+
+    >>> ('hello', [{'how': 'are'}, [['you']]]) > flatten | list
+    ['hello', {'how': 'are'}, 'you']
+
+    Also turns non-iterables into iterables which is convenient when you
+    are not sure about the input.
+
+    >>> 'stuff' > flatten | list
+    ['stuff']
     """
     return _flatten(args)
-flatten = pipe | flatten
+flatten = wraps(flatten)(pipe | flatten)
 
 
 def count(iterable):
@@ -299,7 +311,7 @@ def count(iterable):
     Returns the number of items in `iterable`.
     """
     return sum(1 for whatever in iterable)
-count = pipe | count
+count = wraps(count)(pipe | count)
 
 
 @pipe_util
