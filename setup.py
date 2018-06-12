@@ -2,7 +2,7 @@ import sys
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
 
-from pipetools import X
+from pipetools import xpartial, X
 import pipetools
 
 
@@ -25,7 +25,7 @@ setup(
     version=pipetools.__versionstr__,
     description=('A library that enables function composition similar to '
         'using Unix pipes.'),
-    long_description='README.rst' > open | X.read(),
+    long_description='README.rst' > xpartial(open, X, encoding="utf-8") | X.read(),
     author='Petr Pokorny',
     author_email='petr@innit.cz',
     license='MIT',
