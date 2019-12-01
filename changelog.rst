@@ -1,4 +1,18 @@
 
+0.3.5
+----------
+2019-12-01
+
+* Fixed X object division in Python 3
+
+
+0.3.4
+----------
+2018-06-13
+
+* Fixed UnicodeDecodeError during installation
+
+
 0.3.3
 ----------
 2018-05-30

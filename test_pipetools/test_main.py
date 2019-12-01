@@ -181,6 +181,9 @@ class TestX:
     def test_pow(self):
         assert (~(X ** 3))(5) == (5 ** 3)
 
+    def test_div(self):
+        assert (~(X / 2))(4) == 2
+
     def test_in(self):
         container = 'asdf'
 
