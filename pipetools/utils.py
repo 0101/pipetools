@@ -2,6 +2,7 @@ from __future__ import print_function
 from collections import Mapping
 from functools import partial, wraps
 from itertools import islice, takewhile, dropwhile
+from typing import Iterable, TypeVar, Callable, Any, Optional, Tuple, List
 import operator
 
 from pipetools.compat import map, filter, range, dict_items
@@ -14,10 +15,14 @@ from pipetools.main import pipe, X, _iterable
 KEY, VALUE = X[0], X[1]
 
 
+T = TypeVar('T')
+Tout = TypeVar('Tout')
+
+
 @pipe_util
 @auto_string_formatter
 @data_structure_builder
-def foreach(function):
+def foreach(function: Callable[[T], Tout]) -> Callable[[Iterable[T]], Iterable[Tout]]:
     """
     Returns a function that takes an iterable and returns an iterator over the
     results of calling `function` on each item of the iterable.
@@ -50,7 +55,7 @@ def foreach_do(function):
 
 @pipe_util
 @regex_condition
-def where(condition):
+def where(condition: Callable[[T], Any]) -> Callable[[Iterable[T]], Iterable[T]]:
     """
     Pipe-able lazy filter.
 
@@ -64,7 +69,7 @@ def where(condition):
 
 @pipe_util
 @regex_condition
-def where_not(condition):
+def where_not(condition: Callable[[T], bool]) -> Callable[[Iterable[T]], Iterable[T]]:
     """
     Inverted :func:`where`.
     """
@@ -73,7 +78,7 @@ def where_not(condition):
 
 @pipe_util
 @data_structure_builder
-def sort_by(function):
+def sort_by(function: Callable[[T], Any]) -> Callable[[Iterable[T]], Iterable[T]]:
     """
     Sorts an incoming sequence by using the given `function` as key.
 
@@ -100,7 +105,7 @@ def sort_by(function):
 
 
 @pipe_util
-def _descending_sort_by(function):
+def _descending_sort_by(function: Callable[[T], Any]) -> Callable[[Iterable[T]], Iterable[T]]:
     return partial(sorted, key=function, reverse=True)
 
 
@@ -110,7 +115,7 @@ sort = sort_by(X)
 @pipe_util
 @auto_string_formatter
 @data_structure_builder
-def debug_print(function):
+def debug_print(function: Callable[[T], Any]) -> Callable[[T], T]:
     """
     Prints function applied on input and returns the input.
 
@@ -130,7 +135,7 @@ def debug_print(function):
 
 
 @pipe_util
-def tee(function):
+def tee(function: Callable[[T], Any]) -> Callable[[T], T]:
     """
     Sends a copy of the input into function - like a T junction.
     """
@@ -141,7 +146,7 @@ def tee(function):
 
 
 @pipe_util
-def as_args(function):
+def as_args(function: Callable[..., Tout]) -> Callable[[T], Tout]:
     """
     Applies the sequence in the input as positional arguments to `function`.
 
@@ -153,14 +158,14 @@ def as_args(function):
 
 
 @pipe_util
-def as_kwargs(function):
+def as_kwargs(function: Callable[..., Tout]) -> Callable[[T], Tout]:
     """
     Applies the dictionary in the input as keyword arguments to `function`.
     """
     return lambda x: function(**x)
 
 
-def take_first(count):
+def take_first(count: int) -> Callable[[Iterable[T]], Iterable[T]]:
     """
     Assumes an iterable on the input, returns an iterable with first `count`
     items from the input (or possibly less, if there isn't that many).
@@ -174,7 +179,7 @@ def take_first(count):
     return pipe | set_name('take_first(%s)' % count, _take_first)
 
 
-def drop_first(count):
+def drop_first(count: int) -> Callable[[Iterable[T]], Iterable[T]]:
     """
     Assumes an iterable on the input, returns an iterable with identical items
     except for the first `count`.
@@ -189,7 +194,10 @@ def drop_first(count):
     return pipe | set_name('drop_first(%s)' % count, _drop_first)
 
 
-def unless(exception_class_or_tuple, func, *args, **kwargs):
+def unless(
+        exception_class_or_tuple,
+        func: Callable[..., Tout],
+        *args, **kwargs) -> Callable[..., Optional[Tout]]:
     """
     When `exception_class_or_tuple` occurs while executing `func`, it will
     be caught and ``None`` will be returned.
@@ -220,7 +228,7 @@ def unless(exception_class_or_tuple, func, *args, **kwargs):
 
 @pipe_util
 @regex_condition
-def select_first(condition):
+def select_first(condition: Callable[[T], Any]) -> Callable[[Iterable[T]], Optional[T]]:
     """
     Returns first item from input sequence that satisfies `condition`. Or
     ``None`` if none does.
@@ -245,13 +253,13 @@ def select_first(condition):
     return where(condition) | unless(StopIteration, next)
 
 
-first_of = select_first(X)
+first_of: Callable[[Iterable[T]], Optional[T]] = select_first(X)
 
 
 @pipe_util
 @auto_string_formatter
 @data_structure_builder
-def group_by(function):
+def group_by(function: Callable[[T], Tout]) -> Callable[[Iterable[T]], Iterable[Tuple[Tout, List[T]]]]:
     """
     Groups input sequence by `function`.
 
@@ -274,16 +282,16 @@ def group_by(function):
     return _group_by
 
 
-def _flatten(x):
+def __flatten(x):
     if not _iterable(x) or isinstance(x, Mapping):
         yield x
     else:
         for y in x:
-            for z in _flatten(y):
+            for z in __flatten(y):
                 yield z
 
 
-def flatten(*args):
+def _flatten(*args):
     """
     Flattens an arbitrarily deep nested iterable(s).
 
@@ -302,21 +310,25 @@ def flatten(*args):
     >>> 'stuff' > flatten | list
     ['stuff']
     """
-    return _flatten(args)
-flatten = wraps(flatten)(pipe | flatten)
+    return __flatten(args)
 
 
-def count(iterable):
+flatten: Callable[..., Iterable] = wraps(_flatten)(pipe | _flatten)
+
+
+def _count(iterable):
     """
     Returns the number of items in `iterable`.
     """
     return sum(1 for whatever in iterable)
-count = wraps(count)(pipe | count)
+
+
+count: Callable[[Iterable], int] = wraps(_count)(pipe | _count)
 
 
 @pipe_util
 @regex_condition
-def take_until(condition):
+def take_until(condition: Callable[[T], Any]) -> Callable[[Iterable[T]], Iterable[T]]:
     """
     >>> [1, 4, 6, 4, 1] > take_until(X > 5) | list
     [1, 4]
@@ -331,7 +343,7 @@ def take_until(condition):
 
 @pipe_util
 @regex_condition
-def take_until_including(condition):
+def take_until_including(condition: Callable[[T], Any]) -> Callable[[Iterable[T]], Iterable[T]]:
     """
     >>> [1, 4, 6, 4, 1] > take_until_including(X > 5) | list
     [1, 4, 6]

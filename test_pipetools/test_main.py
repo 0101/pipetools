@@ -53,6 +53,12 @@ class TestPipe(object):
 
         assert SomeClass().method() == 'bar foo'
 
+    def test_pipe_a_pipe(self):
+
+        p = self.pipe | pipe | self.pipe | str
+
+        assert p(3) == "3"
+
 
 class TestX:
 

@@ -38,6 +38,7 @@ setup(
     ),
     tests_require=(
         'pytest',
+        'mypy',
     ),
     cmdclass={'test': PyTest},
 

@@ -1,11 +1,18 @@
 from collections import Iterable
 from functools import partial, wraps, WRAPPER_ASSIGNMENTS
+from typing import Generic, TypeVar, overload, Callable, Type, Any, Tuple
 
 from pipetools.debug import get_name, set_name, repr_args
 from pipetools.compat import text_type, string_types, dict_items
 
 
-class Pipe(object):
+Tin = TypeVar('Tin')
+Tout = TypeVar('Tout')
+TnewOut = TypeVar('TnewOut')
+TnewIn = TypeVar('TnewIn')
+
+
+class Pipe(Generic[Tin, Tout]):
     """
     Pipe-style combinator.
 
@@ -40,7 +47,21 @@ class Pipe(object):
             second if first is None else
             cls.compose(first, second))
 
+    @overload
+    def __or__(self, next_func: str) -> 'Pipe[Tin, str]':
+        ...
+
+    @overload
+    def __or__(self, next_func: Tuple) -> 'Pipe[Tin, Any]':
+        ...
+
+    @overload
+    def __or__(self, next_func: Callable[[Tout], TnewOut]) -> 'Pipe[Tin, TnewOut]':
+        ...
+
     def __or__(self, next_func):
+        if isinstance(next_func, EmptyPipe):
+            return self
         # Handle multiple pipes in pipe definition and also changing pipe type to e.g. Maybe
         # this is needed because of evaluation order
         pipe_in_a_pipe = isinstance(next_func, Pipe) and next_func.func is None
@@ -48,20 +69,46 @@ class Pipe(object):
         next = None if pipe_in_a_pipe else prepare_function_for_pipe(next_func)
         return self.bind(self.func, next, new_cls)
 
-    def __ror__(self, prev_func):
+    def __ror__(self, prev_func: Callable[[TnewIn], Tin]) -> 'Pipe[TnewIn, Tout]':
         return self.bind(prepare_function_for_pipe(prev_func), self.func)
 
-    def __lt__(self, thing):
+    def __lt__(self, thing: Tin) -> Tout:
         return self.func(thing) if self.func else thing
 
-    def __call__(self, *args, **kwargs):
+    def __call__(self, *args, **kwargs) -> Tout:
         return self.func(*args, **kwargs)
 
     def __get__(self, instance, owner):
         return partial(self, instance) if instance else self
 
 
-pipe = Pipe()
+class EmptyPipe:
+
+    def __init__(self, pipe_type: Type = Pipe) -> None:
+        self.pipe_type = pipe_type
+
+    @overload
+    def __or__(self, func: 'EmptyPipe') -> 'EmptyPipe':
+        ...
+
+    @overload
+    def __or__(self, func: Callable[[Tin], Tout]) -> Pipe[Tin, Tout]:
+        ...
+
+    @overload
+    def __or__(self, func: str) -> Pipe[Any, str]:
+        ...
+
+    def __or__(self, func):
+        if isinstance(func, EmptyPipe):
+            return self
+        return self.pipe_type(prepare_function_for_pipe(func))
+
+    def __ror__(self, func: Callable[[Tin], Tout]) -> Pipe[Tin, Tout]:
+        return self.pipe_type(prepare_function_for_pipe(func))
+
+
+pipe = EmptyPipe()
 
 
 class Maybe(Pipe):
@@ -240,7 +287,7 @@ def xpartial(func, *xargs, **xkwargs):
     any_x = any(isinstance(a, XObject) for a in xargs + tuple(xkwargs.values()))
     use = lambda x, value: (~x)(value) if isinstance(x, XObject) else x
 
-    @wraps(func, assigned=filter(partial(hasattr, func), WRAPPER_ASSIGNMENTS))
+    @wraps(func, assigned=list(filter(partial(hasattr, func), WRAPPER_ASSIGNMENTS)))
     def xpartially_applied(*func_args, **func_kwargs):
         if any_x:
             if not func_args:

@@ -1,5 +1,6 @@
 import re
 from functools import partial, wraps
+from typing import TypeVar
 
 from pipetools.debug import repr_args, set_name, get_name
 from pipetools.ds_builder import DSBuilder, NoBuilder
@@ -7,7 +8,10 @@ from pipetools.main import pipe, XObject, StringFormatter, xpartial, maybe
 from pipetools.compat import string_types, dict_items
 
 
-def pipe_util(func):
+T = TypeVar('T')
+
+
+def pipe_util(func: T) -> T:
     """
     Decorator that handles X objects and partial application for pipe-utils.
     """
@@ -39,7 +43,7 @@ def pipe_util(func):
     return pipe_util_wrapper
 
 
-def auto_string_formatter(func):
+def auto_string_formatter(func: T) -> T:
     """
     Decorator that handles automatic string formatting.
 
@@ -56,7 +60,7 @@ def auto_string_formatter(func):
     return auto_string_formatter_wrapper
 
 
-def data_structure_builder(func):
+def data_structure_builder(func: T) -> T:
     """
     Decorator to handle automatic data structure creation for pipe-utils.
     """
@@ -71,7 +75,7 @@ def data_structure_builder(func):
     return ds_builder_wrapper
 
 
-def regex_condition(func):
+def regex_condition(func: T) -> T:
     """
     If a condition is given as string instead of a function, it is turned
     into a regex-matching function.
