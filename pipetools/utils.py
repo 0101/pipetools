@@ -1,5 +1,9 @@
 from __future__ import print_function
-from collections import Mapping
+try:
+    from collections.abc import Mapping
+except ImportError:
+    from collections import Mapping
+
 from functools import partial, wraps
 from itertools import islice, takewhile, dropwhile
 import operator
