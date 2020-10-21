@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Why? &#8212; pipetools 0.3.5 documentation</title>
+    <title>Why? &#8212; pipetools 0.3.6 documentation</title>
     <link rel="stylesheet" href="_static/override.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="_static/documentation_options.js"></script>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pipetools 0.3.5 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pipetools 0.3.6 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -68,7 +68,7 @@ order as it is with regular function composition (<code class="docutils literal 
 <h1>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h1>
 <p>Say you want to create a list of python files in a given directory, ordered by
 filename length, as a string, each file on one line and also with line numbers:</p>
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">pyfiles_by_length</span><span class="p">(</span><span class="s1">&#39;../pipetools&#39;</span><span class="p">)</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">pyfiles_by_length</span><span class="p">(</span><span class="s1">&#39;../pipetools&#39;</span><span class="p">)</span>
 <span class="go">0. main.py</span>
 <span class="go">1. utils.py</span>
 <span class="go">2. __init__.py</span>
@@ -81,18 +81,18 @@ filename length, as a string, each file on one line and also with line numbers:<
     <span class="n">py_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">all_files</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">)]</span>
     <span class="n">py_files</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)</span>
     <span class="n">numbered</span> <span class="o">=</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">py_files</span><span class="p">)</span>
-    <span class="n">rows</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;{0}. {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">numbered</span><span class="p">)</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">. </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">numbered</span><span class="p">)</span>
     <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Or perhaps like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pyfiles_by_length</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
-    <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;{0}. {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span>
+    <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">. </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span>
         <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">)],</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)))</span>
 </pre></div>
 </div>
 <p>Or, if you’re a mad scientist, you would probably do it like this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pyfiles_by_length</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="p">(</span><span class="nb">reduce</span><span class="p">(</span><span class="s1">&#39;{0}</span><span class="se">\n</span><span class="s1">{1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">,</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pyfiles_by_length</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="p">(</span><span class="n">reduce</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="se">\n</span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">,</span>
     <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">. </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">x</span><span class="p">,</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span>
         <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">d</span><span class="p">)),</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)))))</span>
 </pre></div>
@@ -105,7 +105,7 @@ another possibility!</p>
     <span class="o">|</span> <span class="n">where</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">))</span>
     <span class="o">|</span> <span class="n">sort_by</span><span class="p">(</span><span class="nb">len</span><span class="p">)</span>
     <span class="o">|</span> <span class="nb">enumerate</span>
-    <span class="o">|</span> <span class="n">foreach</span><span class="p">(</span><span class="s2">&quot;{0}. {1}&quot;</span><span class="p">)</span>
+    <span class="o">|</span> <span class="n">foreach</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">. </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="o">|</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span>
 <span class="p">)</span>
 </pre></div>
@@ -195,7 +195,7 @@ lambdas are quite verbose for simple tasks and the code gets cluttered…</p>
 <p>Since it doesn’t make sense to compose functions with strings, when a pipe (or a
 <a class="reference internal" href="pipeutils.html"><span class="doc">pipe-util</span></a>) encounters a string, it attempts to use it for
 <a class="reference external" href="http://docs.python.org/library/string.html#formatstrings">(advanced) formatting</a>:</p>
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">countdown</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="p">(</span><span class="nb">range</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="nb">reversed</span> <span class="o">|</span> <span class="n">foreach</span><span class="p">(</span><span class="s1">&#39;{0}...&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span> <span class="o">|</span> <span class="s1">&#39;{0} boom&#39;</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">countdown</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="p">(</span><span class="nb">range</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="nb">reversed</span> <span class="o">|</span> <span class="n">foreach</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">...&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span> <span class="o">|</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> boom&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">countdown</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <span class="go">u&#39;4... 3... 2... 1... boom&#39;</span>
 </pre></div>
@@ -281,7 +281,7 @@ results try falling back to the standard way of passing input into a pipe.</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pipetools 0.3.5 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pipetools 0.3.6 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

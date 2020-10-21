@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>The Maybe Pipe &#8212; pipetools 0.3.5 documentation</title>
+    <title>The Maybe Pipe &#8212; pipetools 0.3.6 documentation</title>
     <link rel="stylesheet" href="_static/override.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="_static/documentation_options.js"></script>
@@ -48,7 +48,7 @@
         <li class="right" >
           <a href="xpartial.html" title="X-partial"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pipetools 0.3.5 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pipetools 0.3.6 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -62,7 +62,7 @@
 <p><code class="docutils literal notranslate"><span class="pre">maybe</span></code> is just like <a class="reference internal" href="overview.html#the-pipe"><span class="std std-ref">pipe</span></a>, except if any of the piped functions
 returns <code class="docutils literal notranslate"><span class="pre">None</span></code> the execution is stopped and <code class="docutils literal notranslate"><span class="pre">None</span></code> is returned immediately.</p>
 <p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pipetools</span> <span class="k">import</span> <span class="n">maybe</span><span class="p">,</span> <span class="n">X</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pipetools</span> <span class="kn">import</span> <span class="n">maybe</span><span class="p">,</span> <span class="n">X</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">maybe</span> <span class="o">|</span> <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;^number-(\d+)$&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">X</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="nb">int</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="s1">&#39;number-7&#39;</span><span class="p">)</span>
 <span class="go">7</span>
@@ -126,7 +126,7 @@ returns <code class="docutils literal notranslate"><span class="pre">None</span>
         <li class="right" >
           <a href="xpartial.html" title="X-partial"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pipetools 0.3.5 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pipetools 0.3.6 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
