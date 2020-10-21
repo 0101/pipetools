@@ -1,4 +1,8 @@
-from collections import Iterable
+try:
+    from collections.abc import Iterable
+except ImportError:
+    from collections import Iterable
+
 from functools import partial, wraps, WRAPPER_ASSIGNMENTS
 
 from pipetools.debug import get_name, set_name, repr_args
