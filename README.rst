@@ -1,10 +1,13 @@
 
 `Complete documentation in full color <http://0101.github.io/pipetools/doc/>`_.
 
-.. image:: https://github.com/0101/pipetools/actions/workflows/tests.yml/badge.svg
+|tests-badge| |coverage-badge|
+
+.. |tests-badge| image:: https://github.com/0101/pipetools/actions/workflows/tests.yml/badge.svg
   :target: https://github.com/0101/pipetools/actions/workflows/tests.yml
 
-.. image:: coverage.svg
+.. |coverage-badge| image:: coverage.svg
+  :target: https://github.com/0101/pipetools/actions/workflows/tests.yml
 
 Pipetools
 =========

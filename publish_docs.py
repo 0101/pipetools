@@ -18,6 +18,7 @@ readme_template = """
   :target: https://github.com/0101/pipetools/actions/workflows/tests.yml
 
 .. image:: coverage.svg
+  :target: https://github.com/0101/pipetools/actions/workflows/tests.yml
 
 Pipetools
 =========
