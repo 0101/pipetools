@@ -14,11 +14,17 @@ DOC_ROOT = 'http://0101.github.io/pipetools/doc/'
 readme_template = """
 `Complete documentation in full color <{0}>`_.
 
-.. image:: https://github.com/0101/pipetools/actions/workflows/tests.yml/badge.svg
+|tests-badge| |coverage-badge| |pypi-badge|
+
+.. |tests-badge| image:: https://github.com/0101/pipetools/actions/workflows/tests.yml/badge.svg
   :target: https://github.com/0101/pipetools/actions/workflows/tests.yml
 
-.. image:: coverage.svg
+.. |coverage-badge| image:: coverage.svg
   :target: https://github.com/0101/pipetools/actions/workflows/tests.yml
+
+.. |pypi-badge| image:: https://img.shields.io/pypi/dm/pipetools.svg
+  :target: https://pypi.org/project/pipetools/
+
 
 Pipetools
 =========
