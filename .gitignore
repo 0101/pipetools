@@ -1,3 +1,5 @@
 pipetools.egg-info
 docs/build
 *.pyc
+.eggs
+.vscode
