@@ -41,7 +41,7 @@ jobs:
 
     - name: Create coverage badge
       run: |
-        coverage-badge -o coverage.svg
+        coverage-badge -f -o coverage.svg
 
     - name: Commit coverage badge
       uses: EndBug/add-and-commit@v7
