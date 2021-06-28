@@ -13,17 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout gh-pages branch
       uses: actions/checkout@v2
-      with:
-        ref: gh-pages
-
-    - name: Merge master
-      run: |
-        git fetch origin master
-        git config user.email "0101@innit.cz"
-        git config user.name "Github Actions Workflow"
-        git merge origin/master --allow-unrelated-histories
 
     - name: Set up Python
       uses: actions/setup-python@v2
@@ -38,8 +28,17 @@ jobs:
 
     - name: Build Sphinx documentation
       run: |
+        sphinx-build -b html docs/source/ new-doc
+
+    - name: Checkout gh-pages
+      run: |
+        git fetch origin gh-pages
+        git checkout gh-pages
+
+    - name: Update docs
+      run: |
         git rm -rf doc
-        sphinx-build -b html docs/source/ doc
+        mv new-doc doc
 
     - name: Commit new docs
       uses: EndBug/add-and-commit@v7
