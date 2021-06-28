@@ -3,6 +3,9 @@ name: Publish docs
 on:
   push:
     branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
 
 jobs:
 
@@ -15,6 +18,10 @@ jobs:
       with:
         ref: gh-pages
 
+    - name: Merge master
+      run: |
+        git merge master
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -26,9 +33,8 @@ jobs:
         pip install -r docs/requirements.txt
         python setup.py develop
 
-    - name: Build Sphinx documentation from master
+    - name: Build Sphinx documentation
       run: |
-        git merge master
         git rm -rf doc
         sphinx-build -b html docs/source/ doc
 
