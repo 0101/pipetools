@@ -261,5 +261,4 @@ But wait, there is more
 -----------------------
 Checkout `the Maybe pipe <https://0101.github.io/pipetools/doc/maybe>`_, `partial application on steroids <https://0101.github.io/pipetools/doc/xpartial>`_
 or `automatic data structure creation <https://0101.github.io/pipetools/doc/pipeutils#automatic-data-structure-creation>`_
-
-See the `full documentation <https://0101.github.io/pipetools/doc/#contents>`_.
+in the `full documentation <https://0101.github.io/pipetools/doc/#contents>`_.
