@@ -20,7 +20,7 @@ jobs:
 
     - name: Merge master
       run: |
-        git fetch origin/master
+        git fetch origin master
         git merge origin/master
 
     - name: Set up Python
