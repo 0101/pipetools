@@ -26,14 +26,14 @@ Pipetools
 .. |pypi-badge| image:: https://img.shields.io/pypi/dm/pipetools.svg
   :target: https://pypi.org/project/pipetools/
 
-`Complete documentation<{0}>`_
+`Complete documentation <{0}>`_
 
 {{0}}
 
 But wait, there is more
 -----------------------
-Checkout `the Maybe pipe<{0}maybe>_`, `partial application on steroids<{0}xpartial>_`
-or `automatic data structure creation<{0}pipeutils#automatic-data-structure-creation>_`
+Checkout `the Maybe pipe <{0}maybe>_`, `partial application on steroids <{0}xpartial>_`
+or `automatic data structure creation <{0}pipeutils#automatic-data-structure-creation>_`
 
 See the `full documentation <{0}#contents>`_.
 """.format(DOC_ROOT)
