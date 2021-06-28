@@ -1,18 +1,19 @@
 """
-A script for generating a README file and publishing docs on github pages.
+A script for generating a README file from docs/overview page
 """
 
 import codecs
 import re
-from paver.easy import sh, BuildFailure
-from pipetools import foreach, foreach_do, where, X, pipe, unless
+
+from pipetools import foreach, X, pipe
 
 
 DOC_ROOT = 'http://0101.github.io/pipetools/doc/'
 
 
 readme_template = """
-`Complete documentation in full color <{0}>`_.
+Pipetools
+=========
 
 |tests-badge| |coverage-badge| |pypi-badge|
 
@@ -25,14 +26,15 @@ readme_template = """
 .. |pypi-badge| image:: https://img.shields.io/pypi/dm/pipetools.svg
   :target: https://pypi.org/project/pipetools/
 
-
-Pipetools
-=========
+`Complete documentation<{0}>`_
 
 {{0}}
 
 But wait, there is more
 -----------------------
+Checkout `the Maybe pipe<{0}maybe>_`, `partial application on steroids<{0}xpartial>_`
+or `automatic data structure creation<{0}pipeutils#automatic-data-structure-creation>_`
+
 See the `full documentation <{0}#contents>`_.
 """.format(DOC_ROOT)
 
@@ -63,33 +65,6 @@ def fix_links(string):
     return string
 
 
-commit_readme = """
-
-git add README.rst
-git commit -m "(readme update)"
-
-"""
-
-
-update_gh_pages = """
-
-git checkout gh-pages
-git merge master
-
-git rm -rf doc
-sphinx-build -b html docs/source/ doc
-
-git add doc
-git commit -m "doc update"
-git checkout master
-
-"""
-
-runscript = X.split('\n') | where(X) | unless(BuildFailure, foreach_do(sh))
-
-
 if __name__ == '__main__':
 
     create_readme()
-    runscript(commit_readme)
-    runscript(update_gh_pages)

@@ -1,5 +1,6 @@
 
-`Complete documentation in full color <http://0101.github.io/pipetools/doc/>`_.
+Pipetools
+=========
 
 |tests-badge| |coverage-badge| |pypi-badge|
 
@@ -12,8 +13,7 @@
 .. |pypi-badge| image:: https://img.shields.io/pypi/dm/pipetools.svg
   :target: https://pypi.org/project/pipetools/
 
-Pipetools
-=========
+`Complete documentation<http://0101.github.io/pipetools/doc/>`_
 
 ``pipetools`` is a python package that enables function composition similar to
 using Unix pipes.
@@ -265,4 +265,7 @@ It can also be done using the ``>`` operator:
 
 But wait, there is more
 -----------------------
+Checkout `the Maybe pipe<http://0101.github.io/pipetools/doc/maybe>_`, `partial application on steroids<http://0101.github.io/pipetools/doc/xpartial>_`
+or `automatic data structure creation<http://0101.github.io/pipetools/doc/pipeutils#automatic-data-structure-creation>_`
+
 See the `full documentation <http://0101.github.io/pipetools/doc/#contents>`_.

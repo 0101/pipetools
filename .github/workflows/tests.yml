@@ -7,7 +7,8 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+
+  run-tests:
 
     runs-on: ubuntu-latest
     strategy:
@@ -25,7 +26,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install flake8 pytest pytest-cov coverage-badge
+        python -m pip install flake8 pytest pytest-cov
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Lint with flake8
@@ -39,13 +40,42 @@ jobs:
       run: |
         pytest --cov=pipetools
 
+  build-docs:
+    needs: run-tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r docs/requirements.txt
+
+    - name: Test with pytest
+      run: |
+        pytest --cov=pipetools
+
     - name: Create coverage badge
       run: |
         coverage-badge -f -o coverage.svg
 
-    - name: Commit coverage badge
+    - name: Update README
+      run: |
+        python build_scripts/generate_readme.py
+
+    - name: Commit badge and README
       uses: EndBug/add-and-commit@v7
       with:
         default_author: github_actions
-        message: '(Added coverage badge)'
-        add: 'coverage.svg'
+        message: '(README update)'
+        add: '["coverage.svg", "README.rst"]'
+
+    - name: Build Sphinx documentation
+      run: |
+        git rm -rf doc
+        sphinx-build -b html docs/source/ doc
