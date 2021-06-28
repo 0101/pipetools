@@ -8,7 +8,7 @@ import re
 from pipetools import foreach, X, pipe
 
 
-DOC_ROOT = 'http://0101.github.io/pipetools/doc/'
+DOC_ROOT = 'https://0101.github.io/pipetools/doc/'
 
 
 readme_template = """
@@ -32,8 +32,8 @@ Pipetools
 
 But wait, there is more
 -----------------------
-Checkout `the Maybe pipe <{0}maybe>_`, `partial application on steroids <{0}xpartial>_`
-or `automatic data structure creation <{0}pipeutils#automatic-data-structure-creation>_`
+Checkout `the Maybe pipe <{0}maybe>`_, `partial application on steroids <{0}xpartial>`_
+or `automatic data structure creation <{0}pipeutils#automatic-data-structure-creation>`_
 
 See the `full documentation <{0}#contents>`_.
 """.format(DOC_ROOT)
