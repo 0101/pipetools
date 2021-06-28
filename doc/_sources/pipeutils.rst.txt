@@ -62,21 +62,21 @@ Automatic data-structure creation
 Some of the utils, most importantly :func:`foreach`, offer a shortcut for
 creating basic python data structures - ``list``, ``tuple`` and ``dict``.
 
-It works like this (the ``| tuple`` at the end is just so we can see the result,
+It works like this (the ``| list`` at the end is just so we can see the result,
 otherwise it would just give us ``<iterable thing at 0xasdf123>``)::
 
-    >>> range(5) > foreach({X: X * 2}) | tuple
-    ({0: 0}, {1: 2}, {2: 4}, {3: 6}, {4: 8})
+    >>> range(5) > foreach({X: X * 2}) | list
+    [{0: 0}, {1: 2}, {2: 4}, {3: 6}, {4: 8}]
 
-    >>> range(5) > foreach([X, X * u'★']) | tuple
-    ([0, u''], [1, u'★'], [2, u'★★'], [3, u'★★★'], [4, u'★★★★'])
+    >>> range(5) > foreach([X, X * '★']) | list
+    [[0, ''], [1, '★'], [2, '★★'], [3, '★★★'], [4, '★★★★']]
 
 It can also be combined with string formatting::
 
     >>> names = [('John', 'Matrix'), ('Jack', 'Slater')]
-    >>> names > foreach({'name': "{0} {1}", 'initials': '{0[0]}. {1[0]}.'}) | tuple
-    ({u'initials': u'J. M.', u'name': u'John Matrix'},
-     {u'initials': u'J. S.', u'name': u'Jack Slater'})
+    >>> names > foreach({'name': "{0} {1}", 'initials': '{0[0]}. {1[0]}.'}) | list
+    [{'initials': 'J. M.', 'name': 'John Matrix'},
+     {'initials': 'J. S.', 'name': 'Jack Slater'}]
 
 .. _auto-regex:
 

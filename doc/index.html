@@ -55,52 +55,48 @@
             
   <div class="section" id="welcome-to-pipetools-documentation">
 <h1>Welcome to pipetools’ documentation!<a class="headerlink" href="#welcome-to-pipetools-documentation" title="Permalink to this headline">¶</a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">pipetools</span></code> is a python package that enables function composition similar to
-using Unix pipes.</p>
-<p>Inspired by <a class="reference external" href="http://dev-tricks.net/pipe-infix-syntax-for-python">Pipe</a> and <a class="reference external" href="http://honeyman.livejournal.com/122675.html?nojs=1">Околомонадное</a> (whatever that means…)</p>
-<p>It allows piping of arbitrary functions and comes with a few handy shortcuts.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pipetools</span></code> enables function composition similar to using Unix pipes.</p>
+<p>It allows forward-composition and piping of arbitrary functions - no need to decorate them or do anything extra.</p>
+<p>It also packs a bunch of utils that make common operations more convenient and readable.</p>
 <p>Source is on <a class="reference external" href="https://github.com/0101/pipetools">github</a>.</p>
 <div class="section" id="why">
 <h2>Why?<a class="headerlink" href="#why" title="Permalink to this headline">¶</a></h2>
-<p>Pipetools attempt to simplify function composition and make it more readable.</p>
-<div class="section" id="why-piping-instead-of-regular-composition">
-<h3>Why piping instead of regular composition?<a class="headerlink" href="#why-piping-instead-of-regular-composition" title="Permalink to this headline">¶</a></h3>
-<p>I believe it to be easier to read, write and think about from left to right /
-top to bottom in the order that it’s actually executed, instead of reversed
-order as it is with regular function composition (<code class="docutils literal notranslate"><span class="pre">(f</span> <span class="pre">•</span> <span class="pre">g)(x)</span> <span class="pre">==</span> <span class="pre">f(g(x))</span></code>).</p>
-</div>
+<p>Piping and function composition are some of the most natural operations there are for
+plenty of programming tasks. Yet Python doesn’t have a built-in way of performing them.
+That forces you to either deep nesting of function calls or adding extra <strong>glue code</strong>.</p>
 </div>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>Say you want to create a list of python files in a given directory, ordered by
 filename length, as a string, each file on one line and also with line numbers:</p>
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">pyfiles_by_length</span><span class="p">(</span><span class="s1">&#39;../pipetools&#39;</span><span class="p">)</span>
-<span class="go">0. main.py</span>
-<span class="go">1. utils.py</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pyfiles_by_length</span><span class="p">(</span><span class="s1">&#39;../pipetools&#39;</span><span class="p">))</span>
+<span class="go">1. ds_builder.py</span>
 <span class="go">2. __init__.py</span>
-<span class="go">3. ds_builder.py</span>
+<span class="go">3. compat.py</span>
+<span class="go">4. utils.py</span>
+<span class="go">5. main.py</span>
 </pre></div>
 </div>
-<p>So you might write it like this:</p>
+<p>All the ingredients are already there, you just have to glue them together. You might write it like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pyfiles_by_length</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
     <span class="n">all_files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
     <span class="n">py_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">all_files</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">)]</span>
-    <span class="n">py_files</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)</span>
-    <span class="n">numbered</span> <span class="o">=</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">py_files</span><span class="p">)</span>
+    <span class="n">sorted_files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">py_files</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">numbered</span> <span class="o">=</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">py_files</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">rows</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">. </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">numbered</span><span class="p">)</span>
     <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Or perhaps like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pyfiles_by_length</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
-    <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">. </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span>
-        <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">)],</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">. </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">)],</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)),</span> <span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>Or, if you’re a mad scientist, you would probably do it like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pyfiles_by_length</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="p">(</span><span class="n">reduce</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="se">\n</span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">,</span>
-    <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">. </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">x</span><span class="p">,</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span>
-        <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">d</span><span class="p">)),</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)))))</span>
+    <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">. </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">x</span><span class="p">,</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span>
+        <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">d</span><span class="p">)),</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">))))))</span>
 </pre></div>
 </div>
 <p>But <em>there should be one – and preferably only one – obvious way to do it</em>.</p>
@@ -109,34 +105,42 @@ another possibility!</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pyfiles_by_length</span> <span class="o">=</span> <span class="p">(</span><span class="n">pipe</span>
     <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span>
     <span class="o">|</span> <span class="n">where</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.py&#39;</span><span class="p">))</span>
-    <span class="o">|</span> <span class="n">sort_by</span><span class="p">(</span><span class="nb">len</span><span class="p">)</span>
-    <span class="o">|</span> <span class="nb">enumerate</span>
+    <span class="o">|</span> <span class="n">sort_by</span><span class="p">(</span><span class="nb">len</span><span class="p">)</span><span class="o">.</span><span class="n">descending</span>
+    <span class="o">|</span> <span class="p">(</span><span class="nb">enumerate</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     <span class="o">|</span> <span class="n">foreach</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">. </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="o">|</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span>
-<span class="p">)</span>
+    <span class="o">|</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>So is this <a class="reference external" href="http://www.python.org/dev/peps/pep-0020/">The Right Way™</a>? Probably not, but I think it’s pretty cool, so you
-should give it a try! Read on to see how it works.</p>
+<p><em>Why would I do that</em>, you ask? Comparing to the <em>native</em> Python code, it’s</p>
+<ul class="simple">
+<li><strong>Easier to read</strong> – minimal extra clutter</li>
+<li><strong>Easier to understand</strong> – one-way data flow from one step to the next, nothing else to keep track of</li>
+<li><strong>Easier to change</strong> – want more processing? just add a step to the pipeline</li>
+<li><strong>Removes some bug opportunities</strong> – did you spot the bug in the first example?</li>
+</ul>
+<p>Of course it won’t solve all your problems, but a great deal of code <em>can</em>
+be expressed as a pipeline, giving you the above benefits. Read on to see how it works!</p>
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> pip install pipetools
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip install pipetools
 </pre></div>
 </div>
-<p><a class="reference external" href="http://www.pip-installer.org">Uh, what’s that?</a></p>
+<p><a class="reference external" href="https://pip.pypa.io">Uh, what’s that?</a></p>
 </div>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="the-pipe">
-<span id="id2"></span><h3>The pipe<a class="headerlink" href="#the-pipe" title="Permalink to this headline">¶</a></h3>
+<span id="id1"></span><h3>The pipe<a class="headerlink" href="#the-pipe" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">pipe</span></code> object can be used to pipe functions together to
 form new functions, and it works like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pipetools</span> <span class="kn">import</span> <span class="n">pipe</span>
 
 <span class="n">f</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="n">a</span> <span class="o">|</span> <span class="n">b</span> <span class="o">|</span> <span class="n">c</span>
 
-<span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="n">c</span><span class="p">(</span><span class="n">b</span><span class="p">(</span><span class="n">a</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+<span class="c1"># is the same as:</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">c</span><span class="p">(</span><span class="n">b</span><span class="p">(</span><span class="n">a</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
 </pre></div>
 </div>
 <p>A real example, sum of odd numbers from 0 to <em>x</em>:</p>
@@ -201,9 +205,9 @@ lambdas are quite verbose for simple tasks and the code gets cluttered…</p>
 <p>Since it doesn’t make sense to compose functions with strings, when a pipe (or a
 <a class="reference internal" href="pipeutils.html"><span class="doc">pipe-util</span></a>) encounters a string, it attempts to use it for
 <a class="reference external" href="http://docs.python.org/library/string.html#formatstrings">(advanced) formatting</a>:</p>
-<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">countdown</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="p">(</span><span class="nb">range</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="nb">reversed</span> <span class="o">|</span> <span class="n">foreach</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">...&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span> <span class="o">|</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1"> boom&#39;</span>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">countdown</span> <span class="o">=</span> <span class="n">pipe</span> <span class="o">|</span> <span class="p">(</span><span class="nb">range</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="nb">reversed</span> <span class="o">|</span> <span class="n">foreach</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">...&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span> <span class="o">|</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> boom&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">countdown</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="go">u&#39;4... 3... 2... 1... boom&#39;</span>
+<span class="go">&#39;4... 3... 2... 1... boom&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -291,10 +295,7 @@ results try falling back to the standard way of passing input into a pipe.</p>
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Welcome to pipetools’ documentation!</a><ul>
-<li><a class="reference internal" href="#why">Why?</a><ul>
-<li><a class="reference internal" href="#why-piping-instead-of-regular-composition">Why piping instead of regular composition?</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#why">Why?</a></li>
 <li><a class="reference internal" href="#example">Example</a></li>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#usage">Usage</a><ul>
