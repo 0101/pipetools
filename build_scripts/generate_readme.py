@@ -34,8 +34,7 @@ But wait, there is more
 -----------------------
 Checkout `the Maybe pipe <{0}maybe>`_, `partial application on steroids <{0}xpartial>`_
 or `automatic data structure creation <{0}pipeutils#automatic-data-structure-creation>`_
-
-See the `full documentation <{0}#contents>`_.
+in the `full documentation <{0}#contents>`_.
 """.format(DOC_ROOT)
 
 
