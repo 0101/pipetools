@@ -1,0 +1,40 @@
+name: Publish docs
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+
+  build-and-publish-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout gh-pages branch
+      uses: actions/checkout@v2
+      with:
+        ref: gh-pages
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r docs/requirements.txt
+        python setup.py develop
+
+    - name: Build Sphinx documentation from master
+      run: |
+        git merge master
+        git rm -rf doc
+        sphinx-build -b html docs/source/ doc
+
+    - name: Commit new docs
+      uses: EndBug/add-and-commit@v7
+      with:
+        default_author: github_actions
+        message: 'doc update'
+        add: 'doc'
