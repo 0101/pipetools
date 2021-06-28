@@ -1,39 +1,36 @@
 
-`Complete documentation in full color <http://0101.github.io/pipetools/doc/>`_.
-
-.. image:: https://travis-ci.org/0101/pipetools.svg?branch=master
-  :target: https://travis-ci.org/0101/pipetools
-
 Pipetools
 =========
 
-``pipetools`` is a python package that enables function composition similar to
-using Unix pipes.
+|tests-badge| |coverage-badge| |pypi-badge|
 
-Inspired by Pipe_ and Околомонадное_ (whatever that means...)
+.. |tests-badge| image:: https://github.com/0101/pipetools/actions/workflows/tests.yml/badge.svg
+  :target: https://github.com/0101/pipetools/actions/workflows/tests.yml
 
-.. _Pipe: http://dev-tricks.net/pipe-infix-syntax-for-python
-.. _Околомонадное: http://honeyman.livejournal.com/122675.html?nojs=1
+.. |coverage-badge| image:: coverage.svg
+  :target: https://github.com/0101/pipetools/actions/workflows/tests.yml
 
+.. |pypi-badge| image:: https://img.shields.io/pypi/dm/pipetools.svg
+  :target: https://pypi.org/project/pipetools/
 
-It allows piping of arbitrary functions and comes with a few handy shortcuts.
+`Complete documentation <https://0101.github.io/pipetools/doc/>`_
 
+``pipetools`` enables function composition similar to using Unix pipes.
+
+It allows forward-composition and piping of arbitrary functions - no need to decorate them or do anything extra.
+
+It also packs a bunch of utils that make common operations more convenient and readable.
 
 Source is on github_.
-
 
 .. _github: https://github.com/0101/pipetools
 
 Why?
 ----
 
-Pipetools attempt to simplify function composition and make it more readable.
-
-Why piping instead of regular composition?
-""""""""""""""""""""""""""""""""""""""""""
-I believe it to be easier to read, write and think about from left to right /
-top to bottom in the order that it's actually executed, instead of reversed
-order as it is with regular function composition (``(f • g)(x) == f(g(x))``).
+Piping and function composition are some of the most natural operations there are for
+plenty of programming tasks. Yet Python doesn't have a built-in way of performing them.
+That forces you to either deep nesting of function calls or adding extra **glue code**.
 
 
 Example
@@ -44,22 +41,22 @@ filename length, as a string, each file on one line and also with line numbers:
 
 .. code-block:: pycon
 
-    >>> print pyfiles_by_length('../pipetools')
-    0. main.py
-    1. utils.py
+    >>> print(pyfiles_by_length('../pipetools'))
+    1. ds_builder.py
     2. __init__.py
-    3. ds_builder.py
+    3. compat.py
+    4. utils.py
+    5. main.py
 
-
-So you might write it like this:
+All the ingredients are already there, you just have to glue them together. You might write it like this:
 
 .. code-block:: python
 
     def pyfiles_by_length(directory):
         all_files = os.listdir(directory)
         py_files = [f for f in all_files if f.endswith('.py')]
-        py_files.sort(key=len)
-        numbered = enumerate(py_files)
+        sorted_files = sorted(py_files, key=len, reverse=True)
+        numbered = enumerate(py_files, 1)
         rows = ("{0}. {1}".format(i, f) for i, f in numbered)
         return '\n'.join(rows)
 
@@ -68,16 +65,16 @@ Or perhaps like this:
 .. code-block:: python
 
     def pyfiles_by_length(directory):
-        return '\n'.join('{0}. {1}'.format(*x) for x in enumerate(sorted(
-            [f for f in os.listdir(directory) if f.endswith('.py')], key=len)))
+        return '\n'.join('{0}. {1}'.format(*x) for x in enumerate(reversed(sorted(
+            [f for f in os.listdir(directory) if f.endswith('.py')], key=len)), 1))
 
 Or, if you're a mad scientist, you would probably do it like this:
 
 .. code-block:: python
 
     pyfiles_by_length = lambda d: (reduce('{0}\n{1}'.format,
-        map(lambda x: '%d. %s' % x, enumerate(sorted(
-            filter(lambda f: f.endswith('.py'), os.listdir(d)), key=len)))))
+        map(lambda x: '%d. %s' % x, enumerate(reversed(sorted(
+            filter(lambda f: f.endswith('.py'), os.listdir(d)), key=len))))))
 
 
 But *there should be one -- and preferably only one -- obvious way to do it*.
@@ -90,17 +87,20 @@ another possibility!
     pyfiles_by_length = (pipe
         | os.listdir
         | where(X.endswith('.py'))
-        | sort_by(len)
-        | enumerate
+        | sort_by(len).descending
+        | (enumerate, X, 1)
         | foreach("{0}. {1}")
-        | '\n'.join
-    )
+        | '\n'.join)
 
+*Why would I do that*, you ask? Comparing to the *native* Python code, it's
 
-So is this `The Right Way™`_? Probably not, but I think it's pretty cool, so you
-should give it a try! Read on to see how it works.
+- **Easier to read** -- minimal extra clutter
+- **Easier to understand** -- one-way data flow from one step to the next, nothing else to keep track of
+- **Easier to change** -- want more processing? just add a step to the pipeline
+- **Removes some bug opportunities** -- did you spot the bug in the first example?
 
-.. _`The Right Way™`: http://www.python.org/dev/peps/pep-0020/
+Of course it won't solve all your problems, but a great deal of code *can*
+be expressed as a pipeline, giving you the above benefits. Read on to see how it works!
 
 
 Installation
@@ -110,7 +110,7 @@ Installation
 
     $ pip install pipetools
 
-`Uh, what's that? <http://www.pip-installer.org>`_
+`Uh, what's that? <https://pip.pypa.io>`_
 
 
 Usage
@@ -129,7 +129,9 @@ form new functions, and it works like this:
 
     f = pipe | a | b | c
 
-    f(x) == c(b(a(x)))
+    # is the same as:
+    def f(x):
+        return c(b(a(x)))
 
 
 A real example, sum of odd numbers from 0 to *x*:
@@ -158,7 +160,7 @@ result as the previous example:
 
     odd_sum = pipe | range | (filter, lambda x: x % 2) | sum
 
-As of ``0.1.9``, this is even more powerful, see `X-partial  <http://0101.github.io/pipetools/doc/xpartial.html>`_.
+As of ``0.1.9``, this is even more powerful, see `X-partial  <https://0101.github.io/pipetools/doc/xpartial.html>`_.
 
 
 Built-in tools
@@ -166,7 +168,7 @@ Built-in tools
 
 Pipetools contain a set of *pipe-utils* that solve some common tasks. For
 example there is a shortcut for the filter class from our example, called
-`where() <http://0101.github.io/pipetools/doc/pipeutils.html#pipetools.utils.where>`_:
+`where() <https://0101.github.io/pipetools/doc/pipeutils.html#pipetools.utils.where>`_:
 
 .. code-block:: python
 
@@ -185,14 +187,14 @@ quite often) the ``pipe`` at the beginning can be omitted:
     odd_sum = range | where(lambda x: x % 2) | sum
 
 
-See `pipe-utils' documentation <http://0101.github.io/pipetools/doc/pipeutils.html>`_.
+See `pipe-utils' documentation <https://0101.github.io/pipetools/doc/pipeutils.html>`_.
 
 
 OK, but what about the ugly lambda?
 """""""""""""""""""""""""""""""""""
 
-`where() <http://0101.github.io/pipetools/doc/pipeutils.html#pipetools.utils.where>`_, but also `foreach() <http://0101.github.io/pipetools/doc/pipeutils.html#pipetools.utils.foreach>`_,
-`sort_by() <http://0101.github.io/pipetools/doc/pipeutils.html#pipetools.utils.sort_by>`_ and other `pipe-utils <http://0101.github.io/pipetools/doc/pipeutils.html>`_ can be
+`where() <https://0101.github.io/pipetools/doc/pipeutils.html#pipetools.utils.where>`_, but also `foreach() <https://0101.github.io/pipetools/doc/pipeutils.html#pipetools.utils.foreach>`_,
+`sort_by() <https://0101.github.io/pipetools/doc/pipeutils.html#pipetools.utils.sort_by>`_ and other `pipe-utils <https://0101.github.io/pipetools/doc/pipeutils.html>`_ can be
 quite useful, but require a function as an argument, which can either be a named
 function -- which is OK if it does something complicated -- but often it's
 something simple, so it's appropriate to use a ``lambda``. Except Python's
@@ -209,7 +211,7 @@ lambdas are quite verbose for simple tasks and the code gets cluttered...
 
 How 'bout that.
 
-`Read more about the X object and it's limitations. <http://0101.github.io/pipetools/doc/xobject.html>`_
+`Read more about the X object and it's limitations. <https://0101.github.io/pipetools/doc/xobject.html>`_
 
 
 .. _auto-string-formatting:
@@ -218,14 +220,14 @@ Automatic string formatting
 """""""""""""""""""""""""""
 
 Since it doesn't make sense to compose functions with strings, when a pipe (or a
-`pipe-util <http://0101.github.io/pipetools/doc/pipeutils.html>`_) encounters a string, it attempts to use it for
+`pipe-util <https://0101.github.io/pipetools/doc/pipeutils.html>`_) encounters a string, it attempts to use it for
 `(advanced) formatting`_:
 
 .. code-block:: pycon
 
-    >>> countdown = pipe | (range, 1) | reversed | foreach('{0}...') | ' '.join | '{0} boom'
+    >>> countdown = pipe | (range, 1) | reversed | foreach('{}...') | ' '.join | '{} boom'
     >>> countdown(5)
-    u'4... 3... 2... 1... boom'
+    '4... 3... 2... 1... boom'
 
 .. _(advanced) formatting: http://docs.python.org/library/string.html#formatstrings
 
@@ -257,4 +259,6 @@ It can also be done using the ``>`` operator:
 
 But wait, there is more
 -----------------------
-See the `full documentation <http://0101.github.io/pipetools/doc/#contents>`_.
+Checkout `the Maybe pipe <https://0101.github.io/pipetools/doc/maybe>`_, `partial application on steroids <https://0101.github.io/pipetools/doc/xpartial>`_
+or `automatic data structure creation <https://0101.github.io/pipetools/doc/pipeutils#automatic-data-structure-creation>`_
+in the `full documentation <https://0101.github.io/pipetools/doc/#contents>`_.
