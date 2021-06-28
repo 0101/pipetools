@@ -112,7 +112,9 @@ form new functions, and it works like this:
 
     f = pipe | a | b | c
 
-    f(x) == c(b(a(x)))
+    # is same as:
+    def f(x):
+        return c(b(a(x)))
 
 
 A real example, sum of odd numbers from 0 to *x*:
@@ -206,9 +208,9 @@ Since it doesn't make sense to compose functions with strings, when a pipe (or a
 
 .. code-block:: pycon
 
-    >>> countdown = pipe | (range, 1) | reversed | foreach('{0}...') | ' '.join | '{0} boom'
+    >>> countdown = pipe | (range, 1) | reversed | foreach('{}...') | ' '.join | '{} boom'
     >>> countdown(5)
-    u'4... 3... 2... 1... boom'
+    '4... 3... 2... 1... boom'
 
 .. _(advanced) formatting: http://docs.python.org/library/string.html#formatstrings
 
