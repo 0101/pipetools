@@ -62,7 +62,7 @@ jobs:
 
     - name: Create coverage badge
       run: |
-        coverage-badge -f -o build_scripts/coverage.svg
+        coverage-badge -f -o coverage.svg
 
     - name: Update README
       run: |
