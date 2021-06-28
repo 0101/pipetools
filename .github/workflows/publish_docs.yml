@@ -20,7 +20,8 @@ jobs:
 
     - name: Merge master
       run: |
-        git merge master
+        git fetch origin/master
+        git merge origin/master
 
     - name: Set up Python
       uses: actions/setup-python@v2
