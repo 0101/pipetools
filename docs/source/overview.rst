@@ -112,7 +112,7 @@ form new functions, and it works like this:
 
     f = pipe | a | b | c
 
-    # is same as:
+    # is the same as:
     def f(x):
         return c(b(a(x)))
 
