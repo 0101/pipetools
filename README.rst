@@ -96,7 +96,7 @@ another possibility!
 
 - **Easier to read** -- minimal extra clutter
 - **Easier to understand** -- one-way data flow from one step to the next, nothing else to keep track of
-- **Easier to change** -- want more processing, just add a step to the pipeline
+- **Easier to change** -- want more processing? just add a step to the pipeline
 - **Removes some bug opportunities** -- did you spot the bug in the first example?
 
 Of course it won't solve all your problems, but a great deal of code *can*
