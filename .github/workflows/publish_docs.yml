@@ -21,6 +21,8 @@ jobs:
     - name: Merge master
       run: |
         git fetch origin master
+        git config user.email "0101@innit.cz"
+        git config user.name "Github Actions Workflow"
         git merge origin/master --allow-unrelated-histories
 
     - name: Set up Python
