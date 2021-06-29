@@ -1,4 +1,11 @@
 
+1.0.1
+----------
+2021-06-29
+
+* Fixed coverage badge in PyPI description
+
+
 1.0.0
 ----------
 2021-06-29
