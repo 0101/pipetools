@@ -30,7 +30,7 @@ setup(
     author='Petr Pokorny',
     author_email='petr@innit.cz',
     license='MIT',
-    url='http://0101.github.com/pipetools/',
+    url='https://0101.github.io/pipetools/',
     packages=['pipetools'],
     include_package_data=True,
     install_requires=(
@@ -42,7 +42,7 @@ setup(
     cmdclass={'test': PyTest},
 
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
