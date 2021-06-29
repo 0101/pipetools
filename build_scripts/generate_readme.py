@@ -20,7 +20,7 @@ Pipetools
 .. |tests-badge| image:: https://github.com/0101/pipetools/actions/workflows/tests.yml/badge.svg
   :target: https://github.com/0101/pipetools/actions/workflows/tests.yml
 
-.. |coverage-badge| image:: coverage.svg
+.. |coverage-badge| image:: https://raw.githubusercontent.com/0101/pipetools/master/coverage.svg
   :target: https://github.com/0101/pipetools/actions/workflows/tests.yml
 
 .. |pypi-badge| image:: https://img.shields.io/pypi/dm/pipetools.svg
