@@ -80,36 +80,51 @@ class TestX:
     def test_mod(self):
 
         f = ~(X % 2)
+        g = ~(9 % X)
 
         assert f(3)
+        assert not g(3)
+        assert g(2)
         assert not f(2)
 
     def test_gt(self):
 
         f = ~(X > 5)
+        g = ~(6 > X)
 
         assert f(6)
+        assert not g(6)
+        assert g(5)
         assert not f(5)
 
     def test_gte(self):
 
         f = ~(X >= 5)
+        g = ~(4 >= X)
 
         assert f(5)
+        assert not g(5)
+        assert g(4)
         assert not f(4)
 
     def test_lt(self):
 
         f = ~(X < 5)
+        g = ~(4 < X)
 
         assert f(4)
+        assert not g(4)
+        assert g(5)
         assert not f(5)
 
     def test_lte(self):
 
         f = ~(X <= 5)
+        g = ~(6 <= X)
 
         assert f(5)
+        assert not g(5)
+        assert g(6)
         assert not f(6)
 
     def test_chained_gt(self):
@@ -139,6 +154,12 @@ class TestX:
         assert not f(42)
         assert f('whatever')
 
+    def test_pos(self):
+
+        f = ~+X
+
+        assert f(4) == 4
+
     def test_neg(self):
 
         f = ~-X
@@ -166,23 +187,51 @@ class TestX:
     def test_mul(self):
 
         f = ~(X * 3)
+        g = ~(3 * X)
 
-        assert f(10) == 30
-        assert f('x') == 'xxx'
+        assert f(10) == g(10) == 30
+        assert f('x') == g('x') == 'xxx'
 
     def test_add(self):
         assert (~(X + 2))(40) == 42
-        assert (~(X + '2'))('4') == '42'
-        assert (~(X + [2]))([4]) == [4, 2]
+        assert (~('4' + X))('2') == '42'
+        assert (~([4] + X))([2]) == [4, 2]
 
     def test_sub(self):
         assert (~(X - 3))(5) == (5 - 3)
+        assert (~(5 - X))(3) == (5 - 3)
 
     def test_pow(self):
         assert (~(X ** 3))(5) == (5 ** 3)
+        assert (~(5 ** X))(3) == (5 ** 3)
 
     def test_div(self):
         assert (~(X / 2))(4) == 2
+        assert (~(4 / X))(2) == 2
+
+    def test_floor_dev(self):
+        assert (~(X // 2))(5) == 2
+        assert (~(5 // X))(2) == 2
+
+    def test_mod(self):
+        assert (~(X % 5))('%.2f') == '5.00'
+        assert (~(5 % X))(2) == 1
+
+    def test_lshift(self):
+        assert (~(X << 2))(5) == 20
+        assert (~(2 << X))(5) == 64
+
+    def test_rshift(self):
+        assert (~(X >> 1))(5) == 2
+        assert (~(5 >> X))(1) == 2
+
+    def test_xor(self):
+        assert (~(X ^ 2))(3) == 1
+        assert (~(1 ^ X))(3) == 2
+
+    def test_and(self):
+        assert (~(X & 2))(3) == 2
+        assert (~(1 & X))(3) == 1
 
     def test_in(self):
         container = 'asdf'
