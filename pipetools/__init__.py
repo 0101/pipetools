@@ -1,6 +1,6 @@
 from pipetools.utils import foreach
 
-__version__ = VERSION = 1, 0, 1
+__version__ = VERSION = 1, 1, 0
 __versionstr__ = VERSION > foreach(str) | '.'.join
 
 from pipetools.main import pipe, X, maybe, xpartial
