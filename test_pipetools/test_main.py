@@ -1,5 +1,7 @@
 # encoding: utf-8
 import pytest
+from dataclasses import dataclass
+from typing import Callable, Final
 
 from pipetools import pipe, X, maybe, xpartial
 from pipetools.main import StringFormatter
@@ -16,7 +18,6 @@ class TestPipe(object):
     pipe = property(lambda self: pipe)
 
     def test_pipe(self):
-
         p = self.pipe | str | (lambda x: x * 2)
 
         assert p(5) == '55'
@@ -45,8 +46,43 @@ class TestPipe(object):
         f = self.pipe | u'That will be £ {0}, please.'
         assert f(42) == u'That will be £ 42, please.'
 
-    def test_makes_a_bound_method(self):
+    def test_automatic_partial(self):
+        odd_sum = self.pipe | range | (filter, lambda x: x % 2) | sum
+        assert odd_sum(1, 10) == 25
 
+    def test_automatic_partial_with_kwargs_using_pipe(self):
+        dataclass_kwargs: Final[dict[str, bool]] = {'frozen': True, 'kw_only': True, 'slots': True}
+        my_dataclass: Final[Callable] = self.pipe | dataclass | dataclass_kwargs
+
+        self._assert_dataclass_builder(my_dataclass)
+
+    def test_automatic_partial_with_kwargs_using_tuple(self):
+        dataclass_kwargs: Final[dict[str, bool]] = {'frozen': True, 'kw_only': True, 'slots': True}
+        my_dataclass: Final[Callable] = self.pipe | (dataclass, dataclass_kwargs)
+
+        self._assert_dataclass_builder(my_dataclass)
+    def test_feeding_the_pipe(self):
+        result = range(10) > self.pipe | sum
+        assert result == 45
+
+    def test_super_feeding_the_pipe(self):
+        dataclass_kwargs: Final[dict[str, bool]] = {'frozen': True, 'kw_only': True, 'slots': True}
+        my_dataclass: Final[Callable] = dataclass_kwargs >> (self.pipe | dataclass)
+
+        self._assert_dataclass_builder(my_dataclass)
+
+    @staticmethod
+    def _assert_dataclass_builder(my_dataclass):
+        @my_dataclass
+        class Bla:
+            foo: int
+            bar: str
+
+        with pytest.raises(TypeError):
+            Bla(5, 'bbb')
+        assert Bla(foo=5, bar='bbb').foo == 5
+
+    def test_makes_a_bound_method(self):
         class SomeClass(object):
             attr = 'foo bar'
             method = X.attr.split() | reversed | ' '.join
@@ -57,14 +93,12 @@ class TestPipe(object):
 class TestX:
 
     def test_basic(self):
-
         f = ~X.startswith('Hello')
 
         assert f('Hello world')
         assert not f('Goodbye world')
 
     def test_chained(self):
-
         f = ~X.get('item', '').startswith('Hello')
 
         assert f({'item': 'Hello world'})
@@ -72,13 +106,11 @@ class TestX:
         assert not f({})
 
     def test_passthrough(self):
-
         f = ~X
 
         assert f(42) == 42
 
     def test_mod(self):
-
         f = ~(X % 2)
         g = ~(9 % X)
 
@@ -88,7 +120,6 @@ class TestX:
         assert not f(2)
 
     def test_gt(self):
-
         f = ~(X > 5)
         g = ~(6 > X)
 
@@ -98,7 +129,6 @@ class TestX:
         assert not f(5)
 
     def test_gte(self):
-
         f = ~(X >= 5)
         g = ~(4 >= X)
 
@@ -108,7 +138,6 @@ class TestX:
         assert not f(4)
 
     def test_lt(self):
-
         f = ~(X < 5)
         g = ~(4 < X)
 
@@ -118,7 +147,6 @@ class TestX:
         assert not f(5)
 
     def test_lte(self):
-
         f = ~(X <= 5)
         g = ~(6 <= X)
 
@@ -128,64 +156,54 @@ class TestX:
         assert not f(6)
 
     def test_chained_gt(self):
-
         f = ~(X.thing > 5)
 
         assert f(Bunch(thing=6))
         assert not f(Bunch(thing=4))
 
     def test_index(self):
-
         f = ~(X['item'])
 
         assert f({'item': 42}) == 42
 
     def test_eq(self):
-
         f = ~(X == 42)
 
         assert f(42)
         assert not f('whatever')
 
     def test_neq(self):
-
         f = ~(X != 42)
 
         assert not f(42)
         assert f('whatever')
 
     def test_pos(self):
-
         f = ~+X
 
         assert f(4) == 4
 
     def test_neg(self):
-
         f = ~-X
 
         assert f(5) == -5
 
     def test_pipe_right(self):
-
         f = str | X[0]
 
         assert f(10) == '1'
 
     def test_pipe_left(self):
-
         f = X[0] | int
 
         assert f('10') == 1
 
     def test_call(self):
-
         f = ~X(42)
 
         assert f(lambda n: n / 2) == 21
 
     def test_mul(self):
-
         f = ~(X * 3)
         g = ~(3 * X)
 
