@@ -89,101 +89,89 @@ remember to prefix it with <code class="docutils literal notranslate"><span clas
 </div>
 <div class="section" id="currently-supported-operations">
 <span id="x-supported-operations"></span><h2>Currently supported operations<a class="headerlink" href="#currently-supported-operations" title="Permalink to this headline">¶</a></h2>
-<p>These are added as I need them. It’s quite complete now, but if you’re still
+<p>Most Python operators are supported now, but if you’re still
 missing something you can add it yourself or create an issue on <a class="reference external" href="https://github.com/0101/pipetools">github</a>.</p>
 <ul>
-<li><p class="first">call (<code class="docutils literal notranslate"><span class="pre">__call__</span></code>):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">()</span>
-<span class="n">X</span><span class="p">(</span><span class="n">some</span><span class="p">,</span> <span class="n">agrs</span><span class="p">,</span> <span class="n">some</span><span class="o">=</span><span class="n">kwargs</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">equals (<code class="docutils literal notranslate"><span class="pre">__eq__</span></code>):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">==</span> <span class="n">something</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">not equal (<code class="docutils literal notranslate"><span class="pre">__ne__</span></code>):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">!=</span> <span class="n">something</span>
-</pre></div>
-</div>
-</li>
 <li><p class="first">attribute access (<code class="docutils literal notranslate"><span class="pre">__getattr__</span></code>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="o">.</span><span class="n">attr</span>
 <span class="nb">getattr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="s1">&#39;something&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">item access, slicing (<code class="docutils literal notranslate"><span class="pre">__getitem__</span></code>):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span>
+<li><p class="first">comparisons: <code class="docutils literal notranslate"><span class="pre">==</span></code>, <code class="docutils literal notranslate"><span class="pre">!=</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">==</span> <span class="n">something</span>
+<span class="n">X</span> <span class="o">&lt;=</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">unary arithmetic operators (<code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+</span><span class="n">X</span>
+<span class="o">-</span><span class="n">X</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">binary arithmetic operators (<code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">**</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;</span></code>, <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">//</span></code>, <code class="docutils literal notranslate"><span class="pre">%</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">-</span> <span class="mi">3</span>
+<span class="n">X</span> <span class="o">+</span> <span class="s2">&quot; ...that&#39;s what she said!&quot;</span>
+<span class="mi">3</span> <span class="o">-</span> <span class="n">X</span>  <span class="c1"># works in both directions</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">bitwise operators (<code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>, <code class="docutils literal notranslate"><span class="pre">^</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="o">&gt;&gt;</span> <span class="n">X</span>
+<span class="n">X</span> <span class="o">&amp;</span> <span class="mi">64</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="current-limitations">
+<h2>Current limitations<a class="headerlink" href="#current-limitations" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">call (<code class="docutils literal notranslate"><span class="pre">__call__</span></code>) will only work if X is not in the arguments:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># will work</span>
+<span class="n">X</span><span class="o">.</span><span class="n">method</span><span class="p">()</span>
+<span class="n">X</span><span class="p">(</span><span class="n">some</span><span class="p">,</span> <span class="n">agrs</span><span class="p">,</span> <span class="n">some</span><span class="o">=</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="c1"># will not work</span>
+<span class="n">obj</span><span class="o">.</span><span class="n">method</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">some_function</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">some</span><span class="o">=</span><span class="n">X</span><span class="p">)</span>
+<span class="n">X</span><span class="o">.</span><span class="n">do</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">item access or slicing (<code class="docutils literal notranslate"><span class="pre">__getitem__</span></code>) will only work if X is not in the
+in the index key:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># will work</span>
+<span class="n">X</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span>
 <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">X</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
 <span class="n">X</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># will not work</span>
+<span class="n">foo</span><span class="p">[</span><span class="n">X</span><span class="p">]</span>
+<span class="n">bar</span><span class="p">[</span><span class="n">X</span><span class="p">:]</span>
+<span class="n">baz</span><span class="p">[::</span><span class="n">X</span><span class="p">]</span>
+<span class="n">X</span><span class="p">[</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">greater than (<code class="docutils literal notranslate"><span class="pre">__gt__</span></code>):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">&gt;</span> <span class="mi">3</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">greater or equal (<code class="docutils literal notranslate"><span class="pre">__ge__</span></code>):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">&gt;=</span> <span class="mi">3</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">less than (<code class="docutils literal notranslate"><span class="pre">__lt__</span></code>):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">&lt;</span> <span class="mi">3</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">less or equal (<code class="docutils literal notranslate"><span class="pre">__le__</span></code>):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">&lt;=</span> <span class="mi">3</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">modulo (<code class="docutils literal notranslate"><span class="pre">__mod__</span></code>):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">%</span> <span class="mi">2</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">negate (<code class="docutils literal notranslate"><span class="pre">__neg__</span></code>):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">X</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">multiplication (<code class="docutils literal notranslate"><span class="pre">__mul__</span></code>):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">*</span> <span class="mi">3</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">division (<code class="docutils literal notranslate"><span class="pre">__div__</span></code>):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">/</span> <span class="mi">3</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">addition (<code class="docutils literal notranslate"><span class="pre">__add__</span></code>):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">+</span> <span class="mi">3</span>
-<span class="n">X</span> <span class="o">+</span> <span class="s2">&quot; ...that&#39;s what she said!&quot;</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">subtraction (<code class="docutils literal notranslate"><span class="pre">__sub__</span></code>):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">-</span> <span class="mi">3</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">power (<code class="docutils literal notranslate"><span class="pre">__pow__</span></code>):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">**</span> <span class="mi">2</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">is contained in (<code class="docutils literal notranslate"><span class="pre">_in_</span></code>)</p>
+<li><p class="first">is contained in / contains (<code class="docutils literal notranslate"><span class="pre">in</span></code>)</p>
 <p>Unfortunately, <code class="docutils literal notranslate"><span class="pre">X</span> <span class="pre">in</span> <span class="pre">container</span></code> can’t be done (because the magic method is
 called on the container) so there’s a special method for that:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="o">.</span><span class="n">_in_</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>The opposite form <code class="docutils literal notranslate"><span class="pre">item</span> <span class="pre">in</span> <span class="pre">X</span></code> has not been implemented either.</p>
+</li>
+<li><p class="first">special methods (<code class="docutils literal notranslate"><span class="pre">~</span></code>, <code class="docutils literal notranslate"><span class="pre">|</span></code>)</p>
+<p>They have been given <span class="xref std std-ref">special meanings</span> in pipetools,
+so could no more be used as bitwise operations.</p>
+</li>
+<li><p class="first">logical operators (<code class="docutils literal notranslate"><span class="pre">and</span></code>, <code class="docutils literal notranslate"><span class="pre">or</span></code>, <code class="docutils literal notranslate"><span class="pre">not</span></code>) will not work;
+they are not exposed as magic methods in Python.</p>
+</li>
+<li><p class="first">await operator (<code class="docutils literal notranslate"><span class="pre">await</span> <span class="pre">X</span></code>) has not been implemented</p>
 </li>
 </ul>
 </div>
@@ -199,6 +187,7 @@ called on the container) so there’s a special method for that:</p>
   <ul>
 <li><a class="reference internal" href="#">The X object</a><ul>
 <li><a class="reference internal" href="#currently-supported-operations">Currently supported operations</a></li>
+<li><a class="reference internal" href="#current-limitations">Current limitations</a></li>
 </ul>
 </li>
 </ul>
