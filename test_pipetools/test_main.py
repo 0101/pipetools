@@ -61,15 +61,10 @@ class TestPipe(object):
         my_dataclass: Final[Callable] = self.pipe | (dataclass, dataclass_kwargs)
 
         self._assert_dataclass_builder(my_dataclass)
+
     def test_feeding_the_pipe(self):
         result = range(10) > self.pipe | sum
         assert result == 45
-
-    def test_super_feeding_the_pipe(self):
-        dataclass_kwargs: Final[dict[str, bool]] = {'frozen': True, 'kw_only': True, 'slots': True}
-        my_dataclass: Final[Callable] = dataclass_kwargs >> (self.pipe | dataclass)
-
-        self._assert_dataclass_builder(my_dataclass)
 
     @staticmethod
     def _assert_dataclass_builder(my_dataclass):

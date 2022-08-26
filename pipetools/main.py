@@ -68,15 +68,6 @@ class Pipe(object):
     def __lt__(self, thing):
         return self.func(thing) if self.func else thing
 
-    def __rrshift__(self, thing):
-        if not self.func:
-            return thing
-        if isinstance(thing, tuple):
-            return self.func(*thing)
-        if isinstance(thing, dict):
-            return self.func(**thing)
-        return self.func(thing)
-
     def __call__(self, *args, **kwargs):
         return self.func(*args, **kwargs)
 

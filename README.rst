@@ -160,6 +160,21 @@ result as the previous example:
 
     odd_sum = pipe | range | (filter, lambda x: x % 2) | sum
 
+    dataclass_kwargs: Final[dict[str, bool]] = {'frozen': True, 'kw_only': True, 'slots': True}
+    # Automatic partial with kwargs using pipe
+    my_dataclass: Final[Callable] = self.pipe | dataclass | dataclass_kwargs
+    # Automatic partial with kwargs using tuple
+    dataclass_kwargs: Final[dict[str, bool]] = {'frozen': True, 'kw_only': True, 'slots': True}
+    my_dataclass: Final[Callable] = self.pipe | (dataclass, dataclass_kwargs)
+    @my_dataclass
+    class Bla:
+        foo: int
+        bar: str
+
+    with pytest.raises(TypeError):
+        Bla(5, 'bbb')
+    assert Bla(foo=5, bar='bbb').foo == 5
+
 As of ``0.1.9``, this is even more powerful, see `X-partial  <https://0101.github.io/pipetools/doc/xpartial.html>`_.
 
 
@@ -248,6 +263,8 @@ It can also be done using the ``>`` operator:
 .. code-block:: python
 
     result = some_input > pipe | foo | bar | boo
+
+    result = range(10) > self.pipe | sum # result==45
 
 .. note::
     Note that the above method of input won't work if the input object
