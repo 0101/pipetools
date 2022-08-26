@@ -1,17 +1,3 @@
-1.1.1
-----------
-2022-08-26
-
-* Add the ability to pipe args and kwargs
-
-
-1.1.0
-----------
-2021-11-26
-
-* Added implementation for most of the magic methods on X object
-
-
 1.0.1
 ----------
 2021-06-29
