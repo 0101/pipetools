@@ -162,10 +162,10 @@ result as the previous example:
 
     dataclass_kwargs: Final[dict[str, bool]] = {'frozen': True, 'kw_only': True, 'slots': True}
     # Automatic partial with kwargs using pipe
-    my_dataclass: Final[Callable] = self.pipe | dataclass | dataclass_kwargs
+    my_dataclass: Final[Callable] = pipe | dataclass | dataclass_kwargs
     # Automatic partial with kwargs using tuple
     dataclass_kwargs: Final[dict[str, bool]] = {'frozen': True, 'kw_only': True, 'slots': True}
-    my_dataclass: Final[Callable] = self.pipe | (dataclass, dataclass_kwargs)
+    my_dataclass: Final[Callable] = pipe | (dataclass, dataclass_kwargs)
     @my_dataclass
     class Bla:
         foo: int
@@ -264,7 +264,7 @@ It can also be done using the ``>`` operator:
 
     result = some_input > pipe | foo | bar | boo
 
-    result = range(10) > self.pipe | sum # result==45
+    result = range(10) > pipe | sum # result==45
 
 .. note::
     Note that the above method of input won't work if the input object
