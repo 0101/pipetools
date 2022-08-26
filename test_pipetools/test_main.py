@@ -51,16 +51,28 @@ class TestPipe(object):
         assert odd_sum(1, 10) == 25
 
     def test_automatic_partial_with_kwargs_using_pipe(self):
-        dataclass_kwargs: Final[dict[str, bool]] = {'frozen': True, 'kw_only': True, 'slots': True}
-        my_dataclass: Final[Callable] = self.pipe | dataclass | dataclass_kwargs
+        dataclass_kwargs: dict[str, bool] = {'frozen': True, 'kw_only': True, 'slots': True}
+        my_dataclass: Callable = self.pipe | dataclass | dataclass_kwargs
 
         self._assert_dataclass_builder(my_dataclass)
 
     def test_automatic_partial_with_kwargs_using_tuple(self):
-        dataclass_kwargs: Final[dict[str, bool]] = {'frozen': True, 'kw_only': True, 'slots': True}
-        my_dataclass: Final[Callable] = self.pipe | (dataclass, dataclass_kwargs)
+        dataclass_kwargs: dict[str, bool] = {'frozen': True, 'kw_only': True, 'slots': True}
+        my_dataclass: Callable = self.pipe | (dataclass, dataclass_kwargs)
 
         self._assert_dataclass_builder(my_dataclass)
+
+    def test_automatic_partial_with_args_using_pipe(self):
+        range_args: tuple[int, int, int] = (1, 20, 2)
+        my_range: Callable = self.pipe | range | range_args
+
+        assert list(my_range()) == [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+
+    def test_automatic_partial_with_args_using_tuple(self):
+        range_args: tuple[int, int, int] = (1, 20, 2)
+        my_range: Callable = self.pipe | (range, range_args)
+
+        assert list(my_range()) == [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
 
     def test_feeding_the_pipe(self):
         result = range(10) > self.pipe | sum

@@ -108,11 +108,13 @@ def prepare_function_for_pipe(thing):
     if isinstance(thing, XObject):
         return ~thing
     if isinstance(thing, tuple):
-        try:
-            func, kwargs = thing
-            return xpartial(func, **kwargs)
-        except (ValueError, TypeError):
-            return xpartial(*thing)
+        if len(thing) == 2:
+            func, args = thing
+            if isinstance(args, tuple):
+                return xpartial(func, *args)
+            if isinstance(args, dict):
+                return xpartial(func, **args)
+        return xpartial(*thing)
     if isinstance(thing, string_types):
         return StringFormatter(thing)
     if callable(thing):
