@@ -109,6 +109,7 @@ class TestX:
         assert not f({})
 
     def test_passthrough(self):
+
         f = ~X
 
         assert f(42) == 42
@@ -184,7 +185,7 @@ class TestX:
         assert not f('whatever')
 
     def test_neq(self):
-
+        
         f = ~(X != 42)
 
         assert not f(42)
@@ -203,21 +204,25 @@ class TestX:
         assert f(5) == -5
 
     def test_pipe_right(self):
+
         f = str | X[0]
 
         assert f(10) == '1'
 
     def test_pipe_left(self):
+
         f = X[0] | int
 
         assert f('10') == 1
 
     def test_call(self):
+
         f = ~X(42)
 
         assert f(lambda n: n / 2) == 21
 
     def test_mul(self):
+
         f = ~(X * 3)
         g = ~(3 * X)
 
