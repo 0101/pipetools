@@ -185,6 +185,7 @@ class TestX:
         assert not f('whatever')
 
     def test_neq(self):
+
         f = ~(X != 42)
 
         assert not f(42)
