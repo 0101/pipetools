@@ -83,6 +83,7 @@ class TestPipe(object):
         assert Bla(foo=5, bar='bbb').foo == 5
 
     def test_makes_a_bound_method(self):
+        
         class SomeClass(object):
             attr = 'foo bar'
             method = X.attr.split() | reversed | ' '.join
@@ -93,12 +94,14 @@ class TestPipe(object):
 class TestX:
 
     def test_basic(self):
+        
         f = ~X.startswith('Hello')
 
         assert f('Hello world')
         assert not f('Goodbye world')
 
     def test_chained(self):
+        
         f = ~X.get('item', '').startswith('Hello')
 
         assert f({'item': 'Hello world'})
@@ -111,6 +114,7 @@ class TestX:
         assert f(42) == 42
 
     def test_mod(self):
+        
         f = ~(X % 2)
         g = ~(9 % X)
 
@@ -120,6 +124,7 @@ class TestX:
         assert not f(2)
 
     def test_gt(self):
+        
         f = ~(X > 5)
         g = ~(6 > X)
 
@@ -129,6 +134,7 @@ class TestX:
         assert not f(5)
 
     def test_gte(self):
+        
         f = ~(X >= 5)
         g = ~(4 >= X)
 
@@ -138,6 +144,7 @@ class TestX:
         assert not f(4)
 
     def test_lt(self):
+        
         f = ~(X < 5)
         g = ~(4 < X)
 
@@ -147,6 +154,7 @@ class TestX:
         assert not f(5)
 
     def test_lte(self):
+        
         f = ~(X <= 5)
         g = ~(6 <= X)
 
@@ -156,34 +164,40 @@ class TestX:
         assert not f(6)
 
     def test_chained_gt(self):
+        
         f = ~(X.thing > 5)
 
         assert f(Bunch(thing=6))
         assert not f(Bunch(thing=4))
 
     def test_index(self):
+        
         f = ~(X['item'])
 
         assert f({'item': 42}) == 42
 
     def test_eq(self):
+        
         f = ~(X == 42)
 
         assert f(42)
         assert not f('whatever')
 
     def test_neq(self):
+        
         f = ~(X != 42)
 
         assert not f(42)
         assert f('whatever')
 
     def test_pos(self):
+        
         f = ~+X
 
         assert f(4) == 4
 
     def test_neg(self):
+        
         f = ~-X
 
         assert f(5) == -5
