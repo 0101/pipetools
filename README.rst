@@ -160,11 +160,19 @@ result as the previous example:
 
     odd_sum = pipe | range | (filter, lambda x: x % 2) | sum
 
+    # Automatic partial with *args
+    range_args: tuple[int, int, int] = (1, 20, 2)
+    # Using pipe
+    my_range: Callable = self.pipe | range | range_args
+    # Using tuple
+    my_range: Callable = self.pipe | (range, range_args)
+    # list(my_range()) == [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+
+    # Automatic partial with **kwargs
     dataclass_kwargs: Final[dict[str, bool]] = {'frozen': True, 'kw_only': True, 'slots': True}
-    # Automatic partial with kwargs using pipe
+    # Using pipe
     my_dataclass: Final[Callable] = pipe | dataclass | dataclass_kwargs
-    # Automatic partial with kwargs using tuple
-    dataclass_kwargs: Final[dict[str, bool]] = {'frozen': True, 'kw_only': True, 'slots': True}
+    # Using tuple
     my_dataclass: Final[Callable] = pipe | (dataclass, dataclass_kwargs)
     @my_dataclass
     class Bla:
@@ -172,8 +180,8 @@ result as the previous example:
         bar: str
 
     with pytest.raises(TypeError):
-        Bla(5, 'bbb')
-    assert Bla(foo=5, bar='bbb').foo == 5
+    # Bla(5, 'bbb') -> Raises TypeError: takes 1 positional argument but 3 were given
+    # Bla(foo=5, bar='bbb').foo == 5
 
 As of ``0.1.9``, this is even more powerful, see `X-partial  <https://0101.github.io/pipetools/doc/xpartial.html>`_.
 
