@@ -1,3 +1,9 @@
+1.1.1
+----------
+2022-08-26
+
+* Add the ability to pipe args and kwargs
+
 
 1.1.0
 ----------
