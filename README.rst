@@ -179,7 +179,6 @@ result as the previous example:
         foo: int
         bar: str
 
-    with pytest.raises(TypeError):
     # Bla(5, 'bbb') -> Raises TypeError: takes 1 positional argument but 3 were given
     # Bla(foo=5, bar='bbb').foo == 5
 
