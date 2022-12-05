@@ -191,7 +191,7 @@ class XObject(object):
 
     def __rmatmul__(self, other):
         from operator import matmul
-        return self.bind(lambda: 'X @ {0!r}'.format(other), lambda x: matmul(other, x))
+        return self.bind(lambda: '{0!r} @ X'.format(other), lambda x: matmul(other, x))
 
     def __div__(self, other):
         return self.bind(lambda: 'X / {0!r}'.format(other), lambda x: x / other)
