@@ -5,7 +5,8 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-
+  workflow_dispatch:
+      
 jobs:
 
   run-tests:
@@ -75,7 +76,7 @@ jobs:
         default_author: github_actions
         message: '(README update)'
         add: '["coverage.svg", "README.rst"]'
-
-    - name: Build Sphinx documentation
-      run: |
-        sphinx-build -b html docs/source/ doc
+    
+    # - name: Build Sphinx documentation
+    #   run: |
+    #     sphinx-build -b html docs/source/ doc
